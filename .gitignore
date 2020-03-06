@@ -1,0 +1,4 @@
+__pycache__/
+*.out
+sumo_sim/simple_intersection.rou.xml
+tripinfo.xml
