@@ -160,6 +160,8 @@ class Simulator:
 
         # Fixed phase duration
         '''if self.currPhaseTime > 10:
+            if action:
+                sys.exit("Action specified but fixed-time control is activated.")
             self.next_phase()'''
 
         # Randomly choosing if the simulation switches to the next state or stays at the current state
