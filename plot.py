@@ -2,19 +2,19 @@ import matplotlib.pyplot as plt
 import pickle
 
 if __name__ == "__main__":
-    with open("data/model_100_medium" + "_episodes.txt", "rb") as file:
+    with open("data/model_hor_100_medium" + "_episodes.txt", "rb") as file:
         episodes = pickle.load(file)
-    with open("data/uniform1over45" + "_baseline_r.txt", "rb") as file:
+    with open("data/hor1over30_ver1over60" + "_baseline_r.txt", "rb") as file:
         baseline_r = pickle.load(file)
-    with open("data/uniform1over45" + "_baseline_w.txt", "rb") as file:
+    with open("data/hor1over30_ver1over60" + "_baseline_w.txt", "rb") as file:
         baseline_w = pickle.load(file)
-    with open("data/model_100_medium" + "_rewards.txt", "rb") as file:
+    with open("data/model_hor_100_medium" + "_rewards.txt", "rb") as file:
         rewards1 = pickle.load(file)
-    with open("data/model_50_medium" + "_rewards.txt", "rb") as file:
+    with open("data/model_hor_50_medium" + "_rewards.txt", "rb") as file:
         rewards2 = pickle.load(file)
-    with open("data/model_100_medium" + "_waiting_times.txt", "rb") as file:
+    with open("data/model_hor_100_medium" + "_waiting_times.txt", "rb") as file:
         waiting_times1 = pickle.load(file)
-    with open("data/model_50_medium" + "_waiting_times.txt", "rb") as file:
+    with open("data/model_hor_50_medium" + "_waiting_times.txt", "rb") as file:
         waiting_times2 = pickle.load(file)
 
     plt.figure()
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
     plt.legend()
-    plt.savefig("figures/medium_uni_r_py.png")
+    plt.savefig("figures/horizontal_r_py.png")
     plt.show()
 
     plt.figure()
@@ -34,5 +34,5 @@ if __name__ == "__main__":
     plt.xlabel("Episode")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
-    plt.savefig("figures/medium_uni_w_py.png")
+    plt.savefig("figures/horizontal_w_py.png")
     plt.show()
