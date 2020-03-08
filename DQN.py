@@ -126,12 +126,12 @@ class Agent:
 
         # Computing target values
         action_selection = T.argmax(q_next_action, dim=1)
-        max_q_next = T.tensor([q_next_value[x, action_selection[x]] for x in range(self.batchSize)])
+        max_q_next = T.tensor([q_next_value[x, action_selection[x]] for x in range(self.batchSize)]).float()
         target_values = q_values.clone()
         batch_indices = np.arange(self.batchSize, dtype=np.int32)
         # Only worth rewards if last state of an episode
-        t_val = T.tensor(rewards) + self.gamma * max_q_next * dones
-        target_values[batch_indices, actions] = t_val.float().to(self.qNetwork.device)
+        t_val = T.tensor(rewards).float() + self.gamma * max_q_next * T.tensor(dones).float()
+        target_values[batch_indices, actions] = t_val.to(self.qNetwork.device)
 
         # Performs gradient descent
         loss = self.qNetwork.loss(target_values, q_values).to(self.qNetwork.device)
