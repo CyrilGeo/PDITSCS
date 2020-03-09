@@ -164,13 +164,15 @@ class Simulator:
 
             if self.N:
                 if self.episodeCnt < self.N:
+                    self.conn.close()
                     self.init_new_episode()
                     self.episodeCnt += 1
                     self.episodeEnd = 1
                 else:
-                    print("END OF SIMULATION")
+                    self.close_simulation()
                     return False
             else:
+                self.conn.close()
                 self.init_new_episode()
                 self.episodeCnt += 1
                 self.episodeEnd = 1
