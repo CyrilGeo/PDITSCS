@@ -29,10 +29,12 @@ def get_options():
 
 class Simulator:
 
-    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, route_probs, hour_of_the_day, gui=False):
+    def __init__(self, nb_episodes, sim_id_step, nb_episode_steps, detection_rate, route_probs, hour_of_the_day,
+                 gui=False):
         self.N = nb_episodes
         self.n = nb_episode_steps
         self.episodeCnt = 1
+        self.simIDStep = sim_id_step
         self.detectionRate = detection_rate
         self.hourOfTheDay = hour_of_the_day
         self.currNbIterations = 0
@@ -44,6 +46,9 @@ class Simulator:
         self.sumoBinary = None
         self.episodeEnd = 0  # 1 if last step of an episode, 0 otherwise
         self.conn = None
+        self.job_id = "0"
+        if "SLURM_JOB_ID" in os.environ:
+            self.job_id = os.environ["SLURM_JOB_ID"]
 
         # State variables
         self.detectedCarCnt = None
@@ -71,6 +76,18 @@ class Simulator:
         else:
             self.sumoBinary = checkBinary("sumo")
 
+        with open("sumo_sim/simple_intersection.sumocfg", "w") as config:
+            print("""<configuration>
+    <input>
+        <net-file value="simple_intersection.net.xml"/>
+        <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3000"/>
+    </time>
+</configuration>""", file=config)
+
         self.init_new_episode()
 
         self.defaultDistances = [-self.conn.lane.getLength(x) for x in self.laneIDs]
@@ -80,23 +97,19 @@ class Simulator:
     # Initializes a new episode
     def init_new_episode(self):
         print("LOADING NEW EPISODE")
-        if "SLURM_JOB_ID" in os.environ:
-            job_id = os.environ["SLURM_JOB_ID"]
-        else:
-            job_id = "0"
-
-        self.generate_traffic(job_id)
+        self.generate_traffic()
 
         # Starting sumo as a subprocess
+        episode_id = str(self.simIDStep + self.episodeCnt)
         traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output",
-                     "tripinfo_" + job_id + ".xml"], label=job_id)
-        self.conn = traci.getConnection(job_id)
+                     "tripinfo_" + self.job_id + ".xml"], label=episode_id)
+        self.conn = traci.getConnection(episode_id)
 
     # Randomly generates the route file that determines the traffic in the simulation
-    def generate_traffic(self, job_id):
+    def generate_traffic(self):
         random.seed()
 
-        with open("sumo_sim/simple_intersection_" + job_id + ".rou.xml", "w") as routes:
+        with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
             print("""<routes>
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>
 
@@ -123,18 +136,6 @@ class Simulator:
                         self.nbGeneratedVeh += 1
 
             print("</routes>", file=routes)
-
-        with open("sumo_sim/simple_intersection.sumocfg", "w") as config:
-            print("""<configuration>
-    <input>
-        <net-file value="simple_intersection.net.xml"/>
-        <route-files value="simple_intersection_""" + job_id + """.rou.xml"/>
-    </input>
-    <time>
-        <begin value="0"/>
-        <end value="3000"/>
-    </time>
-</configuration>""", file=config)
 
     # Randomly chooses if a generated vehicle is detected or not by selecting its color accordingly
     def select_color(self):
