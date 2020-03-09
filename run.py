@@ -46,10 +46,10 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 45] * 12
-    file_name = "model_medium_20.pt"
-    stats_file_name = "model_medium_20"
-    figure_name = "model_medium_20"
+    route_probabilities = [1. / 60] * 12
+    file_name = "model_20_low.pt"
+    stats_file_name = "model_20_low"
+    figure_name = "model_20_low"
 
     # Initializing the simulator, agent and replay buffer
     agent = Agent(alpha, gamma, epsilon, epsilon_end, decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
