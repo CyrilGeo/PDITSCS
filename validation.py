@@ -7,6 +7,7 @@ if __name__ == "__main__":
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 1
+    ep_id_step = 0
     nb_episode_steps = 3000
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     gui = True
@@ -22,7 +23,8 @@ if __name__ == "__main__":
     route_probabilities = [1. / 60] * 12
     file_name = "model_100_medium.pt"
 
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, route_probabilities, hour_of_the_day, gui)
+    simulator = Simulator(nb_episodes, ep_id_step, nb_episode_steps, detection_rate, route_probabilities,
+                          hour_of_the_day, gui)
     agent = Agent(alpha, gamma, epsilon, epsilon_end, decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
                   file_name)
     agent.load_net()

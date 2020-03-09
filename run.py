@@ -21,7 +21,7 @@ def collect_transition(replay_buf, simu, act):
 
 # Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, route_prob, hour_day):
-    sim = Simulator(None, nb_ep_steps, det_rate, route_prob, hour_day, False)
+    sim = Simulator(None, 0, nb_ep_steps, det_rate, route_prob, hour_day, False)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -34,6 +34,8 @@ if __name__ == "__main__":
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 300
+    # /!\ When running in parallel, always wait that buffer initialization has completed before running a new job!
+    ep_id_step = 0
     nb_episode_steps = 3000
     detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     gui = False
@@ -59,7 +61,8 @@ if __name__ == "__main__":
                       hour_of_the_day)
     print("REPLAY BUFFER INITIALIZATION DONE")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, route_probabilities, hour_of_the_day, gui)
+    simulator = Simulator(nb_episodes, ep_id_step, nb_episode_steps, detection_rate, route_probabilities,
+                          hour_of_the_day, gui)
 
     # Learning phase
     print("STARTING LEARNING")
