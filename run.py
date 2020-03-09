@@ -49,7 +49,7 @@ if __name__ == "__main__":
     route_probabilities = [1. / 60] * 12
     file_name = "model_20_low.pt"
     stats_file_name = "model_20_low"
-    figure_name = "medium_20_low"
+    figure_name = "model_20_low"
 
     # Initializing the simulator, agent and replay buffer
     agent = Agent(alpha, gamma, epsilon, epsilon_end, decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
