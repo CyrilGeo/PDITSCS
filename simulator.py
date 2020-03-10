@@ -29,12 +29,10 @@ def get_options():
 
 class Simulator:
 
-    def __init__(self, nb_episodes, sim_id_step, nb_episode_steps, detection_rate, route_probs, hour_of_the_day,
-                 gui=False):
+    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, route_probs, hour_of_the_day, gui=False):
         self.N = nb_episodes
         self.n = nb_episode_steps
         self.episodeCnt = 1
-        self.simIDStep = sim_id_step
         self.detectionRate = detection_rate
         self.hourOfTheDay = hour_of_the_day
         self.currNbIterations = 0
@@ -100,9 +98,14 @@ class Simulator:
         self.generate_traffic()
 
         # Starting sumo as a subprocess
-        episode_id = str(self.simIDStep + self.episodeCnt)
-        traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output",
-                     "tripinfo_" + self.job_id + ".xml"], label=episode_id)
+        episode_id = str(self.episodeCnt)
+        while True:
+            try:
+                traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output",
+                             "tripinfo_" + self.job_id + ".xml"], label=episode_id)
+                break
+            except traci.exceptions.TraCIException:
+                episode_id += 1
         self.conn = traci.getConnection(episode_id)
 
     # Randomly generates the route file that determines the traffic in the simulation

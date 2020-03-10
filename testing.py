@@ -3,7 +3,7 @@ import pickle
 import statistics
 
 if __name__ == "__main__":
-    simulator = sim.Simulator(30, 0, 3000, 1.0, [1. / 30] * 3 + [1. / 45] * 3 + [1. / 30] * 3 + [1. / 45] * 3, 8, False)
+    simulator = sim.Simulator(30, 3000, 1.0, [1. / 30] * 3 + [1. / 45] * 3 + [1. / 30] * 3 + [1. / 45] * 3, 8, False)
     while simulator.step(None):
         '''if simulator.get_curr_nb_iterations() < 50:
             print("STEP " + str(simulator.get_curr_nb_iterations()))
