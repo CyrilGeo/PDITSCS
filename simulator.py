@@ -43,10 +43,6 @@ class Simulator:
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
         self.sumoBinary = None
         self.episodeEnd = 0  # 1 if last step of an episode, 0 otherwise
-        self.conn = None
-        self.job_id = "0"
-        if "SLURM_JOB_ID" in os.environ:
-            self.job_id = os.environ["SLURM_JOB_ID"]
 
         # State variables
         self.detectedCarCnt = None
@@ -74,22 +70,10 @@ class Simulator:
         else:
             self.sumoBinary = checkBinary("sumo")
 
-        with open("sumo_sim/simple_intersection.sumocfg", "w") as config:
-            print("""<configuration>
-    <input>
-        <net-file value="simple_intersection.net.xml"/>
-        <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
-    </input>
-    <time>
-        <begin value="0"/>
-        <end value="3000"/>
-    </time>
-</configuration>""", file=config)
-
         self.init_new_episode()
 
-        self.defaultDistances = [-self.conn.lane.getLength(x) for x in self.laneIDs]
-        veh_ids = [self.conn.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
+        self.defaultDistances = [-traci.lane.getLength(x) for x in self.laneIDs]
+        veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         self.update_state(veh_ids)
 
     # Initializes a new episode
@@ -98,21 +82,14 @@ class Simulator:
         self.generate_traffic()
 
         # Starting sumo as a subprocess
-        episode_id = str(self.episodeCnt)
-        while True:
-            try:
-                traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output",
-                             "tripinfo_" + self.job_id + ".xml"], label=episode_id)
-                break
-            except traci.exceptions.TraCIException:
-                episode_id += 1
-        self.conn = traci.getConnection(episode_id)
+        traci.start(
+            [self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output", "tripinfo.xml"])
 
     # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self):
         random.seed()
 
-        with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
+        with open("sumo_sim/simple_intersection.rou.xml", "w") as routes:
             print("""<routes>
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>
 
@@ -152,8 +129,8 @@ class Simulator:
         self.episodeEnd = 0
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
-        if self.conn.simulation.getMinExpectedNumber() <= 0:
-            self.conn.close()
+        if traci.simulation.getMinExpectedNumber() <= 0:
+            traci.close()
             print("EPISODE", self.episodeCnt, "DONE")
             average_reward = statistics.mean(self.rewards)
             print("Average reward:", average_reward)
@@ -168,15 +145,13 @@ class Simulator:
 
             if self.N:
                 if self.episodeCnt < self.N:
-                    self.conn.close()
                     self.episodeCnt += 1
                     self.init_new_episode()
                     self.episodeEnd = 1
                 else:
-                    self.close_simulation()
+                    print("END OF SIMULATION")
                     return False
             else:
-                self.conn.close()
                 self.episodeCnt += 1
                 self.init_new_episode()
                 self.episodeEnd = 1
@@ -195,9 +170,9 @@ class Simulator:
         if action == 1 and self.currPhaseTime > 10:
             self.next_phase()
 
-        self.conn.simulationStep()
+        traci.simulationStep()
         self.currNbIterations += 1
-        veh_ids = [self.conn.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
+        veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         self.update_state(veh_ids)
         self.update_reward(veh_ids)
         self.increment_waiting_time(veh_ids)
@@ -205,47 +180,49 @@ class Simulator:
         return True
 
     # Switches traffic light to the next phase
-    def next_phase(self):
-        self.conn.trafficlight.setPhase("center", (self.conn.trafficlight.getPhase("center") + 1) % 4)
+    @staticmethod
+    def next_phase():
+        traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 4)
 
     # Updates the state values
     def update_state(self, veh_ids):
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
-        if self.conn.trafficlight.getPhase("center") == 0:
+        if traci.trafficlight.getPhase("center") == 0:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
             self.detectedCarCnt[3] = -self.detectedCarCnt[3]
             self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
             self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif self.conn.trafficlight.getPhase("center") == 2:
+        elif traci.trafficlight.getPhase("center") == 2:
             self.detectedCarCnt[0] = -self.detectedCarCnt[0]
             self.detectedCarCnt[2] = -self.detectedCarCnt[2]
             self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
             self.distanceNearestDetectedVeh[2] = -self.distanceNearestDetectedVeh[2]
 
-        self.currPhaseTime = (self.conn.simulation.getTime() + self.conn.trafficlight.getPhaseDuration(
-            "center") - self.conn.trafficlight.getNextSwitch("center"))
-        self.normCurrPhaseTime = self.currPhaseTime / self.conn.trafficlight.getPhaseDuration("center")
-        self.amberPhase = 1 if self.conn.trafficlight.getPhase("center") == 1 or self.conn.trafficlight.getPhase(
+        self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
+            "center") - traci.trafficlight.getNextSwitch("center"))
+        self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("center")
+        self.amberPhase = 1 if traci.trafficlight.getPhase("center") == 1 or traci.trafficlight.getPhase(
             "center") == 3 else 0
-        self.currDayTime = (self.conn.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
+        self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
     # Updates the reward
     def update_reward(self, veh_ids):
         rewards = []
         for i in range(len(self.laneIDs)):
-            v_max_lane = self.conn.lane.getMaxSpeed(self.laneIDs[i])
+            v_max_lane = traci.lane.getMaxSpeed(self.laneIDs[i])
             for x in veh_ids[i]:
-                v_max = min(v_max_lane, self.conn.vehicle.getMaxSpeed(x))
-                rewards.append((self.conn.vehicle.getSpeed(x) - v_max) / v_max)
+                v_max = min(v_max_lane, traci.vehicle.getMaxSpeed(x))
+                rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
         self.reward = statistics.mean(rewards) if rewards else 0
 
     # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
-    def count_detected_veh(self, ids):
+    @staticmethod
+    def count_detected_veh(ids):
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
-                if self.conn.vehicle.getColor(x) == (0, 255, 0, 255):
+                if traci.vehicle.getColor(x) == (0, 255, 0, 255):
                     cnt[i] -= 1
         return cnt
 
@@ -254,8 +231,8 @@ class Simulator:
     def get_distances(self, veh_ids):
         distances = self.defaultDistances.copy()
         for i in range(len(veh_ids)):
-            detected_positions = [self.conn.vehicle.getLanePosition(x) for x in veh_ids[i] if
-                                  self.conn.vehicle.getColor(x) == (0, 255, 0, 255)]
+            detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
+                                  traci.vehicle.getColor(x) == (0, 255, 0, 255)]
             if detected_positions:
                 distances[i] = distances[i] + max(detected_positions)
         return distances
@@ -280,7 +257,7 @@ class Simulator:
         cnt = 0
         for i in range(len(ids)):
             for x in ids[i]:
-                if self.conn.vehicle.getSpeed(x) < 0.1:
+                if traci.vehicle.getSpeed(x) < 0.1:
                     cnt += 1
         self.cumWaitingTime += cnt
 
@@ -306,6 +283,7 @@ class Simulator:
         plt.ylabel("Average waiting time (s)")
         plt.savefig(os.path.join("figures", "out_" + fig_name + "_w.png"))
 
-    def close_simulation(self):
-        self.conn.close()
+    @staticmethod
+    def close_simulation():
+        traci.close()
         print("END OF SIMULATION")
