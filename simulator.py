@@ -98,15 +98,15 @@ class Simulator:
         self.generate_traffic()
 
         # Starting sumo as a subprocess
-        episode_id = str(self.episodeCnt)
+        episode_id = self.episodeCnt
         while True:
             try:
                 traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output",
-                             "tripinfo_" + self.job_id + ".xml"], label=episode_id)
+                             "tripinfo_" + self.job_id + ".xml"], label=str(episode_id))
                 break
             except traci.exceptions.TraCIException:
                 episode_id += 1
-        self.conn = traci.getConnection(episode_id)
+        self.conn = traci.getConnection(str(episode_id))
 
     # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self):
