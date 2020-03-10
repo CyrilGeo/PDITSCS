@@ -166,16 +166,16 @@ class Simulator:
             if self.N:
                 if self.episodeCnt < self.N:
                     self.conn.close()
-                    self.init_new_episode()
                     self.episodeCnt += 1
+                    self.init_new_episode()
                     self.episodeEnd = 1
                 else:
                     self.close_simulation()
                     return False
             else:
                 self.conn.close()
-                self.init_new_episode()
                 self.episodeCnt += 1
+                self.init_new_episode()
                 self.episodeEnd = 1
 
         # Fixed phase duration
