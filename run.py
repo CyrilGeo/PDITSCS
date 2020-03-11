@@ -35,7 +35,7 @@ if __name__ == "__main__":
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 300
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     gui = False
     alpha = 0.0001
     gamma = 0.9
@@ -50,10 +50,10 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 45] * 3 + [1. / 60] * 3 + [1. / 45] * 3 + [1. / 60] * 3
-    file_name = "model_hor_45_60_100.pt"
-    stats_file_name = "model_hor_45_60_100"
-    figure_name = "model_hor_45_60_100"
+    route_probabilities = [1. / 30] * 3 + [1. / 45] * 3 + [1. / 30] * 3 + [1. / 45] * 3
+    file_name = "model_hor_30_45_100.pt"
+    stats_file_name = "model_hor_30_45_100"
+    figure_name = "model_hor_30_45_100"
 
     # Initializing the simulator, agent and replay buffer
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
