@@ -275,13 +275,13 @@ class Simulator:
         plt.plot(self.episodes, self.averageRewards, color="steelblue")
         plt.xlabel("Episode")
         plt.ylabel("Average reward")
-        plt.savefig(os.path.join("figures", "out_" + gen_name + "_r.png"))
+        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_r.png"))
 
         plt.figure()
         plt.plot(self.episodes, self.averageWaitingTimes, color="steelblue")
         plt.xlabel("Episode")
         plt.ylabel("Average waiting time (s)")
-        plt.savefig(os.path.join("figures", "out_" + gen_name + "_w.png"))
+        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_w.png"))
 
     @staticmethod
     def close_simulation():
