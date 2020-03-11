@@ -6,6 +6,7 @@ import numpy as np
 import random
 import copy
 import os
+import sys
 
 
 # Replay buffer class
@@ -70,13 +71,17 @@ class QNetwork(nn.Module):
 # Q-Learning agent class
 class Agent:
 
-    def __init__(self, alpha, gamma, epsilon, epsilon_end, nb_decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
-                 file_name):
+    def __init__(self, alpha, gamma, policy, epsilon, epsilon_end, nb_decay_steps_ep, temp, temp_end, nb_decay_steps_temp,
+                 batch_size, nb_inputs, nb_actions, mem_size, file_name):
         self.alpha = alpha  # Learning rate
         self.gamma = gamma
+        self.policy = policy
         self.epsilon = epsilon
         self.epsilonEnd = epsilon_end
-        self.decayStep = epsilon / nb_decay_steps
+        self.decayStepEpsilon = (epsilon - epsilon_end) / nb_decay_steps_ep
+        self.temp = temp
+        self.tempEnd = temp_end
+        self.decayStepTemp = (temp - temp_end) / nb_decay_steps_temp
         self.batchSize = batch_size
         self.nbInputs = nb_inputs
         self.nbActions = nb_actions
@@ -93,12 +98,20 @@ class Agent:
 
     # Chooses the next action to be executed by the simulator using epsilon-greedy policy
     def select_action(self, state):
-        if random.uniform(0, 1) < self.epsilon:
-            action = np.random.choice(self.actionSpace)
-        else:
+        if self.policy == "epsilon-greedy":
+            if random.uniform(0, 1) < self.epsilon:
+                action = np.random.choice(self.actionSpace)
+            else:
+                state = T.tensor(state, dtype=T.float32).to(self.qNetwork.device)
+                q_values = self.qNetwork.forward(state).to(self.qNetwork.device)
+                action = T.argmax(q_values).item()
+        elif self.policy == "boltzmann":
             state = T.tensor(state, dtype=T.float32).to(self.qNetwork.device)
-            actions = self.qNetwork.forward(state).to(self.qNetwork.device)
-            action = T.argmax(actions).item()
+            q_values = self.qNetwork.forward(state).to(self.qNetwork.device)
+            probs = F.softmax(q_values / self.temp, dim=0).to("cpu").detach().numpy()
+            action = np.random.choice(self.actionSpace, p=probs)
+        else:
+            sys.exit("Invalid policy specified. Either choose \"epsilon-greedy\" or \"boltzmann\".")
         return action
 
     # Updates the weights of the target net with the weights of the q-net
@@ -137,8 +150,9 @@ class Agent:
         loss.backward()
         self.qNetwork.optimizer.step()
 
-        # Updates epsilon
-        self.epsilon = self.epsilon - self.decayStep if self.epsilon > self.epsilonEnd else self.epsilonEnd
+        # Updates epsilon and temperature
+        self.epsilon = self.epsilon - self.decayStepEpsilon if self.epsilon > self.epsilonEnd else self.epsilonEnd
+        self.temp = self.temp - self.decayStepTemp if self.temp > self.tempEnd else self.tempEnd
 
     def save_net(self):
         T.save(self.qNetwork.state_dict(), os.path.join("models", self.fileName))

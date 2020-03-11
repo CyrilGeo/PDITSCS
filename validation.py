@@ -12,9 +12,13 @@ if __name__ == "__main__":
     gui = True
     alpha = 0.0001
     gamma = 0.9
+    policy = "epsilon-greedy"
     epsilon = 0  # /!\ This value cannot change, validation involves exploitation only
     epsilon_end = 0.05
-    decay_steps = 100000
+    decay_steps_ep = 100000
+    temp = 1
+    temp_end = 0.05
+    decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
     hour_of_the_day = 8
@@ -23,8 +27,8 @@ if __name__ == "__main__":
     file_name = "model_100_medium.pt"
 
     simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, route_probabilities, hour_of_the_day, gui)
-    agent = Agent(alpha, gamma, epsilon, epsilon_end, decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
-                  file_name)
+    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
+                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
     agent.load_net()
     while simulator.step(agent.select_action(simulator.get_state())):
         print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))

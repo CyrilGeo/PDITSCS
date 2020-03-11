@@ -39,9 +39,13 @@ if __name__ == "__main__":
     gui = False
     alpha = 0.0001
     gamma = 0.9
+    policy = "epsilon-greedy"
     epsilon = 1
     epsilon_end = 0.05
-    decay_steps = 100000
+    decay_steps_ep = 100000
+    temp = 1
+    temp_end = 0.05
+    decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
     hour_of_the_day = 8
@@ -52,8 +56,8 @@ if __name__ == "__main__":
     figure_name = "model_hor_45_60_100"
 
     # Initializing the simulator, agent and replay buffer
-    agent = Agent(alpha, gamma, epsilon, epsilon_end, decay_steps, batch_size, nb_inputs, nb_actions, mem_size,
-                  file_name)
+    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
+                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("INITIALIZING REPLAY BUFFER")
     initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, route_probabilities,
                       hour_of_the_day)
