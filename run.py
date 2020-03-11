@@ -51,9 +51,8 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 3 + [1. / 45] * 3 + [1. / 30] * 3 + [1. / 45] * 3
-    file_name = "model_hor_30_45_100.pt"
-    stats_file_name = "model_hor_30_45_100"
-    figure_name = "model_hor_30_45_100"
+    gen_name = "model_hor_30_45_100"
+    file_name = gen_name + ".pt"
 
     # Initializing the simulator, agent and replay buffer
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
@@ -80,5 +79,5 @@ if __name__ == "__main__":
     agent.save_net()
     print("DONE")
     print("SAVING STATS")
-    simulator.save_stats(stats_file_name, figure_name)
+    simulator.save_stats(gen_name)
     print("DONE")

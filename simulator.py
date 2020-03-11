@@ -262,26 +262,26 @@ class Simulator:
         self.cumWaitingTime += cnt
 
     # /!\ Filename without file extension
-    def save_stats(self, filename, fig_name):
+    def save_stats(self, gen_name):
         # For loading, use "rb" and pickle.load(file)
-        with open(os.path.join("data", filename + "_episodes.txt"), "wb") as file:
+        with open(os.path.join("data", gen_name + "_episodes.txt"), "wb") as file:
             pickle.dump(self.episodes, file)
-        with open(os.path.join("data", filename + "_rewards.txt"), "wb") as file:
+        with open(os.path.join("data", gen_name + "_rewards.txt"), "wb") as file:
             pickle.dump(self.averageRewards, file)
-        with open(os.path.join("data", filename + "_waiting_times.txt"), "wb") as file:
+        with open(os.path.join("data", gen_name + "_waiting_times.txt"), "wb") as file:
             pickle.dump(self.averageWaitingTimes, file)
 
         plt.figure()
         plt.plot(self.episodes, self.averageRewards, color="steelblue")
         plt.xlabel("Episode")
         plt.ylabel("Average reward")
-        plt.savefig(os.path.join("figures", "out_" + fig_name + "_r.png"))
+        plt.savefig(os.path.join("figures", "out_" + gen_name + "_r.png"))
 
         plt.figure()
         plt.plot(self.episodes, self.averageWaitingTimes, color="steelblue")
         plt.xlabel("Episode")
         plt.ylabel("Average waiting time (s)")
-        plt.savefig(os.path.join("figures", "out_" + fig_name + "_w.png"))
+        plt.savefig(os.path.join("figures", "out_" + gen_name + "_w.png"))
 
     @staticmethod
     def close_simulation():
