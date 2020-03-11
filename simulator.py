@@ -157,18 +157,18 @@ class Simulator:
                 self.episodeEnd = 1
 
         # Fixed phase duration
-        if self.currPhaseTime > 10:
+        '''if self.currPhaseTime > 10:
             if action:
                 sys.exit("Action specified but fixed-time control is activated.")
-            self.next_phase()
+            self.next_phase()'''
 
         # Randomly choosing if the simulation switches to the next state or stays at the current state
         '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > 10:
             self.next_phase()'''
 
         # Action decided by the value given in argument
-        '''if action == 1 and self.currPhaseTime > 10:
-            self.next_phase()'''
+        if action == 1 and self.currPhaseTime > 10:
+            self.next_phase()
 
         traci.simulationStep()
         self.currNbIterations += 1

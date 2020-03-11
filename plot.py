@@ -2,13 +2,13 @@ import matplotlib.pyplot as plt
 import pickle
 
 if __name__ == "__main__":
-    baseline_name = "hor1over45_ver1over60"
-    name1 = "model_hor_45_60_100"
-    name2 = "model_hor_45_60_50"
-    name3 = "model_hor_45_60_20"
-    figure_name = "horizontal_45_60"
+    baseline_name = "hor1over30_ver1over45"
+    name1 = "model_hor_30_45_100"
+    name2 = "model_hor_30_45_50"
+    name3 = "model_hor_30_45_20"
+    figure_name = "horizontal_30_45"
 
-    with open("data/"+ name1 + "_episodes.txt", "rb") as file:
+    with open("data/" + name1 + "_episodes.txt", "rb") as file:
         episodes = pickle.load(file)
     with open("data/" + baseline_name + "_baseline_r.txt", "rb") as file:
         baseline_r = pickle.load(file)
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
     plt.legend()
-    plt.savefig("figures/" + figure_name +"_r.png")
+    plt.savefig("figures/" + figure_name + "_r.png")
     plt.show()
 
     plt.figure()
