@@ -39,7 +39,7 @@ if __name__ == "__main__":
     gui = False
     alpha = 0.0001
     gamma = 0.9
-    policy = "epsilon-greedy"
+    policy = "boltzmann"
     epsilon = 1
     epsilon_end = 0.05
     decay_steps_ep = 100000
@@ -50,8 +50,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 30] * 12
-    gen_name = "model_20_high"
+    route_probabilities = [1. / 30] * 3 + [1. / 60] * 3 + [1. /30] * 3 + [1. / 60] * 3
+    gen_name = "model_boltz_hor_30_60_20"
     file_name = gen_name + ".pt"
 
     # Initializing the simulator, agent and replay buffer
