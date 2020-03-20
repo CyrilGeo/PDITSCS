@@ -17,7 +17,8 @@ else:
     sys.exit("Environment variable 'SUMO_HOME' has to be declared.")
 
 from sumolib import checkBinary  # Checks for the binary in environ vars
-import traci
+import libsumo as traci
+# import traci
 
 
 def get_options():

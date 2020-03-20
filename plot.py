@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import pickle
 
 if __name__ == "__main__":
-    baseline_name = "hor1over30_ver1over45"
-    name1 = "model_hor_30_45_100"
-    name2 = "model_hor_30_45_50"
-    name3 = "model_hor_30_45_20"
-    figure_name = "horizontal_30_45"
+    baseline_name = "hor1over30_ver1over60"
+    name1 = "model_boltz_hor_30_60_100"
+    name2 = "model_boltz_hor_30_60_50"
+    name3 = "model_boltz_hor_30_60_20"
+    figure_name = "horizontal_30_60_boltz"
 
     with open("data/" + name1 + "_episodes.txt", "rb") as file:
         episodes = pickle.load(file)
