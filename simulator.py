@@ -17,6 +17,8 @@ else:
     sys.exit("Environment variable 'SUMO_HOME' has to be declared.")
 
 from sumolib import checkBinary  # Checks for the binary in environ vars
+
+# For parallel use uncomment first line, for GUI use uncomment second line
 import libsumo as traci
 # import traci
 
@@ -44,6 +46,9 @@ class Simulator:
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
         self.sumoBinary = None
         self.episodeEnd = 0  # 1 if last step of an episode, 0 otherwise
+        self.job_id = "0"
+        if "SLURM_JOB_ID" in os.environ:
+            self.job_id = os.environ["SLURM_JOB_ID"]
 
         # State variables
         self.detectedCarCnt = None
@@ -71,6 +76,18 @@ class Simulator:
         else:
             self.sumoBinary = checkBinary("sumo")
 
+        with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
+            print("""<configuration>
+    <input>
+        <net-file value="simple_intersection.net.xml"/>
+        <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3000"/>
+    </time>
+</configuration>""", file=config)
+
         self.init_new_episode()
 
         self.defaultDistances = [-traci.lane.getLength(x) for x in self.laneIDs]
@@ -83,14 +100,16 @@ class Simulator:
         self.generate_traffic()
 
         # Starting sumo as a subprocess
-        traci.start(
-            [self.sumoBinary, "-c", "sumo_sim/simple_intersection.sumocfg", "--tripinfo-output", "tripinfo.xml"])
+        traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection_" + self.job_id + ".sumocfg"])
+        '''traci.start(
+            [self.sumoBinary, "-c", "sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "--tripinfo-output",
+             "tripinfo_" + self.job_id + ".xml"])'''
 
     # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self):
         random.seed()
 
-        with open("sumo_sim/simple_intersection.rou.xml", "w") as routes:
+        with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
             print("""<routes>
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>
 
@@ -160,6 +179,7 @@ class Simulator:
         # Fixed phase duration
         '''if self.currPhaseTime > 10:
             if action:
+                self.delete_sim_files()
                 sys.exit("Action specified but fixed-time control is activated.")
             self.next_phase()'''
 
@@ -288,3 +308,7 @@ class Simulator:
     def close_simulation():
         traci.close()
         print("END OF SIMULATION")
+
+    def delete_sim_files(self):
+        os.remove("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml")
+        os.remove("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg")

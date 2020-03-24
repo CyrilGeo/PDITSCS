@@ -81,3 +81,5 @@ if __name__ == "__main__":
     print("SAVING STATS")
     simulator.save_stats(gen_name)
     print("DONE")
+
+    simulator.delete_sim_files()
