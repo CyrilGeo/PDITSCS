@@ -3,3 +3,4 @@ __pycache__/
 sumo_sim/*.rou.xml
 sumo_sim/*.sumocfg
 tripinfo*.xml
+figures/previews/*

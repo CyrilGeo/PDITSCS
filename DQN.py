@@ -97,8 +97,12 @@ class Agent:
         self.replayBuffer.store(state, action, reward, new_state, done)
 
     # Chooses the next action to be executed by the simulator using epsilon-greedy policy
-    def select_action(self, state):
-        if self.policy == "epsilon-greedy":
+    def select_action(self, state, no_policy=False):
+        if no_policy:
+            state = T.tensor(state, dtype=T.float32).to(self.qNetwork.device)
+            q_values = self.qNetwork.forward(state).to(self.qNetwork.device)
+            action = T.argmax(q_values).item()
+        elif self.policy == "epsilon-greedy":
             if random.uniform(0, 1) < self.epsilon:
                 action = np.random.choice(self.actionSpace)
             else:

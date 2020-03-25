@@ -13,7 +13,7 @@ if __name__ == "__main__":
     alpha = 0.0001
     gamma = 0.9
     policy = "epsilon-greedy"
-    epsilon = 0  # /!\ This value cannot change, validation involves exploitation only
+    epsilon = 1
     epsilon_end = 0.05
     decay_steps_ep = 100000
     temp = 1
@@ -30,5 +30,5 @@ if __name__ == "__main__":
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
     agent.load_net()
-    while simulator.step(agent.select_action(simulator.get_state())):
+    while simulator.step(agent.select_action(simulator.get_state(), True)):
         print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))

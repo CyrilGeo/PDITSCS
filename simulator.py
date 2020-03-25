@@ -20,6 +20,8 @@ from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
 import libsumo as traci
+
+
 # import traci
 
 
@@ -45,7 +47,7 @@ class Simulator:
         self.undetectedColor = "255, 0, 0"
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
         self.sumoBinary = None
-        self.episodeEnd = 0  # 1 if last step of an episode, 0 otherwise
+        self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -179,7 +181,6 @@ class Simulator:
         # Fixed phase duration
         '''if self.currPhaseTime > 10:
             if action:
-                self.delete_sim_files()
                 sys.exit("Action specified but fixed-time control is activated.")
             self.next_phase()'''
 
@@ -307,7 +308,6 @@ class Simulator:
     @staticmethod
     def close_simulation():
         traci.close()
-        print("END OF SIMULATION")
 
     def delete_sim_files(self):
         os.remove("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml")
