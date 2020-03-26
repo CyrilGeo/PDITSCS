@@ -59,7 +59,7 @@ if __name__ == "__main__":
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 10
+    nb_episodes = 200
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
