@@ -147,7 +147,7 @@ class Simulator:
 
     # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
     # use step(self) for use in testing.py
-    def step(self, action):
+    def step(self, action=None):
         self.episodeEnd = 0
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
