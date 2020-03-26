@@ -82,6 +82,8 @@ if __name__ == "__main__":
     gen_name = "model_hor_30_45_20"
     file_name = gen_name + ".pt"
 
+    print("LEARNING " + gen_name)
+
     writer = SummaryWriter(log_dir="runs/" + gen_name)
 
     # Initializing the simulator, agent and replay buffer
@@ -120,3 +122,5 @@ if __name__ == "__main__":
     print("DONE")'''
 
     simulator.delete_sim_files()
+
+    print("FINISHED LEARNING " + gen_name)
