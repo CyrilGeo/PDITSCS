@@ -5,8 +5,8 @@ from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
     nb_episodes = 200
-    simulator = sim.Simulator(30, 3000, 1.0, [1. / 60] * 12, 8, False)
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_baseline")
+    simulator = sim.Simulator(30, 3000, 1.0, [1. / 45] * 12, 8, False)
+    tb = SummaryWriter(log_dir="runs/uniform_1over45_baseline")
 
     while simulator.step():
         pass
