@@ -63,7 +63,7 @@ if __name__ == "__main__":
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     gui = False
     alpha = 0.0001
     gamma = 0.9
@@ -79,12 +79,12 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 3 + [1. / 60] * 3 + [1. / 30] * 3 + [1. / 60] * 3
-    gen_name = "model_boltz_hor_30_60_20"
+    gen_name = "model_boltz_hor_30_60_100"
     file_name = gen_name + ".pt"
 
     print("LEARNING " + gen_name)
 
-    writer = SummaryWriter(log_dir="runs/" + gen_name)
+    writer = SummaryWriter(log_dir="runs/" + gen_name, filename_suffix="boltz_hor_30_60_100")
 
     # Initializing the simulator, agent and replay buffer
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
