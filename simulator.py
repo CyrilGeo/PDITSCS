@@ -34,7 +34,8 @@ def get_options():
 
 class Simulator:
 
-    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, route_probs, hour_of_the_day, gui=False):
+    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, route_probs, hour_of_the_day, gui=False,
+                 hourly_probs=None):
         self.N = nb_episodes
         self.n = nb_episode_steps
         self.episodeCnt = 1
@@ -48,6 +49,7 @@ class Simulator:
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
+        self.h_probs = hourly_probs
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -99,7 +101,7 @@ class Simulator:
     # Initializes a new episode
     def init_new_episode(self):
         print("LOADING NEW EPISODE")
-        self.generate_traffic()
+        self.generate_traffic(self.h_probs)
 
         # Starting sumo as a subprocess
         traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection_" + self.job_id + ".sumocfg"])
@@ -108,7 +110,7 @@ class Simulator:
              "tripinfo_" + self.job_id + ".xml"])'''
 
     # Randomly generates the route file that determines the traffic in the simulation
-    def generate_traffic(self):
+    def generate_traffic(self, hourly_probs=None):
         random.seed()
 
         with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
@@ -129,13 +131,26 @@ class Simulator:
     <route id="route11" edges="in_south out_east"/>""", file=routes)
 
             # Randomly choosing if a vehicle is generated for each step and each route
-            for i in range(self.n):
-                for j in range(len(self.routeProbs)):
-                    if random.uniform(0, 1) < self.routeProbs[j]:
-                        print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
-                            j) + '" depart="' + str(i) + '" color="' + self.select_color() + '" departSpeed="max"/>',
-                              file=routes)
-                        self.nbGeneratedVeh += 1
+            if hourly_probs:
+                nb_configurations = len(hourly_probs)
+                k = -1
+                for i in range(self.n):
+                    if i % 3600 == 0:
+                        k = (k + 1) % nb_configurations
+                    for j in range(len(hourly_probs[k])):
+                        if random.uniform(0, 1) < hourly_probs[k][j]:
+                            print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
+                                j) + '" depart="' + str(
+                                i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
+                            self.nbGeneratedVeh += 1
+            else:
+                for i in range(self.n):
+                    for j in range(len(self.routeProbs)):
+                        if random.uniform(0, 1) < self.routeProbs[j]:
+                            print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
+                                j) + '" depart="' + str(
+                                i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
+                            self.nbGeneratedVeh += 1
 
             print("</routes>", file=routes)
 
