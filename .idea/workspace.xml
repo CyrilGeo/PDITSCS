@@ -2,29 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/figures/horizontal_30_45_r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/horizontal_30_45_w.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/horizontal_45_60_r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/horizontal_45_60_w.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_high_1000it_RMS_r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_high_1000it_RMS_w.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_high_1000it_r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_high_1000it_w.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_medium_r.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/figures/uniform_medium_w.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/model_100_high_1000it/events.out.tfevents.1585848988.alan-compute-06.96797.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/model_100_high_1000it_RMS/events.out.tfevents.1585854900.alan-compute-03.6595.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/model_50_high_1000it/events.out.tfevents.1585850443.alan-compute-09.226963.0" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/runs/model_50_high_1000it_RMS/events.out.tfevents.1585857112.alan-compute-01.13215.0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DQN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/horizontal_30_60_r.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/horizontal_30_60_r.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/horizontal_30_60_w.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/horizontal_30_60_w.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/horizontal_boltz_30_60_r.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/horizontal_boltz_30_60_r.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/horizontal_boltz_30_60_w.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/horizontal_boltz_30_60_w.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/model_20_low_RMS/events.out.tfevents.1585915476.alan-compute-09.38503.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/model_20_low_RMS/events.out.tfevents.1585916009.alan-compute-04.16235.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/model_20_low_RMS/events.out.tfevents.1585916202.alan-compute-03.26728.0" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/simulator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
-              <caret line="203" lean-forward="true" selection-start-line="203" selection-end-line="203" />
+              <caret line="203" selection-start-line="203" selection-end-line="203" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -50,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/DQN.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="239">
-              <caret line="56" column="56" lean-forward="true" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+              <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -74,7 +55,7 @@
         <entry file="file://$PROJECT_DIR$/plot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1450">
-              <caret line="46" column="22" lean-forward="true" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+              <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -85,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="794">
-              <caret line="107" column="30" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="30" />
+            <state relative-caret-position="641">
+              <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -467,7 +448,7 @@
       <workItem from="1585558899770" duration="1203000" />
       <workItem from="1585731411467" duration="10807000" />
       <workItem from="1585820456201" duration="18408000" />
-      <workItem from="1585908444925" duration="8764000" />
+      <workItem from="1585908444925" duration="9754000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -697,7 +678,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="391665000" />
+    <option name="totallyTimeSpent" value="392655000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -710,14 +691,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1984" y="-4" width="1617" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19311664" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32960325" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49713194" visible="true" weight="0.36067298" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49713194" weight="0.36067298" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.498618" weight="0.39957938" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -726,7 +706,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49751243" weight="0.39852786" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50248754" side_tool="true" weight="0.40063092" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" weight="0.23449" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.23449" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.2628812" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -957,7 +937,7 @@
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
-          <caret line="203" lean-forward="true" selection-start-line="203" selection-end-line="203" />
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -967,7 +947,7 @@
     <entry file="file://$PROJECT_DIR$/DQN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
-          <caret line="56" column="56" lean-forward="true" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+          <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
@@ -977,7 +957,7 @@
     <entry file="file://$PROJECT_DIR$/plot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1450">
-          <caret line="46" column="22" lean-forward="true" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -996,8 +976,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="794">
-          <caret line="107" column="30" selection-start-line="107" selection-start-column="30" selection-end-line="107" selection-end-column="30" />
+        <state relative-caret-position="641">
+          <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
