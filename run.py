@@ -55,8 +55,8 @@ def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, route_prob, hour_day,
 
 
 if __name__ == "__main__":
-    h_probs = None
-    '''h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
+    # h_probs = None
+    h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
                [0.0005 / 3] * 3 + [0.002 / 3] * 3 + [0.0016 / 3] * 3 + [0.002 / 3] * 3,
                [0.0005 / 3] * 3 + [0.0019 / 3] * 3 + [0.0018 / 3] * 3 + [0.0027 / 3] * 3,
                [0.0003 / 3] * 3 + [0.0024 / 3] * 3 + [0.0016 / 3] * 3 + [0.0023 / 3] * 3,
@@ -79,16 +79,16 @@ if __name__ == "__main__":
                [0.0087 / 3] * 3 + [0.0363 / 3] * 3 + [0.0328 / 3] * 3 + [0.0387 / 3] * 3,
                [0.0063 / 3] * 3 + [0.0224 / 3] * 3 + [0.0259 / 3] * 3 + [0.0271 / 3] * 3,
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
-               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]'''
+               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
 
-    mem_size = 100000
-    nb_init = 10000  # Number of samples in the replay buffer before learning starts
+    mem_size = 3000000
+    nb_init = 300000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 200
-    nb_episodes_test = 30
-    nb_episodes_between_tests = 5
-    nb_episode_steps = 3000
+    nb_episodes = 300
+    nb_episodes_test = 10
+    nb_episodes_between_tests = 10
+    nb_episode_steps = 86400
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     gui = False
     alpha = 0.0001
@@ -96,16 +96,16 @@ if __name__ == "__main__":
     policy = "epsilon-greedy"
     epsilon = 1
     epsilon_end = 0.05
-    decay_steps_ep = 100000
+    decay_steps_ep = 3000000
     temp = 1
     temp_end = 0.05
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    hour_of_the_day = 8
+    hour_of_the_day = 0
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
-    gen_name = "model_100_low_RMS"
+    gen_name = "model_real_100"
     file_name = gen_name + ".pt"
     doTesting = True
 

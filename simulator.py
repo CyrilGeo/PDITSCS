@@ -202,6 +202,11 @@ class Simulator:
         elif self.currPhaseTime > 10:
             self.next_phase()
 
+        # Adapted fixed phase duration
+        '''elif (self.currPhaseTime > 10 and traci.trafficlight.getPhase("center") == 0) or (
+                self.currPhaseTime > 15 and traci.trafficlight.getPhase("center") == 2):
+            self.next_phase()'''
+
         # Randomly choosing if the simulation switches to the next state or stays at the current state
         '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > 10:
             self.next_phase()'''
