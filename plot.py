@@ -47,11 +47,11 @@ if __name__ == "__main__":
     baseline_r_dev = 0
     baseline_w_dev = 0
 
-    figure_name = "horizontal_boltz_30_60"
+    figure_name = "uniform_high_1000it_RMS"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_boltz_hor_30_60_100/events.out.tfevents.1585431026.alan-compute-04.12904.0"):
+            "runs/model_100_high_1000it_RMS/events.out.tfevents.1585854900.alan-compute-03.6595.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 episodes.append(event.step)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_boltz_hor_30_60_50/events.out.tfevents.1585458896.alan-compute-02.3965.0"):
+            "runs/model_50_high_1000it_RMS/events.out.tfevents.1585857112.alan-compute-01.13215.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards2.append(value.simple_value)
@@ -78,7 +78,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_boltz_hor_30_60_20/events.out.tfevents.1585458910.alan-compute-02.4000.0"):
+            "runs/model_20_high_1000it_RMS/events.out.tfevents.1585860430.alan-compute-09.146769.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards3.append(value.simple_value)
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
     # baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hor1over30_ver1over60_baseline/events.out.tfevents.1585228860.PC-CYRIL-LINUX.25968.0"):
+            "runs/uniform_1over30_baseline/events.out.tfevents.1585219170.PC-CYRIL-LINUX.21573.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_r = value.simple_value
@@ -105,11 +105,11 @@ if __name__ == "__main__":
     plt.figure()
     plt.grid()
     plt.plot(episodes, rewards1, color="limegreen", label="100% detection rate")
-    plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, rewards2, color="steelblue", label="50% detection rate")
-    plt.errorbar(episodes, rewards2, yerr=rewards2_dev, color="steelblue", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, rewards2, yerr=rewards2_dev, color="steelblue", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, rewards3, color="gold", label="20% detection rate")
-    plt.errorbar(episodes, rewards3, yerr=rewards3_dev, color="gold", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, rewards3, yerr=rewards3_dev, color="gold", elinewidth=1.5, alpha=0.4)
     plt.axhline(y=baseline_r, color="r", label="fixed time (10s)")
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
@@ -120,11 +120,11 @@ if __name__ == "__main__":
     plt.figure()
     plt.grid()
     plt.plot(episodes, waiting_times1, color="limegreen", label="100% detection rate")
-    plt.errorbar(episodes, waiting_times1, yerr=waiting_times1_dev, color="limegreen", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, waiting_times1, yerr=waiting_times1_dev, color="limegreen", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, waiting_times2, color="steelblue", label="50% detection rate")
-    plt.errorbar(episodes, waiting_times2, yerr=waiting_times2_dev, color="steelblue", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, waiting_times2, yerr=waiting_times2_dev, color="steelblue", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, waiting_times3, color="gold", label="20% detection rate")
-    plt.errorbar(episodes, waiting_times3, yerr=waiting_times3_dev, color="gold", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, waiting_times3, yerr=waiting_times3_dev, color="gold", elinewidth=1.5, alpha=0.4)
     plt.axhline(y=baseline_w, color="r", label="fixed time (10s)")
     plt.xlabel("Episode")
     plt.ylabel("Average waiting time (s)")
