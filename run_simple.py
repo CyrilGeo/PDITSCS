@@ -22,8 +22,8 @@ def collect_transition(replay_buf, simu, act):
 
 
 # Fills the replay buffer with nb_samples samples using random actions
-def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, route_prob, hour_day, hourly_probs):
-    sim = Simulator(None, nb_ep_steps, det_rate, route_prob, hour_day, False, hourly_probs)
+def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs):
+    sim = Simulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -31,11 +31,11 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, route_p
     print("END OF SIMULATION")
 
 
-def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, route_prob, hour_day, hourly_probs):
+def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, route_prob, hour_day, hourly_probs)
-    while test_sim.step(agent.select_action(test_sim.get_state(), True)):
+    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
     av_w = statistics.mean(test_sim.averageWaitingTimes)
@@ -55,8 +55,8 @@ def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, route_prob, hour_day,
 
 
 if __name__ == "__main__":
-    h_probs = None
-    '''h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
+    # h_probs = None
+    h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
                [0.0005 / 3] * 3 + [0.002 / 3] * 3 + [0.0016 / 3] * 3 + [0.002 / 3] * 3,
                [0.0005 / 3] * 3 + [0.0019 / 3] * 3 + [0.0018 / 3] * 3 + [0.0027 / 3] * 3,
                [0.0003 / 3] * 3 + [0.0024 / 3] * 3 + [0.0016 / 3] * 3 + [0.0023 / 3] * 3,
@@ -79,33 +79,34 @@ if __name__ == "__main__":
                [0.0087 / 3] * 3 + [0.0363 / 3] * 3 + [0.0328 / 3] * 3 + [0.0387 / 3] * 3,
                [0.0063 / 3] * 3 + [0.0224 / 3] * 3 + [0.0259 / 3] * 3 + [0.0271 / 3] * 3,
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
-               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]'''
+               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
 
-    mem_size = 100000
-    nb_init = 10000  # Number of samples in the replay buffer before learning starts
+    mem_size = 3000000
+    nb_init = 300000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 1000
-    nb_episodes_test = 30
-    nb_episodes_between_tests = 5
-    nb_episode_steps = 3000
-    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
+    nb_episodes = 200
+    nb_episodes_test = 2
+    nb_episodes_between_tests = 10
+    nb_episode_steps = 86400
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    min_phase_duration = 10
     gui = False
     alpha = 0.0001
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
     epsilon_end = 0.05
-    decay_steps_ep = 100000
+    decay_steps_ep = 3000000
     temp = 1
     temp_end = 0.05
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    hour_of_the_day = 8
+    hour_of_the_day = 0
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 12
-    gen_name = "model_50_high_1000it_RMS"
+    gen_name = "model_100_realflow"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -118,12 +119,12 @@ if __name__ == "__main__":
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
-    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, route_probabilities,
-                      hour_of_the_day, h_probs)
+    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, min_phase_duration,
+                      route_probabilities, hour_of_the_day, h_probs)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, route_probabilities, hour_of_the_day, gui,
-                          h_probs)
+    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
+                          hour_of_the_day, gui, h_probs)
 
     # Learning phase
     print("STARTING LEARNING")
@@ -131,15 +132,15 @@ if __name__ == "__main__":
     while continue_simulation:
         if doTesting and simulator.get_episode_end() == 1 and (
                 simulator.episodeCnt - 1) % nb_episodes_between_tests == 0:
-            test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, route_probabilities,
-                       hour_of_the_day, h_probs)
+            test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
+                       route_probabilities, hour_of_the_day, h_probs, agent)
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
-    test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, route_probabilities,
-               hour_of_the_day, h_probs)
+    test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
+               route_probabilities, hour_of_the_day, h_probs, agent)
     print("LEARNING DONE")
 
     if doTesting:

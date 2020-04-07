@@ -51,5 +51,6 @@ class MonacoSim:
         traci.simulationStep()
         return True
 
-    def close(self):
+    @staticmethod
+    def close_simulation():
         traci.close()

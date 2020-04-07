@@ -51,7 +51,7 @@ if __name__ == "__main__":
     baseline_adapted_r_dev = 0
     baseline_adapted_w_dev = 0
 
-    figure_name = "horizontal_45_60"
+    figure_name = "horizontal_45_60_zoomed"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
@@ -119,7 +119,7 @@ if __name__ == "__main__":
             elif value.tag == "Waiting_time_standard_deviation":
                 baseline_adapted_w_dev = value.simple_value
 
-    plt.figure()
+    '''plt.figure()
     plt.grid()
     plt.plot(episodes, rewards1, color="limegreen", label="100% detection rate")
     plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=1.5, alpha=0.4)
@@ -128,12 +128,12 @@ if __name__ == "__main__":
     plt.plot(episodes, rewards3, color="gold", label="20% detection rate")
     plt.errorbar(episodes, rewards3, yerr=rewards3_dev, color="gold", elinewidth=1.5, alpha=0.4)
     plt.axhline(y=baseline_r, color="r", label="fixed time (10s)")
-    plt.axhline(y=baseline_adapted_r, color="darkviolet", label="adapted fixed time")
+    # plt.axhline(y=baseline_adapted_r, color="darkviolet", label="adapted fixed time")
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
     plt.legend()
     plt.savefig("figures/" + figure_name + "_r.png")
-    plt.show()
+    plt.show()'''
 
     plt.figure()
     plt.grid()
@@ -145,6 +145,7 @@ if __name__ == "__main__":
     plt.errorbar(episodes, waiting_times3, yerr=waiting_times3_dev, color="gold", elinewidth=1.5, alpha=0.4)
     plt.axhline(y=baseline_w, color="r", label="fixed time (10s)")
     plt.axhline(y=baseline_adapted_w, color="darkviolet", label="adapted fixed time")
+    plt.ylim(bottom=2, top=7)
     plt.xlabel("Episode")
     plt.ylabel("Average waiting time (s)")
     plt.legend()

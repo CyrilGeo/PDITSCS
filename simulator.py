@@ -34,12 +34,13 @@ def get_options():
 
 class Simulator:
 
-    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, route_probs, hour_of_the_day, gui=False,
-                 hourly_probs=None):
+    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
+                 gui=False, hourly_probs=None):
         self.N = nb_episodes
         self.n = nb_episode_steps
         self.episodeCnt = 1
         self.detectionRate = detection_rate
+        self.minPhaseDuration = min_phase_duration
         self.hourOfTheDay = hour_of_the_day
         self.currNbIterations = 0
         self.currPhaseTime = None
@@ -49,7 +50,7 @@ class Simulator:
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
-        self.h_probs = hourly_probs
+        self.hourlyProbs = hourly_probs
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -88,7 +89,7 @@ class Simulator:
     </input>
     <time>
         <begin value="0"/>
-        <end value="3000"/>
+        <end value=""" + '"' + str(self.n) + '"' + """/>
     </time>
 </configuration>""", file=config)
 
@@ -101,7 +102,7 @@ class Simulator:
     # Initializes a new episode
     def init_new_episode(self):
         print("LOADING NEW EPISODE")
-        self.generate_traffic(self.h_probs)
+        self.generate_traffic(self.hourlyProbs)
 
         # Starting sumo as a subprocess
         traci.start([self.sumoBinary, "-c", "sumo_sim/simple_intersection_" + self.job_id + ".sumocfg"])
@@ -173,7 +174,7 @@ class Simulator:
             print("Average reward:", average_reward)
             self.episodes.append(self.episodeCnt)
             self.averageRewards.append(average_reward)
-            average_waiting_time = self.cumWaitingTime / self.nbGeneratedVeh
+            average_waiting_time = self.cumWaitingTime / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
             print("Average waiting time:", average_waiting_time)
             self.averageWaitingTimes.append(average_waiting_time)
             self.rewards.clear()
@@ -195,20 +196,20 @@ class Simulator:
 
         # Action decided by the value given in argument
         if action is not None:
-            if action == 1 and self.currPhaseTime > 10:
+            if action == 1 and self.currPhaseTime > self.minPhaseDuration:
                 self.next_phase()
 
         # Fixed phase duration
-        elif self.currPhaseTime > 10:
+        elif self.currPhaseTime > self.minPhaseDuration:
             self.next_phase()
 
         # Adapted fixed phase duration
-        '''elif (self.currPhaseTime > 10 and traci.trafficlight.getPhase("center") == 0) or (
+        '''elif (self.currPhaseTime > self.minPhaseDuration and traci.trafficlight.getPhase("center") == 0) or (
                 self.currPhaseTime > 15 and traci.trafficlight.getPhase("center") == 2):
             self.next_phase()'''
 
         # Randomly choosing if the simulation switches to the next state or stays at the current state
-        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > 10:
+        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > self.minPhaseDuration:
             self.next_phase()'''
 
         traci.simulationStep()
@@ -229,12 +230,13 @@ class Simulator:
     def update_state(self, veh_ids):
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
-        if traci.trafficlight.getPhase("center") == 0:
+        current_phase = traci.trafficlight.getPhase("center")
+        if current_phase == 0:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
             self.detectedCarCnt[3] = -self.detectedCarCnt[3]
             self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
             self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif traci.trafficlight.getPhase("center") == 2:
+        elif current_phase == 2:
             self.detectedCarCnt[0] = -self.detectedCarCnt[0]
             self.detectedCarCnt[2] = -self.detectedCarCnt[2]
             self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
@@ -243,8 +245,7 @@ class Simulator:
         self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
             "center") - traci.trafficlight.getNextSwitch("center"))
         self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("center")
-        self.amberPhase = 1 if traci.trafficlight.getPhase("center") == 1 or traci.trafficlight.getPhase(
-            "center") == 3 else 0
+        self.amberPhase = 1 if current_phase == 1 or current_phase == 3 else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
     # Updates the reward
