@@ -1,4 +1,4 @@
-from simulator import Simulator
+from lux_training_sim import LuxTrainingSim
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -22,8 +22,8 @@ def collect_transition(replay_buf, simu, act):
 
 
 # Fills the replay buffer with nb_samples samples using random actions
-def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs):
-    sim = Simulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase):
+    sim = LuxTrainingSim(None, det_rate, min_phase, False)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -31,10 +31,10 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
     print("END OF SIMULATION")
 
 
-def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs, ag):
+def test_agent(sim, tb, nb_ep_test, det_rate, min_phase, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    test_sim = LuxTrainingSim(nb_ep_test, det_rate, min_phase, False)
     while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
@@ -55,42 +55,15 @@ def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob
 
 
 if __name__ == "__main__":
-    # h_probs = None
-    h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
-               [0.0005 / 3] * 3 + [0.002 / 3] * 3 + [0.0016 / 3] * 3 + [0.002 / 3] * 3,
-               [0.0005 / 3] * 3 + [0.0019 / 3] * 3 + [0.0018 / 3] * 3 + [0.0027 / 3] * 3,
-               [0.0003 / 3] * 3 + [0.0024 / 3] * 3 + [0.0016 / 3] * 3 + [0.0023 / 3] * 3,
-               [0.0035 / 3] * 3 + [0.0032 / 3] * 3 + [0.004 / 3] * 3 + [0.0061 / 3] * 3,
-               [0.0197 / 3] * 3 + [0.012 / 3] * 3 + [0.0094 / 3] * 3 + [0.0186 / 3] * 3,
-               [0.05 / 3] * 3 + [0.0296 / 3] * 3 + [0.0229 / 3] * 3 + [0.0481 / 3] * 3,
-               [0.0717 / 3] * 3 + [0.0507 / 3] * 3 + [0.0375 / 3] * 3 + [0.0653 / 3] * 3,
-               [0.0756 / 3] * 3 + [0.0529 / 3] * 3 + [0.0434 / 3] * 3 + [0.0742 / 3] * 3,
-               [0.0696 / 3] * 3 + [0.0393 / 3] * 3 + [0.0331 / 3] * 3 + [0.0603 / 3] * 3,
-               [0.0541 / 3] * 3 + [0.025 / 3] * 3 + [0.0212 / 3] * 3 + [0.0406 / 3] * 3,
-               [0.0284 / 3] * 3 + [0.0208 / 3] * 3 + [0.0184 / 3] * 3 + [0.0293 / 3] * 3,
-               [0.0419 / 3] * 3 + [0.0331 / 3] * 3 + [0.0294 / 3] * 3 + [0.0540 / 3] * 3,
-               [0.0569 / 3] * 3 + [0.0373 / 3] * 3 + [0.0327 / 3] * 3 + [0.0522 / 3] * 3,
-               [0.0465 / 3] * 3 + [0.0263 / 3] * 3 + [0.0244 / 3] * 3 + [0.0542 / 3] * 3,
-               [0.0157 / 3] * 3 + [0.0198 / 3] * 3 + [0.0214 / 3] * 3 + [0.0313 / 3] * 3,
-               [0.0132 / 3] * 3 + [0.0426 / 3] * 3 + [0.0374 / 3] * 3 + [0.0517 / 3] * 3,
-               [0.0156 / 3] * 3 + [0.0594 / 3] * 3 + [0.0575 / 3] * 3 + [0.0702 / 3] * 3,
-               [0.0234 / 3] * 3 + [0.0616 / 3] * 3 + [0.0725 / 3] * 3 + [0.0712 / 3] * 3,
-               [0.0163 / 3] * 3 + [0.0556 / 3] * 3 + [0.0572 / 3] * 3 + [0.0668 / 3] * 3,
-               [0.0087 / 3] * 3 + [0.0363 / 3] * 3 + [0.0328 / 3] * 3 + [0.0387 / 3] * 3,
-               [0.0063 / 3] * 3 + [0.0224 / 3] * 3 + [0.0259 / 3] * 3 + [0.0271 / 3] * 3,
-               [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
-               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
-
     mem_size = 3000000
     nb_init = 300000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 11
+    nb_inputs = 27
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 200
+    nb_episodes = 300
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
-    nb_episode_steps = 86400
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
-    min_phase_duration = 10
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
+    min_phase_duration = 5
     gui = False
     alpha = 0.0001
     gamma = 0.9
@@ -103,10 +76,7 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    hour_of_the_day = 0
-    # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_realflow"
+    gen_name = "model_20_real"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -119,12 +89,10 @@ if __name__ == "__main__":
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
-    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, min_phase_duration,
-                      route_probabilities, hour_of_the_day, h_probs)
+    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, detection_rate, min_phase_duration)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
-                          hour_of_the_day, gui, h_probs)
+    simulator = LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
 
     # Learning phase
     print("STARTING LEARNING")
@@ -132,15 +100,13 @@ if __name__ == "__main__":
     while continue_simulation:
         if doTesting and simulator.get_episode_end() == 1 and (
                 simulator.episodeCnt - 1) % nb_episodes_between_tests == 0:
-            test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
-                       route_probabilities, hour_of_the_day, h_probs, agent)
+            test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, agent)
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
-    test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
-               route_probabilities, hour_of_the_day, h_probs, agent)
+    test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, agent)
     print("LEARNING DONE")
 
     if doTesting:

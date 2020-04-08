@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
-    simulator = sim.LuxSim(1, 1.0, 5, False)
+    simulator = sim.LuxSim(10, 1.0, 5, False)
     while simulator.step():
         '''print(simulator.get_curr_nb_iterations())
         print(simulator.get_state())
