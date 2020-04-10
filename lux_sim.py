@@ -87,7 +87,7 @@ class LuxSim:
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         self.maxLaneDist = min([traci.lane.getLength(x) for x in self.laneIDs])
         self.defaultDistances = [-self.maxLaneDist] * len(veh_ids)
-        self.add_veh_to_detection_dict()
+        self.add_veh_to_detection_dict(veh_ids)
         self.update_state(veh_ids)
 
     # Initializes a new episode
@@ -96,14 +96,17 @@ class LuxSim:
         # Starting sumo as a subprocess
         traci.start([self.sumoBinary, "-c", "../LuSTScenario/scenario/dua.static.sumocfg"])
 
-    def add_veh_to_detection_dict(self):
-        for veh_id in traci.simulation.getLoadedIDList():
-            self.nbGeneratedVeh += 1
-            self.hourlyNbGeneratedVeh += 1
-            if random.uniform(0, 1) < self.detectionRate:
-                self.detectionDict[veh_id] = True
-            else:
-                self.detectionDict[veh_id] = False
+    def add_veh_to_detection_dict(self, veh_ids):
+        for i in range(len(self.laneIDs)):
+            for x in veh_ids[i]:
+                if traci.lane.getLength(self.laneIDs[i]) - traci.vehicle.getLanePosition(
+                        x) <= self.maxLaneDist and x not in self.detectionDict:
+                    self.nbGeneratedVeh += 1
+                    self.hourlyNbGeneratedVeh += 1
+                    if random.uniform(0, 1) < self.detectionRate:
+                        self.detectionDict[x] = True
+                    else:
+                        self.detectionDict[x] = False
 
     # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
     # use step(self) for use in testing.py
@@ -163,8 +166,8 @@ class LuxSim:
         traci.simulationStep()
         self.currNbIterations += 1
         self.currNbSteps += 1
-        self.add_veh_to_detection_dict()
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
+        self.add_veh_to_detection_dict(veh_ids)
         self.update_state(veh_ids)
         self.update_reward(veh_ids)
         self.increment_waiting_time(veh_ids)
@@ -252,8 +255,8 @@ class LuxSim:
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
-                if self.detectionDict[x] and traci.lane.getLength(self.laneIDs[i]) - traci.vehicle.getLanePosition(
-                        x) <= self.maxLaneDist:
+                if traci.lane.getLength(self.laneIDs[i]) - traci.vehicle.getLanePosition(x) <= self.maxLaneDist and \
+                        self.detectionDict[x]:
                     cnt[i] -= 1
         return cnt
 
@@ -263,8 +266,8 @@ class LuxSim:
         distances = self.defaultDistances.copy()
         for i in range(len(veh_ids)):
             detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
-                                  self.detectionDict[x] and traci.lane.getLength(
-                                      self.laneIDs[i]) - traci.vehicle.getLanePosition(x) <= self.maxLaneDist]
+                                  traci.lane.getLength(self.laneIDs[i]) - traci.vehicle.getLanePosition(
+                                      x) <= self.maxLaneDist and self.detectionDict[x]]
             if detected_positions:
                 distances[i] = max(detected_positions) - traci.lane.getLength(self.laneIDs[i])
         return distances

@@ -32,10 +32,11 @@ def get_options():
     return options
 
 
-class Simulator:
+class PrioritySimulator:
 
-    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
-                 gui=False, hourly_probs=None):
+    def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, bus_frequency_1,
+                 bus_frequency_2, bus_frequency_3, bus_stddev, priority_factor, hour_of_the_day, gui=False,
+                 hourly_probs=None):
         self.N = nb_episodes
         self.n = nb_episode_steps
         self.episodeCnt = 1
@@ -45,6 +46,11 @@ class Simulator:
         self.currNbIterations = 0
         self.currPhaseTime = None
         self.routeProbs = route_probs
+        self.busFrequency1 = bus_frequency_1
+        self.busFrequency2 = bus_frequency_2
+        self.busFrequency3 = bus_frequency_3
+        self.busStddev = bus_stddev
+        self.busPriorityFactor = priority_factor
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
         self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
@@ -57,6 +63,7 @@ class Simulator:
 
         # State variables
         self.detectedCarCnt = None
+        self.busCnt = None
         self.distanceNearestDetectedVeh = None
         self.normCurrPhaseTime = None
         self.amberPhase = None
@@ -68,8 +75,14 @@ class Simulator:
         self.rewards = []
         self.averageRewards = []
         self.cumWaitingTime = 0
+        self.cumWaitingTimeCars = 0
+        self.cumWaitingTimeBuses = 0
         self.nbGeneratedVeh = 0
+        self.nbGeneratedCars = 0
+        self.nbGeneratedBuses = 0
         self.averageWaitingTimes = []
+        self.averageWaitingTimesCars = []
+        self.averageWaitingTimesBuses = []
 
         # Determines whether to use the simulator's GUI or not
         options = get_options()
@@ -117,6 +130,7 @@ class Simulator:
         with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
             print("""<routes>
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>
+    <vType vClass="bus" id="bus" accel="2.6" decel="4.5" sigma="0.5" length="12.0" minGap="3" maxSpeed="30" guiShape="bus"/>
 
     <route id="route0" edges="in_west out_north"/>
     <route id="route1" edges="in_west out_east"/>
@@ -131,11 +145,54 @@ class Simulator:
     <route id="route10" edges="in_south out_north"/>
     <route id="route11" edges="in_south out_east"/>""", file=routes)
 
+            depart_times_going1 = self.generate_bus_depart_times(self.busFrequency1, self.busStddev)
+            depart_times_coming1 = self.generate_bus_depart_times(self.busFrequency1, self.busStddev)
+            depart_times_going2 = self.generate_bus_depart_times(self.busFrequency2, self.busStddev)
+            depart_times_coming2 = self.generate_bus_depart_times(self.busFrequency2, self.busStddev)
+            depart_times_going3 = self.generate_bus_depart_times(self.busFrequency3, self.busStddev)
+            depart_times_coming3 = self.generate_bus_depart_times(self.busFrequency3, self.busStddev)
+
             # Randomly choosing if a vehicle is generated for each step and each route
             if hourly_probs:
                 nb_configurations = len(hourly_probs)
                 k = -1
                 for i in range(self.n):
+                    if i in depart_times_going1:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route7" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming1:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route1" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_going2:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route3" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming2:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route8" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_going3:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route4" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming3:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route10" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
                     if i % 3600 == 0:
                         k = (k + 1) % nb_configurations
                     for j in range(len(hourly_probs[k])):
@@ -144,16 +201,64 @@ class Simulator:
                                 j) + '" depart="' + str(
                                 i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
                             self.nbGeneratedVeh += 1
+                            self.nbGeneratedCars += 1
             else:
                 for i in range(self.n):
+                    if i in depart_times_going1:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route7" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming1:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route1" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_going2:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route3" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming2:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route8" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_going3:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route4" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
+                    if i in depart_times_coming3:
+                        print('    <vehicle id="' + str(
+                            self.nbGeneratedVeh) + '" type="bus" route="route10" depart="' + str(
+                            i) + '" color="' + self.detectedColor + '" departSpeed="max"/>', file=routes)
+                        self.nbGeneratedVeh += 1
+                        self.nbGeneratedBuses += 1
                     for j in range(len(self.routeProbs)):
                         if random.uniform(0, 1) < self.routeProbs[j]:
                             print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
                                 j) + '" depart="' + str(
                                 i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
                             self.nbGeneratedVeh += 1
+                            self.nbGeneratedCars += 1
 
             print("</routes>", file=routes)
+
+    # Generates the depart times of a bus line
+    def generate_bus_depart_times(self, freq, stddev):
+        depart_times = []
+        for planned_time in range(int(random.uniform(0, freq)), self.n, freq):
+            depart_time = int(random.gauss(planned_time, stddev))
+            while depart_time < 0:
+                depart_time = int(random.gauss(planned_time, stddev))
+            depart_times.append(depart_time)
+        return depart_times
 
     # Randomly chooses if a generated vehicle is detected or not by selecting its color accordingly
     def select_color(self):
@@ -175,11 +280,21 @@ class Simulator:
             self.episodes.append(self.episodeCnt)
             self.averageRewards.append(average_reward)
             average_waiting_time = self.cumWaitingTime / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
+            average_waiting_time_cars = self.cumWaitingTimeCars / self.nbGeneratedCars if self.nbGeneratedCars != 0 else 0
+            average_waiting_time_buses = self.cumWaitingTimeBuses / self.nbGeneratedBuses if self.nbGeneratedBuses != 0 else 0
             print("Average waiting time:", average_waiting_time)
+            print("Average waiting time for cars:", average_waiting_time_cars)
+            print("Average waiting time for buses:", average_waiting_time_buses)
             self.averageWaitingTimes.append(average_waiting_time)
+            self.averageWaitingTimesCars.append(average_waiting_time_cars)
+            self.averageWaitingTimesBuses.append(average_waiting_time_buses)
             self.rewards.clear()
             self.cumWaitingTime = 0
+            self.cumWaitingTimeCars = 0
+            self.cumWaitingTimeBuses = 0
             self.nbGeneratedVeh = 0
+            self.nbGeneratedCars = 0
+            self.nbGeneratedBuses = 0
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -228,17 +343,21 @@ class Simulator:
 
     # Updates the state values
     def update_state(self, veh_ids):
-        self.detectedCarCnt = self.count_detected_veh(veh_ids)
+        self.count_detected_veh(veh_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
         if current_phase == 0:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
             self.detectedCarCnt[3] = -self.detectedCarCnt[3]
+            self.busCnt[1] = -self.busCnt[1]
+            self.busCnt[3] = -self.busCnt[3]
             self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
             self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
         elif current_phase == 2:
             self.detectedCarCnt[0] = -self.detectedCarCnt[0]
             self.detectedCarCnt[2] = -self.detectedCarCnt[2]
+            self.busCnt[0] = -self.busCnt[0]
+            self.busCnt[2] = -self.busCnt[2]
             self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
             self.distanceNearestDetectedVeh[2] = -self.distanceNearestDetectedVeh[2]
 
@@ -255,18 +374,25 @@ class Simulator:
             v_max_lane = traci.lane.getMaxSpeed(self.laneIDs[i])
             for x in veh_ids[i]:
                 v_max = min(v_max_lane, traci.vehicle.getMaxSpeed(x))
-                rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
+                if traci.vehicle.getTypeID(x) == "car":
+                    rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
+                else:
+                    rewards.append(self.busPriorityFactor * (traci.vehicle.getSpeed(x) - v_max) / v_max)
         self.reward = statistics.mean(rewards) if rewards else 0
 
     # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
-    @staticmethod
-    def count_detected_veh(ids):
-        cnt = [0] * len(ids)
+    def count_detected_veh(self, ids):
+        car_cnt = [0] * len(ids)
+        bus_cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
                 if traci.vehicle.getColor(x) == (0, 255, 0, 255):
-                    cnt[i] -= 1
-        return cnt
+                    if traci.vehicle.getTypeID(x) == "car":
+                        car_cnt[i] -= 1
+                    else:
+                        bus_cnt[i] -= 1
+        self.detectedCarCnt = car_cnt
+        self.busCnt = bus_cnt
 
     # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
     # car ids
@@ -281,8 +407,8 @@ class Simulator:
 
     # Returns the state values as a list
     def get_state(self):
-        return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime, self.amberPhase,
-                                                                        self.currDayTime]
+        return self.detectedCarCnt + self.busCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime,
+                                                                                      self.amberPhase, self.currDayTime]
 
     # Returns the reward
     def get_reward(self):
@@ -297,11 +423,19 @@ class Simulator:
 
     def increment_waiting_time(self, ids):
         cnt = 0
+        cnt_cars = 0
+        cnt_buses = 0
         for i in range(len(ids)):
             for x in ids[i]:
                 if traci.vehicle.getSpeed(x) < 0.1:
+                    if traci.vehicle.getTypeID(x) == "car":
+                        cnt_cars += 1
+                    else:
+                        cnt_buses += 1
                     cnt += 1
         self.cumWaitingTime += cnt
+        self.cumWaitingTimeCars += cnt_cars
+        self.cumWaitingTimeBuses += cnt_buses
 
     # /!\ Filename without file extension
     def save_stats(self, gen_name):

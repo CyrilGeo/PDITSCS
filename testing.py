@@ -29,31 +29,46 @@ if __name__ == "__main__":
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
                [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
 
-    nb_episodes = 300
-    simulator = sim.Simulator(30, 86400, 1.0, [1. / 30] * 3 + [1. / 45] * 3 + [1. / 30] * 3 + [1. / 45] * 3, 0, False, h_probs)
-    # tb = SummaryWriter(log_dir="runs/real_baseline")
+    nb_episodes = 200
+    simulator = sim.Simulator(30, 3000, 0.5, 10, [1. / 90] * 12, 8, False)
 
     while simulator.step():
-        pass
+        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
+        print(simulator.get_state())'''
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
     stddev_r = statistics.stdev(simulator.averageRewards)
     stddev_w = statistics.stdev(simulator.averageWaitingTimes)
-    '''tb.add_scalar("Average reward", reward, 1)
+
+    '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
+    waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)'''
+
+    tb = SummaryWriter(log_dir="runs/uniform_1over45_buses_baseline")
+
+    tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
     tb.add_scalar("Reward standard deviation", stddev_r, 1)
     tb.add_scalar("Waiting time standard deviation", stddev_w, 1)
     tb.add_scalar("Average reward", reward, nb_episodes)
     tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
     tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)'''
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
+
+    '''tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
+    tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes)
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)'''
+
     print("Average reward:", reward)
     print("Average waiting time:", waiting_time)
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    # tb.close()
+    '''print("Average waiting time for cars:", waiting_time_cars)
+    print("Average waiting time for buses:", waiting_time_buses)'''
+
+    tb.close()
 
     # with open("data/hor1over45_ver1over60_baseline_r.txt", "wb") as file:
     #     pickle.dump(reward, file)

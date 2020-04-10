@@ -159,10 +159,10 @@ class LuxTrainingSim:
     <route id="route11" edges="in_south out_east"/>""", file=routes)
 
             nb_configurations = len(self.hourlyProbs)
-            k = -1
+            k = 0
             cnt_hourly_veh = 0
             for i in range(86400):
-                if i % 3600 == 0:
+                if (i + 1) % 3600 == 0:
                     self.hourlyNbGeneratedVeh.append(cnt_hourly_veh)
                     cnt_hourly_veh = 0
                     k = (k + 1) % nb_configurations
@@ -236,6 +236,10 @@ class LuxTrainingSim:
         # Action decided by the value given in argument
         if action is not None and action == 1 and self.currPhaseTime > self.minPhaseDuration:
             self.next_phase()
+
+        # Fixed phase duration (for optimized results, but not what expected)
+        '''elif self.currPhaseTime > 8:
+            self.next_phase()'''
 
         traci.simulationStep()
         self.currNbIterations += 1

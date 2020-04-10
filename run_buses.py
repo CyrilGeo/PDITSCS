@@ -1,4 +1,4 @@
-from simulator import Simulator
+from priority_simulator import PrioritySimulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -22,8 +22,10 @@ def collect_transition(replay_buf, simu, act):
 
 
 # Fills the replay buffer with nb_samples samples using random actions
-def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs):
-    sim = Simulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2,
+                      bus_freq_3, bus_dev, pr_factor, hour_day, hourly_probs):
+    sim = PrioritySimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2, bus_freq_3,
+                            bus_dev, pr_factor, hour_day, False, hourly_probs)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -31,10 +33,12 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
     print("END OF SIMULATION")
 
 
-def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs, ag):
+def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2, bus_freq_3,
+               bus_dev, pr_factor, hour_day, hourly_probs, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    test_sim = PrioritySimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2,
+                                 bus_freq_3, bus_dev, pr_factor, hour_day, False, hourly_probs)
     while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
@@ -83,13 +87,13 @@ if __name__ == "__main__":
 
     mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 11
+    nb_inputs = 15
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 200
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -105,8 +109,13 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 30] * 3 + [1. / 60] * 3 + [1. / 30] * 3 + [1. / 60] * 3
-    gen_name = "model_hor_30_60_50_RMS"
+    route_probabilities = [1. / 45] * 12
+    bus_frequency_1 = 600
+    bus_frequency_2 = 900
+    bus_frequency_3 = 600
+    bus_stddev = 90
+    priority_factor = 1
+    gen_name = "model_100_medium_buses"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -120,11 +129,13 @@ if __name__ == "__main__":
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
     initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, min_phase_duration,
-                      route_probabilities, hour_of_the_day, h_probs)
+                      route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
+                      priority_factor, hour_of_the_day, h_probs)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
-                          hour_of_the_day, gui, h_probs)
+    simulator = PrioritySimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                  route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
+                                  priority_factor, hour_of_the_day, gui, h_probs)
 
     # Learning phase
     print("STARTING LEARNING")
@@ -133,14 +144,16 @@ if __name__ == "__main__":
         if doTesting and simulator.get_episode_end() == 1 and (
                 simulator.episodeCnt - 1) % nb_episodes_between_tests == 0:
             test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
-                       route_probabilities, hour_of_the_day, h_probs, agent)
+                       route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
+                       priority_factor, hour_of_the_day, h_probs, agent)
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
     test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
-               route_probabilities, hour_of_the_day, h_probs, agent)
+               route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev, priority_factor,
+               hour_of_the_day, h_probs, agent)
     print("LEARNING DONE")
 
     if doTesting:
