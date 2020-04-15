@@ -1,13 +1,39 @@
-import lux_sim as sim
-# import lux_training_sim as sim
+import lux_training_sim as sim
+from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
-    simulator = sim.LuxSim(10, 1.0, 5, False)
-    nb_episodes = 300
-    while simulator.step():
+    mem_size = 3000000
+    nb_init = 300000  # Number of samples in the replay buffer before learning starts
+    nb_inputs = 27
+    nb_actions = 2  # Either stay at current phase or switch to the next one
+    nb_episodes = 10
+    nb_episodes_test = 10
+    nb_episodes_between_tests = 10
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
+    min_phase_duration = 5
+    gui = False
+    alpha = 0.0001
+    gamma = 0.9
+    policy = "epsilon-greedy"
+    epsilon = 1
+    epsilon_end = 0.05
+    decay_steps_ep = 3000000
+    temp = 1
+    temp_end = 0.05
+    decay_steps_temp = 100000
+    batch_size = 32
+    target_update_frequency = 3000
+    file_name = "model_20_real.pt"
+
+    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
+                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    simulator = sim.LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    nb_episodes_baseline = 300
+    agent.load_net()
+    while simulator.step(agent.select_action(simulator.get_state(), True)):
         '''print("iteration:", simulator.get_curr_nb_iterations())
         print(simulator.get_state())
         print(simulator.get_reward())'''
@@ -26,23 +52,23 @@ if __name__ == "__main__":
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    tb = SummaryWriter(log_dir="runs/hourly_LuST_baseline")
+    tb = SummaryWriter(log_dir="runs/hourly_LuST_training_20")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
     tb.add_scalar("Reward standard deviation", stddev_r, 1)
     tb.add_scalar("Waiting time standard deviation", stddev_w, 1)
-    tb.add_scalar("Average reward", reward, nb_episodes)
-    tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
-    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
+    tb.add_scalar("Average reward", reward, nb_episodes_baseline)
+    tb.add_scalar("Average waiting time", waiting_time, nb_episodes_baseline)
+    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes_baseline)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes_baseline)
 
     for i in range(len(hours)):
         tb.add_scalar("Average hourly reward", averageHourlyRewards[i], hours[i])
         tb.add_scalar("Average hourly waiting time", averageHourlyWaitingTimes[i], hours[i])
     tb.close()
 
-    '''plt.figure()
+    plt.figure()
     plt.grid()
     plt.plot(hours, averageHourlyRewards, color="r", label="fixed time")
     plt.xlabel("Hour of the day")
@@ -56,4 +82,4 @@ if __name__ == "__main__":
     plt.xlabel("Hour of the day")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
-    plt.show()'''
+    plt.show()

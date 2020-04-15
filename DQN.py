@@ -158,8 +158,11 @@ class Agent:
         self.epsilon = self.epsilon - self.decayStepEpsilon if self.epsilon > self.epsilonEnd else self.epsilonEnd
         self.temp = self.temp - self.decayStepTemp if self.temp > self.tempEnd else self.tempEnd
 
-    def save_net(self):
-        T.save(self.qNetwork.state_dict(), os.path.join("models", self.fileName))
+    def save_net(self, file_name=None):
+        if file_name:
+            T.save(self.qNetwork.state_dict(), os.path.join("models", file_name + ".pt"))
+        else:
+            T.save(self.qNetwork.state_dict(), os.path.join("models", self.fileName))
 
     def load_net(self):
         self.qNetwork.load_state_dict(T.load(os.path.join("models", self.fileName)))

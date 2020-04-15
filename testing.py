@@ -1,4 +1,4 @@
-import simulator as sim
+import priority_simulator as sim
 import pickle
 import statistics
 from torch.utils.tensorboard import SummaryWriter
@@ -30,7 +30,7 @@ if __name__ == "__main__":
                [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
 
     nb_episodes = 200
-    simulator = sim.Simulator(30, 3000, 0.5, 10, [1. / 90] * 12, 8, False)
+    simulator = sim.PrioritySimulator(30, 3000, 1.0, 10, [1. / 60] * 12, 600, 900, 600, 90, 10, 8, False)
 
     while simulator.step():
         '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
@@ -41,10 +41,10 @@ if __name__ == "__main__":
     stddev_r = statistics.stdev(simulator.averageRewards)
     stddev_w = statistics.stdev(simulator.averageWaitingTimes)
 
-    '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
-    waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)'''
+    waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
+    waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over45_buses_baseline")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf10_buses_baseline")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -55,18 +55,18 @@ if __name__ == "__main__":
     tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
     tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
 
-    '''tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
+    tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
     tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
     tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes)
-    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)'''
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)
 
     print("Average reward:", reward)
     print("Average waiting time:", waiting_time)
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    '''print("Average waiting time for cars:", waiting_time_cars)
-    print("Average waiting time for buses:", waiting_time_buses)'''
+    print("Average waiting time for cars:", waiting_time_cars)
+    print("Average waiting time for buses:", waiting_time_buses)
 
     tb.close()
 

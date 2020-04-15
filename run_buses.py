@@ -93,7 +93,7 @@ if __name__ == "__main__":
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -114,8 +114,8 @@ if __name__ == "__main__":
     bus_frequency_2 = 900
     bus_frequency_3 = 600
     bus_stddev = 90
-    priority_factor = 3
-    gen_name = "model_100_low_buses_pf3"
+    priority_factor = 8
+    gen_name = "model_20_low_buses_pf8"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -146,6 +146,12 @@ if __name__ == "__main__":
             test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
                        route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
                        priority_factor, hour_of_the_day, h_probs, agent)
+            if simulator.episodeCnt - 1 == nb_episodes - (
+                    nb_episodes % nb_episodes_between_tests) - nb_episodes_between_tests:
+                agent.save_net(gen_name + "_1stepback")
+            if simulator.episodeCnt - 1 == nb_episodes - (
+                    nb_episodes % nb_episodes_between_tests) - 2 * nb_episodes_between_tests:
+                agent.save_net(gen_name + "_2stepback")
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()

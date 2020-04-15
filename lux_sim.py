@@ -115,6 +115,12 @@ class LuxSim:
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
         if traci.simulation.getMinExpectedNumber() <= 0:
+            print("END OF EPISODE")
+            print(self.averageHourlyWaitingTime)
+            print(self.cumWaitingTime)
+            print(self.hourlyCumWaitingTime)
+            print(self.nbGeneratedVeh)
+            print(self.hourlyNbGeneratedVeh)
             traci.close()
             print("EPISODE", self.episodeCnt, "DONE")
             average_reward = statistics.mean(self.rewards)
@@ -125,17 +131,22 @@ class LuxSim:
             print("Average waiting time:", average_waiting_time)
             self.averageWaitingTimes.append(average_waiting_time)
             if self.currNbSteps < 86400:
+                print("PLUS PETIT")
+                print(self.averageHourlyWaitingTime)
                 self.averageHourlyReward.append(
                     statistics.mean(self.hourlyReward + [0] * (3600 - self.currNbSteps % 3600)))
                 index = int(self.currNbSteps / 3600)
                 self.averageHourlyReward = self.averageHourlyReward + [0] * (23 - index)
                 self.averageHourlyWaitingTime.append(self.hourlyCumWaitingTime / self.hourlyNbGeneratedVeh)
+                print(self.averageHourlyWaitingTime)
                 self.averageHourlyWaitingTime = self.averageHourlyWaitingTime + [0] * (23 - index)
+                print(self.averageHourlyWaitingTime)
             for i in range(len(self.averageHourlyRewards)):
                 self.averageHourlyRewards[i] = self.averageHourlyRewards[i] + [self.averageHourlyReward[i]]
             for i in range(len(self.averageHourlyWaitingTimes)):
                 self.averageHourlyWaitingTimes[i] = self.averageHourlyWaitingTimes[i] + [
                     self.averageHourlyWaitingTime[i]]
+            print(self.averageHourlyWaitingTimes)
             self.rewards.clear()
             self.averageHourlyReward.clear()
             self.averageHourlyWaitingTime.clear()
@@ -145,6 +156,7 @@ class LuxSim:
             self.hourlyCumWaitingTime = 0
             self.hourlyNbGeneratedVeh = 0
             self.currNbSteps = 0
+            self.detectionDict.clear()
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -177,6 +189,7 @@ class LuxSim:
             self.averageHourlyReward.append(statistics.mean(self.hourlyReward))
             self.averageHourlyWaitingTime.append(
                 self.hourlyCumWaitingTime / self.hourlyNbGeneratedVeh if self.hourlyNbGeneratedVeh != 0 else 0)
+            print(self.averageHourlyWaitingTime)
             self.hourlyReward.clear()
             self.hourlyCumWaitingTime = 0
             self.hourlyNbGeneratedVeh = 0
@@ -292,7 +305,8 @@ class LuxSim:
         cnt = 0
         for i in range(len(veh_ids)):
             for x in veh_ids[i]:
-                if traci.vehicle.getSpeed(x) < 0.1:
+                if traci.vehicle.getSpeed(x) < 0.1 and traci.lane.getLength(
+                        self.laneIDs[i]) - traci.vehicle.getLanePosition(x) <= self.maxLaneDist:
                     cnt += 1
         self.cumWaitingTime += cnt
         self.hourlyCumWaitingTime += cnt

@@ -81,32 +81,33 @@ if __name__ == "__main__":
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
                [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]'''
 
+    # STAB changer la loss function, (normaliser nb veh)
     mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 200
+    nb_episodes = 1000
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
-    alpha = 0.0001
+    alpha = 0.0001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
-    epsilon_end = 0.05
+    epsilon_end = 0.05  # STAB diminuer à 0.01
     decay_steps_ep = 100000
     temp = 1
     temp_end = 0.05
     decay_steps_temp = 100000
-    batch_size = 128
-    target_update_frequency = 3000
+    batch_size = 32
+    target_update_frequency = 250  # STAB diminuer à 1000, (augmenter à 6000)
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_b128"
+    gen_name = "model_100_high_1000it_targup250"
     file_name = gen_name + ".pt"
     doTesting = True
 

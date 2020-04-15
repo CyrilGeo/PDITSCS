@@ -1,6 +1,7 @@
-from simulator import Simulator
+from priority_simulator import PrioritySimulator
 from DQN import Agent
 import statistics
+from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
     h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
@@ -28,15 +29,15 @@ if __name__ == "__main__":
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
                [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
 
-    mem_size = 3000000
+    mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 11
+    nb_inputs = 15
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 10
-    nb_episode_steps = 86400
+    nb_episodes = 30
+    nb_episode_steps = 3000
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = True
+    gui = False
     alpha = 0.0001
     gamma = 0.9
     policy = "epsilon-greedy"
@@ -48,17 +49,55 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    hour_of_the_day = 0
+    hour_of_the_day = 8
+    bus_frequency_1 = 600
+    bus_frequency_2 = 900
+    bus_frequency_3 = 600
+    bus_stddev = 90
+    priority_factor = 13
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
-    file_name = "model_100_real_3000targup_test.pt"
+    file_name = "model_100_low_buses_pf13.pt"
 
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
-                          hour_of_the_day, gui, h_probs)
+    simulator = PrioritySimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                  route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
+                                  priority_factor, hour_of_the_day, gui)
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
     agent.load_net()
     while simulator.step(agent.select_action(simulator.get_state(), True)):
-        print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
-    print("Total average reward:", statistics.mean(simulator.averageRewards))
-    print("Total average waiting time:", statistics.mean(simulator.averageWaitingTimes))
+        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))'''
+
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf13_buses_100")
+
+    reward = statistics.mean(simulator.averageRewards)
+    waiting_time = statistics.mean(simulator.averageWaitingTimes)
+    stddev_r = statistics.stdev(simulator.averageRewards)
+    stddev_w = statistics.stdev(simulator.averageWaitingTimes)
+
+    waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
+    waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)
+
+    tb.add_scalar("Average reward", reward, 1)
+    tb.add_scalar("Average waiting time", waiting_time, 1)
+    tb.add_scalar("Reward standard deviation", stddev_r, 1)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, 1)
+    tb.add_scalar("Average reward", reward, nb_episodes)
+    tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
+    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
+
+    tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
+    tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes)
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)
+
+    print("Average reward:", reward)
+    print("Average waiting time:", waiting_time)
+    print("Reward standard deviation:", stddev_r)
+    print("Waiting time standard deviation:", stddev_w)
+
+    print("Average waiting time for cars:", waiting_time_cars)
+    print("Average waiting time for buses:", waiting_time_buses)
+
+    tb.close()
