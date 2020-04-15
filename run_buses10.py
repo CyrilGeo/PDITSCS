@@ -114,8 +114,8 @@ if __name__ == "__main__":
     bus_frequency_2 = 900
     bus_frequency_3 = 600
     bus_stddev = 90
-    priority_factor = 10
-    gen_name = "model_50_low_buses_pf10"
+    priority_factor = 7
+    gen_name = "model_50_low_buses_pf7"
     file_name = gen_name + ".pt"
     doTesting = True
 
