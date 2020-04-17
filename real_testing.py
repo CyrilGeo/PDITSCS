@@ -1,4 +1,4 @@
-import lux_training_sim as sim
+import lux_sim as sim
 from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     nb_episodes = 10
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
-    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 5
     gui = False
     alpha = 0.0001
@@ -26,11 +26,11 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    file_name = "model_20_real.pt"
+    file_name = "model_100_real.pt"
 
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
-    simulator = sim.LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
     nb_episodes_baseline = 300
     agent.load_net()
     while simulator.step(agent.select_action(simulator.get_state(), True)):
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    tb = SummaryWriter(log_dir="runs/hourly_LuST_training_20")
+    tb = SummaryWriter(log_dir="runs/hourly_LuST_100")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
         tb.add_scalar("Average hourly waiting time", averageHourlyWaitingTimes[i], hours[i])
     tb.close()
 
-    plt.figure()
+    '''plt.figure()
     plt.grid()
     plt.plot(hours, averageHourlyRewards, color="r", label="fixed time")
     plt.xlabel("Hour of the day")
@@ -82,4 +82,4 @@ if __name__ == "__main__":
     plt.xlabel("Hour of the day")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
-    plt.show()
+    plt.show()'''
