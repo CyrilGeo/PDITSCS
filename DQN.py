@@ -57,7 +57,7 @@ class QNetwork(nn.Module):
         self.fc2 = nn.Linear(self.fc1Dims, self.fc2Dims)
         self.fc3 = nn.Linear(self.fc2Dims, self.nbActions)
         self.optimizer = optim.Adam(self.parameters(), lr=alpha)
-        self.loss = nn.MSELoss()
+        self.loss = nn.L1Loss()
         self.device = T.device("cuda:0" if T.cuda.is_available() else "cpu")
         self.to(self.device)
 
