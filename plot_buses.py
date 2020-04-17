@@ -10,6 +10,18 @@ def filter_list(waiting_times):
     return new_list
 
 
+def exponential_moving_average(waiting_times, smoothing):
+    new_list = []
+    prev_val = 0
+    new_val = waiting_times[0]
+    for i in range(len(waiting_times)):
+        if i != 0:
+            new_val = waiting_times[i] * smoothing / (1 + i) + prev_val * (1 - smoothing / (1 + i))
+        new_list.append(new_val)
+        prev_val = new_val
+    return new_list
+
+
 if __name__ == "__main__":
 
     waiting_times_100 = []
@@ -90,7 +102,7 @@ if __name__ == "__main__":
                 waiting_times_buses_100.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf7_buses_100/events.out.tfevents.1586946040.PC-CYRIL-LINUX.15042.0"):
+            "runs/uniform_1over60_pf7_buses_100/events.out.tfevents.1587117248.PC-CYRIL-LINUX.4337.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_100.append(value.simple_value)
@@ -150,7 +162,7 @@ if __name__ == "__main__":
                 waiting_times_buses_100.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf13_buses_100/events.out.tfevents.1586953456.PC-CYRIL-LINUX.17639.0"):
+            "runs/uniform_1over60_pf13_buses_100/events.out.tfevents.1587117354.PC-CYRIL-LINUX.4380.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_100.append(value.simple_value)
@@ -210,7 +222,7 @@ if __name__ == "__main__":
                 waiting_times_buses_50.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf4_buses_50/events.out.tfevents.1586945403.PC-CYRIL-LINUX.14671.0"):
+            "runs/uniform_1over60_pf4_buses_50/events.out.tfevents.1587117432.PC-CYRIL-LINUX.4430.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_50.append(value.simple_value)
@@ -270,7 +282,7 @@ if __name__ == "__main__":
                 waiting_times_buses_50.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf10_buses_50/events.out.tfevents.1586629478.PC-CYRIL-LINUX.18069.0"):
+            "runs/uniform_1over60_pf10_buses_50/events.out.tfevents.1587117511.PC-CYRIL-LINUX.4501.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_50.append(value.simple_value)
@@ -320,7 +332,7 @@ if __name__ == "__main__":
                 waiting_times_buses_50.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf15_buses_50/events.out.tfevents.1586949267.PC-CYRIL-LINUX.16394.0"):
+            "runs/uniform_1over60_pf15_buses_50/events.out.tfevents.1587117588.PC-CYRIL-LINUX.4535.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_50.append(value.simple_value)
@@ -400,7 +412,7 @@ if __name__ == "__main__":
                 waiting_times_buses_20.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf8_buses_20/events.out.tfevents.1586946555.PC-CYRIL-LINUX.15214.0"):
+            "runs/uniform_1over60_pf8_buses_20/events.out.tfevents.1587117660.PC-CYRIL-LINUX.4573.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_20.append(value.simple_value)
@@ -470,7 +482,7 @@ if __name__ == "__main__":
                 waiting_times_buses_20.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1586949427.PC-CYRIL-LINUX.16432.0"):
+            "runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1587119887.PC-CYRIL-LINUX.5588.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_20.append(value.simple_value)
@@ -493,6 +505,16 @@ if __name__ == "__main__":
     waiting_times_buses_100 = filter_list(waiting_times_buses_100)
     waiting_times_buses_50 = filter_list(waiting_times_buses_50)
     waiting_times_buses_20 = filter_list(waiting_times_buses_20)
+
+    waiting_times_100_smooth = exponential_moving_average(waiting_times_100, 2)
+    waiting_times_50_smooth = exponential_moving_average(waiting_times_50, 2)
+    waiting_times_20_smooth = exponential_moving_average(waiting_times_20, 2)
+    waiting_times_cars_100_smooth = exponential_moving_average(waiting_times_cars_100, 2)
+    waiting_times_cars_50_smooth = exponential_moving_average(waiting_times_cars_50, 2)
+    waiting_times_cars_20_smooth = exponential_moving_average(waiting_times_cars_20, 2)
+    waiting_times_buses_100_smooth = exponential_moving_average(waiting_times_buses_100, 2)
+    waiting_times_buses_50_smooth = exponential_moving_average(waiting_times_buses_50, 2)
+    waiting_times_buses_20_smooth = exponential_moving_average(waiting_times_buses_20, 2)
 
     plt.figure()
     plt.grid()
@@ -528,4 +550,40 @@ if __name__ == "__main__":
     plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig("figures/uniform/" + figure_name20 + ".png")
+    plt.show()
+
+    plt.figure()
+    plt.grid()
+    plt.plot(priority_factors, waiting_times_100_smooth, color="limegreen", marker='o', label="Overall performance")
+    plt.plot(priority_factors, waiting_times_cars_100_smooth, color="steelblue", marker='o', label="Cars")
+    plt.plot(priority_factors, waiting_times_buses_100_smooth, color="gold", marker='o', label="Buses")
+    plt.axhline(y=waiting_time_baseline, color="r", label="Fixed time (10s)")
+    plt.xlabel("Priority factor")
+    plt.ylabel("Average waiting time (s)")
+    plt.legend()
+    plt.savefig("figures/uniform/" + figure_name100 + "_smooth.png")
+    plt.show()
+
+    plt.figure()
+    plt.grid()
+    plt.plot(priority_factors, waiting_times_50_smooth, color="limegreen", marker='o', label="Overall performance")
+    plt.plot(priority_factors, waiting_times_cars_50_smooth, color="steelblue", marker='o', label="Cars")
+    plt.plot(priority_factors, waiting_times_buses_50_smooth, color="gold", marker='o', label="Buses")
+    plt.axhline(y=waiting_time_baseline, color="r", label="Fixed time (10s)")
+    plt.xlabel("Priority factor")
+    plt.ylabel("Average waiting time (s)")
+    plt.legend()
+    plt.savefig("figures/uniform/" + figure_name50 + "_smooth.png")
+    plt.show()
+
+    plt.figure()
+    plt.grid()
+    plt.plot(priority_factors, waiting_times_20_smooth, color="limegreen", marker='o', label="Overall performance")
+    plt.plot(priority_factors, waiting_times_cars_20_smooth, color="steelblue", marker='o', label="Cars")
+    plt.plot(priority_factors, waiting_times_buses_20_smooth, color="gold", marker='o', label="Buses")
+    plt.axhline(y=waiting_time_baseline, color="r", label="Fixed time (10s)")
+    plt.xlabel("Priority factor")
+    plt.ylabel("Average waiting time (s)")
+    plt.legend()
+    plt.savefig("figures/uniform/" + figure_name20 + "_smooth.png")
     plt.show()

@@ -1,4 +1,4 @@
-from simulator import Simulator
+from unnormalized_sim import UnnormalizedSimulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -23,7 +23,7 @@ def collect_transition(replay_buf, simu, act):
 
 # Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs):
-    sim = Simulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    sim = UnnormalizedSimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -34,7 +34,7 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
 def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    test_sim = UnnormalizedSimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
     while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 1000
+    nb_episodes = 200
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
@@ -103,11 +103,11 @@ if __name__ == "__main__":
     temp_end = 0.05
     decay_steps_temp = 100000
     batch_size = 32
-    target_update_frequency = 250  # STAB diminuer à 1000, (augmenter à 6000)
+    target_update_frequency = 3000  # STAB diminuer à 1000, (augmenter à 6000)
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_1000it_targup250"
+    route_probabilities = [1. / 60] * 12
+    gen_name = "model_100_low_unnormalized"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                       route_probabilities, hour_of_the_day, h_probs)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
+    simulator = UnnormalizedSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui, h_probs)
 
     # Learning phase
