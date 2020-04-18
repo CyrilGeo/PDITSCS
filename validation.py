@@ -35,7 +35,7 @@ if __name__ == "__main__":
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -54,10 +54,10 @@ if __name__ == "__main__":
     bus_frequency_2 = 900
     bus_frequency_3 = 600
     bus_stddev = 90
-    priority_factor = 13
+    priority_factor = 15
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
-    file_name = "model_100_low_buses_pf13.pt"
+    file_name = "model_20_low_buses_pf15_2stepback.pt"
 
     simulator = PrioritySimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                   route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     while simulator.step(agent.select_action(simulator.get_state(), True)):
         '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))'''
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf13_buses_100")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf15_buses_20")
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)

@@ -2,16 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_smoothL1loss/events.out.tfevents.1587020688.alan-compute-05.6370.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf13/events.out.tfevents.1586912357.alan-compute-02.3423.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf7/events.out.tfevents.1586855937.alan-compute-08.43276.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf15/events.out.tfevents.1586924082.alan-compute-02.21213.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf8/events.out.tfevents.1586880168.alan-compute-09.80011.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf10/events.out.tfevents.1586597521.alan-compute-09.145042.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf15/events.out.tfevents.1586923864.alan-compute-09.587.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf4/events.out.tfevents.1586839385.alan-compute-09.103459.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_100.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/uniform/low_buses_100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_20.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/uniform/low_buses_20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_50.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/uniform/low_buses_50.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_buses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf10_buses_50/events.out.tfevents.1586629478.PC-CYRIL-LINUX.18069.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf13_buses_100/events.out.tfevents.1586953456.PC-CYRIL-LINUX.17639.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1586949427.PC-CYRIL-LINUX.16432.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf15_buses_50/events.out.tfevents.1586949267.PC-CYRIL-LINUX.16394.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf4_buses_50/events.out.tfevents.1586945403.PC-CYRIL-LINUX.14671.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf7_buses_100/events.out.tfevents.1586946040.PC-CYRIL-LINUX.15042.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf8_buses_20/events.out.tfevents.1586946555.PC-CYRIL-LINUX.15214.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,25 +37,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/real_testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-221">
+            <state relative-caret-position="238">
               <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run_simple.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2244">
-              <caret line="136" column="76" selection-start-line="136" selection-start-column="76" selection-end-line="136" selection-end-column="76" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,8 +94,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
+            <state>
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -125,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/validation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1139">
-              <caret line="70" column="66" selection-start-line="70" selection-start-column="66" selection-end-line="70" selection-end-column="66" />
+            <state relative-caret-position="493">
+              <caret line="59" column="50" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -134,13 +126,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plot_buses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2567">
-              <caret line="152" column="100" selection-start-line="152" selection-start-column="100" selection-end-line="152" selection-end-column="100" />
+            <state relative-caret-position="357">
+              <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/unnormalized_sim.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -197,10 +194,11 @@
         <option value="$PROJECT_DIR$/lux_sim.py" />
         <option value="$PROJECT_DIR$/DQN.py" />
         <option value="$PROJECT_DIR$/run_simple.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
-        <option value="$PROJECT_DIR$/plot_buses.py" />
         <option value="$PROJECT_DIR$/run_buses.py" />
         <option value="$PROJECT_DIR$/real_testing.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
+        <option value="$PROJECT_DIR$/plot_buses.py" />
+        <option value="$PROJECT_DIR$/unnormalized_sim.py" />
       </list>
     </option>
   </component>
@@ -569,7 +567,7 @@
       <workItem from="1586896398418" duration="3000" />
       <workItem from="1586927923446" duration="12461000" />
       <workItem from="1587033209027" duration="605000" />
-      <workItem from="1587112363879" duration="2630000" />
+      <workItem from="1587112363879" duration="9265000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -799,7 +797,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="594019000" />
+    <option name="totallyTimeSpent" value="600654000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -812,6 +810,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1984" y="-4" width="1617" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15041427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -827,7 +826,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49695966" weight="0.39747635" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5030404" side_tool="true" weight="0.3975535" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.20084122" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.20084122" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.26077813" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -940,14 +939,14 @@
     <SUITE FILE_PATH="coverage/PDITSCS$plot.coverage" NAME="plot Coverage Results" MODIFIED="1586509553471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$monaco_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1585508937916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run_buses.coverage" NAME="run_buses Coverage Results" MODIFIED="1586594921245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$plot_buses.coverage" NAME="plot_buses Coverage Results" MODIFIED="1586953516639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$plot_buses.coverage" NAME="plot_buses Coverage Results" MODIFIED="1587120947670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1586625991528" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run9.coverage" NAME="run9 Coverage Results" MODIFIED="1586268522761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run.coverage" NAME="run Coverage Results" MODIFIED="1585843810343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run_simple.coverage" NAME="run_simple Coverage Results" MODIFIED="1586927991323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$hello.coverage" NAME="hello Coverage Results" MODIFIED="1583146904527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$real_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1586858585506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$validation.coverage" NAME="validation Coverage Results" MODIFIED="1586953381151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$validation.coverage" NAME="validation Coverage Results" MODIFIED="1587119820568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -1116,36 +1115,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="46" column="57" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lux_sim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
           <caret line="104" column="50" selection-start-line="104" selection-start-column="50" selection-end-line="104" selection-end-column="50" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="70" column="66" selection-start-line="70" selection-start-column="66" selection-end-line="70" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot_buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2567">
-          <caret line="152" column="100" selection-start-line="152" selection-start-column="100" selection-end-line="152" selection-end-column="100" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1159,13 +1134,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/real_testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
+        <state relative-caret-position="238">
           <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="59" column="50" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unnormalized_sim.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
