@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-import libsumo as traci
+# import libsumo as traci
 
 
-# import traci
+import traci
 
 
 def get_options():
@@ -83,7 +83,7 @@ class UnnormalizedSimulator:
         with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="simple_intersection.net.xml"/>
+        <net-file value="simple_intersection_phase50.net.xml"/>
         <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>

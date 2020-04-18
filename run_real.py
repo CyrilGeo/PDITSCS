@@ -1,4 +1,4 @@
-from lux_training_sim import LuxTrainingSim
+from unnorm_lux_training_sim import LuxTrainingSim
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter

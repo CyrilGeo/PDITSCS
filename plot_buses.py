@@ -482,7 +482,7 @@ if __name__ == "__main__":
                 waiting_times_buses_20.append(value.simple_value)
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1587119887.PC-CYRIL-LINUX.5588.0"):
+            "runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1587198282.PC-CYRIL-LINUX.12269.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_times_20.append(value.simple_value)
