@@ -76,7 +76,7 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    gen_name = "model_100_real"
+    gen_name = "model_100_real_unnormalized"
     file_name = gen_name + ".pt"
     doTesting = True
 
