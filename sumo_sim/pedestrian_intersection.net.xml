@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on ven 17 avr 2020 16:03:38 CEST by Eclipse SUMO netedit Version 1.2.0
+<!-- generated on ven 17 avr 2020 17:13:10 CEST by Eclipse SUMO netedit Version 1.2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection.net.xml"/>
+        <sumo-net-file value="/home/cyril/TFE/PDITSCS/sumo_sim/pedestrian_intersection.net.xml"/>
     </input>
 
     <output>
@@ -167,10 +167,10 @@
     </edge>
 
     <tlLogic id="center" type="static" programID="0" offset="0">
-        <phase duration="37" state="gGgrrrgGgrrrrGrG"/>
+        <phase duration="100" state="gGgrrrgGgrrrrGrG"/>
         <phase duration="5"  state="gGgrrrgGgrrrrrrr"/>
         <phase duration="3"  state="yyyrrryyyrrrrrrr"/>
-        <phase duration="37" state="rrrgGgrrrgGgGrGr"/>
+        <phase duration="100" state="rrrgGgrrrgGgGrGr"/>
         <phase duration="5"  state="rrrgGgrrrgGgrrrr"/>
         <phase duration="3"  state="rrryyyrrryyyrrrr"/>
     </tlLogic>
