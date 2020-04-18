@@ -17,10 +17,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-import libsumo as traci
+# import libsumo as traci
 
 
-# import traci
+import traci
 
 
 def get_options():
@@ -131,7 +131,6 @@ class LuxSim:
             print("Average waiting time:", average_waiting_time)
             self.averageWaitingTimes.append(average_waiting_time)
             if self.currNbSteps < 86400:
-                print("PLUS PETIT")
                 print(self.averageHourlyWaitingTime)
                 self.averageHourlyReward.append(
                     statistics.mean(self.hourlyReward + [0] * (3600 - self.currNbSteps % 3600)))
@@ -172,7 +171,7 @@ class LuxSim:
                 self.episodeEnd = 1
 
         # Action decided by the value given in argument
-        if action is not None and action == 1 and self.currPhaseTime > self.minPhaseDuration:
+        if action is not None and action == 1 and self.currPhaseTime >= self.minPhaseDuration:
             self.next_phase()
 
         traci.simulationStep()
@@ -247,6 +246,8 @@ class LuxSim:
             self.distanceNearestDetectedVeh[11] = -self.distanceNearestDetectedVeh[11]
         self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
             "-12408") - traci.trafficlight.getNextSwitch("-12408"))
+        print(self.currPhaseTime)
+        print(traci.trafficlight.getPhaseDuration("-12408"))
         self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("-12408")
         self.amberPhase = 1 if current_phase == 1 or current_phase == 3 or current_phase == 5 or current_phase == 7 \
             else 0
