@@ -1,4 +1,4 @@
-from pedestrian_sim import PedestrianSimulator
+from pedestrian_sim2 import PedestrianSimulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
     ped_route_probabilities = [1. / 60] * 12
-    gen_name = "model_100_low_pedestrian"
+    gen_name = "model_100_low_pedestrian2"
     file_name = gen_name + ".pt"
     doTesting = True
 

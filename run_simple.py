@@ -86,7 +86,7 @@ if __name__ == "__main__":
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 11
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 1000
+    nb_episodes = 200
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_1000it_lr0000001"
+    gen_name = "model_100_high_lr0000001"
     file_name = gen_name + ".pt"
     doTesting = True
 

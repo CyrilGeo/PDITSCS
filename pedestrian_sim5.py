@@ -5,7 +5,6 @@ import random
 import statistics
 import pickle
 import matplotlib.pyplot as plt
-from math import sqrt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -20,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -244,26 +243,12 @@ class PedestrianSimulator:
         self.detectedPedCnt = self.count_detected_ped(ped_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
-        if current_phase == 0:
-            self.detectedCarCnt[1] = -self.detectedCarCnt[1]
-            self.detectedCarCnt[3] = -self.detectedCarCnt[3]
-            self.detectedPedCnt[0] = -self.detectedPedCnt[0]
-            self.detectedPedCnt[2] = -self.detectedPedCnt[2]
-            self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
-            self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif current_phase == 1:
+        if current_phase == 0 or current_phase == 1:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
             self.detectedCarCnt[3] = -self.detectedCarCnt[3]
             self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
             self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif current_phase == 3:
-            self.detectedCarCnt[0] = -self.detectedCarCnt[0]
-            self.detectedCarCnt[2] = -self.detectedCarCnt[2]
-            self.detectedPedCnt[1] = -self.detectedPedCnt[1]
-            self.detectedPedCnt[3] = -self.detectedPedCnt[3]
-            self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
-            self.distanceNearestDetectedVeh[2] = -self.distanceNearestDetectedVeh[2]
-        elif current_phase == 4:
+        elif current_phase == 3 or current_phase == 4:
             self.detectedCarCnt[0] = -self.detectedCarCnt[0]
             self.detectedCarCnt[2] = -self.detectedCarCnt[2]
             self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
@@ -303,36 +288,21 @@ class PedestrianSimulator:
                     cnt[i] -= 1
         return cnt
 
-    def count_detected_ped(self, ped_ids):
+    @staticmethod
+    def count_detected_ped(ped_ids):
         cnt = [0] * 4
         for x in ped_ids:
             position = traci.person.getPosition(x)
-            if traci.person.getColor(x) == (0, 255, 0, 255) and traci.person.getSpeed(x) < 0.1:
-                if -7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2:
-                    if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
-                        cnt[0] -= 1
-                    else:
-                        cnt[1] -= 1
-                elif 3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2:
-                    if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
-                        cnt[1] -= 1
-                    else:
-                        cnt[2] -= 1
-                elif 3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2:
-                    if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
-                        cnt[2] -= 1
-                    else:
-                        cnt[3] -= 1
-                elif -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2:
-                    if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
-                        cnt[3] -= 1
-                    else:
-                        cnt[0] -= 1
+            if traci.person.getColor(x) == (0, 255, 0, 255):
+                if -13.2 < position[0] < -3.2 and 3.2 < position[1] < 13.2:
+                    cnt[0] += 1
+                elif 3.2 < position[0] < 13.2 and 3.2 < position[1] < 13.2:
+                    cnt[1] += 1
+                elif 3.2 < position[0] < 13.2 and -13.2 < position[1] < -3.2:
+                    cnt[2] += 1
+                elif -13.2 < position[0] < -3.2 and -13.2 < position[1] < -3.2:
+                    cnt[3] += 1
         return cnt
-
-    @staticmethod
-    def dist(coords1, coords2):
-        return sqrt((coords1[0] - coords2[0]) ** 2 + (coords1[1] - coords2[1]) ** 2)
 
     # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
     # car ids
