@@ -1,4 +1,4 @@
-import pedestrian_sim as sim
+import pedestrian_sim2 as sim
 import pickle
 import statistics
 from torch.utils.tensorboard import SummaryWriter

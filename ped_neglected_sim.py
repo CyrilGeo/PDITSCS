@@ -312,10 +312,10 @@ class PedestrianSimulator:
                     cnt += 1
         for x in ped_ids:
             position = traci.person.getPosition(x)
-            if traci.person.getSpeed(x) < 0.1 and ((-11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2) or (
-                                                           3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
-                                                           -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2)):
+            if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
         self.cumWaitingTime += cnt
 
