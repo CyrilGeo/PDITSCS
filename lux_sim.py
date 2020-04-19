@@ -17,10 +17,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -131,21 +131,17 @@ class LuxSim:
             print("Average waiting time:", average_waiting_time)
             self.averageWaitingTimes.append(average_waiting_time)
             if self.currNbSteps < 86400:
-                print(self.averageHourlyWaitingTime)
                 self.averageHourlyReward.append(
                     statistics.mean(self.hourlyReward + [0] * (3600 - self.currNbSteps % 3600)))
                 index = int(self.currNbSteps / 3600)
                 self.averageHourlyReward = self.averageHourlyReward + [0] * (23 - index)
                 self.averageHourlyWaitingTime.append(self.hourlyCumWaitingTime / self.hourlyNbGeneratedVeh)
-                print(self.averageHourlyWaitingTime)
                 self.averageHourlyWaitingTime = self.averageHourlyWaitingTime + [0] * (23 - index)
-                print(self.averageHourlyWaitingTime)
             for i in range(len(self.averageHourlyRewards)):
                 self.averageHourlyRewards[i] = self.averageHourlyRewards[i] + [self.averageHourlyReward[i]]
             for i in range(len(self.averageHourlyWaitingTimes)):
                 self.averageHourlyWaitingTimes[i] = self.averageHourlyWaitingTimes[i] + [
                     self.averageHourlyWaitingTime[i]]
-            print(self.averageHourlyWaitingTimes)
             self.rewards.clear()
             self.averageHourlyReward.clear()
             self.averageHourlyWaitingTime.clear()
@@ -188,7 +184,6 @@ class LuxSim:
             self.averageHourlyReward.append(statistics.mean(self.hourlyReward))
             self.averageHourlyWaitingTime.append(
                 self.hourlyCumWaitingTime / self.hourlyNbGeneratedVeh if self.hourlyNbGeneratedVeh != 0 else 0)
-            print(self.averageHourlyWaitingTime)
             self.hourlyReward.clear()
             self.hourlyCumWaitingTime = 0
             self.hourlyNbGeneratedVeh = 0
@@ -246,8 +241,6 @@ class LuxSim:
             self.distanceNearestDetectedVeh[11] = -self.distanceNearestDetectedVeh[11]
         self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
             "-12408") - traci.trafficlight.getNextSwitch("-12408"))
-        print(self.currPhaseTime)
-        print(traci.trafficlight.getPhaseDuration("-12408"))
         self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("-12408")
         self.amberPhase = 1 if current_phase == 1 or current_phase == 3 or current_phase == 5 or current_phase == 7 \
             else 0

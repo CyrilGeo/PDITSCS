@@ -1,4 +1,4 @@
-import lux_training_sim as sim
+import lux_sim as sim
 from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
@@ -9,7 +9,7 @@ if __name__ == "__main__":
     nb_init = 300000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 27
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 10
+    nb_episodes = 2
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
@@ -30,10 +30,11 @@ if __name__ == "__main__":
 
     agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
                   batch_size, nb_inputs, nb_actions, mem_size, file_name)
-    simulator = sim.LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
     nb_episodes_baseline = 300
     agent.load_net()
-    while simulator.step(agent.select_action(simulator.get_state(), True)):
+    # agent.select_action(simulator.get_state(), True)
+    while simulator.step():
         '''print("iteration:", simulator.get_curr_nb_iterations())
         print(simulator.get_state())
         print(simulator.get_reward())'''
@@ -44,15 +45,15 @@ if __name__ == "__main__":
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
-    '''stddev_r = statistics.stdev(simulator.averageRewards)
-    stddev_w = statistics.stdev(simulator.averageWaitingTimes)'''
+    stddev_r = statistics.stdev(simulator.averageRewards)
+    stddev_w = statistics.stdev(simulator.averageWaitingTimes)
 
     print("Average reward:", reward)
     print("Average waiting time:", waiting_time)
-    '''print("Reward standard deviation:", stddev_r)
-    print("Waiting time standard deviation:", stddev_w)'''
+    print("Reward standard deviation:", stddev_r)
+    print("Waiting time standard deviation:", stddev_w)
 
-    '''tb = SummaryWriter(log_dir="runs/hourly_LuST_100")
+    tb = SummaryWriter(log_dir="runs/hourly_LuST_baseline")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     for i in range(len(hours)):
         tb.add_scalar("Average hourly reward", averageHourlyRewards[i], hours[i])
         tb.add_scalar("Average hourly waiting time", averageHourlyWaitingTimes[i], hours[i])
-    tb.close()'''
+    tb.close()
 
     plt.figure()
     plt.grid()

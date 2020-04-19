@@ -58,7 +58,6 @@ class PedestrianSimulator:
 
         # State variables
         self.detectedCarCnt = None
-        self.detectedPedCnt = None
         self.distanceNearestDetectedVeh = None
         self.normCurrPhaseTime = None
         self.amberPhase = None
@@ -99,8 +98,7 @@ class PedestrianSimulator:
 
         self.defaultDistances = [-traci.lane.getLength(x) for x in self.laneIDs]
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
-        ped_ids = traci.person.getIDList()
-        self.update_state(veh_ids, ped_ids)
+        self.update_state(veh_ids)
 
     # Initializes a new episode
     def init_new_episode(self):
@@ -226,8 +224,8 @@ class PedestrianSimulator:
         self.currNbIterations += 1
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         ped_ids = traci.person.getIDList()
-        self.update_state(veh_ids, ped_ids)
-        self.update_reward(veh_ids, ped_ids)
+        self.update_state(veh_ids)
+        self.update_reward(veh_ids)
         self.increment_waiting_time(veh_ids, ped_ids)
         self.rewards.append(self.reward)
         return True
@@ -238,9 +236,8 @@ class PedestrianSimulator:
         traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 4)
 
     # Updates the state values
-    def update_state(self, veh_ids, ped_ids):
+    def update_state(self, veh_ids):
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
-        self.detectedPedCnt = self.count_detected_ped(ped_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
         if current_phase == 0:
@@ -261,21 +258,13 @@ class PedestrianSimulator:
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
     # Updates the reward
-    def update_reward(self, veh_ids, ped_ids):
+    def update_reward(self, veh_ids):
         rewards = []
-        v_max_ped = 1.39
         for i in range(len(self.laneIDs)):
             v_max_lane = traci.lane.getMaxSpeed(self.laneIDs[i])
             for x in veh_ids[i]:
                 v_max = min(v_max_lane, traci.vehicle.getMaxSpeed(x))
                 rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
-        for x in ped_ids:
-            position = traci.person.getPosition(x)
-            if (-11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
-                    -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2):
-                rewards.append((traci.person.getSpeed(x) - v_max_ped) / v_max_ped)
         self.reward = statistics.mean(rewards) if rewards else 0
 
     # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
@@ -286,22 +275,6 @@ class PedestrianSimulator:
             for x in ids[i]:
                 if traci.vehicle.getColor(x) == (0, 255, 0, 255):
                     cnt[i] -= 1
-        return cnt
-
-    @staticmethod
-    def count_detected_ped(ped_ids):
-        cnt = [0] * 4
-        for x in ped_ids:
-            position = traci.person.getPosition(x)
-            if traci.person.getColor(x) == (0, 255, 0, 255) and traci.person.getSpeed(x) < 0.1:
-                if -11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2:
-                    cnt[0] += 1
-                elif 3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2:
-                    cnt[1] += 1
-                elif 3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2:
-                    cnt[2] += 1
-                elif -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2:
-                    cnt[3] += 1
         return cnt
 
     # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
@@ -317,9 +290,8 @@ class PedestrianSimulator:
 
     # Returns the state values as a list
     def get_state(self):
-        return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime,
-                                                                                              self.amberPhase,
-                                                                                              self.currDayTime]
+        return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime, self.amberPhase,
+                                                                        self.currDayTime]
 
     # Returns the reward
     def get_reward(self):
@@ -342,8 +314,8 @@ class PedestrianSimulator:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2) or (
                     3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
-                    -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2)):
+                                                           3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
+                                                           -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2)):
                 cnt += 1
         self.cumWaitingTime += cnt
 
