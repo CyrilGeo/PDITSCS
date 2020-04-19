@@ -33,8 +33,8 @@ if __name__ == "__main__":
     simulator = sim.PedestrianSimulator(30, 3000, 0.5, 10, [1. / 60] * 12, [1. / 60] * 12, 8, True)
 
     while simulator.step():
-        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
-        print(simulator.get_state())'''
+        print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
+        print(simulator.get_state())
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)

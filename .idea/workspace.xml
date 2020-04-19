@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ped_neglected_sim.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run_pedestrian.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pedestrian_sim2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lux_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/lux_sim.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/real_testing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_real.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_real.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_baseline/events.out.tfevents.1586853010.PC-CYRIL-LINUX.23515.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_baseline/events.out.tfevents.1586543175.PC-CYRIL-LINUX.30325.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_real/events.out.tfevents.1586287299.alan-compute-02.22124.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_real_unnormalized/events.out.tfevents.1587204988.alan-compute-01.12009.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_real/events.out.tfevents.1586289321.alan-compute-08.53523.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_real_unnormalized/events.out.tfevents.1587205172.alan-compute-01.13174.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_real/events.out.tfevents.1586343483.alan-compute-06.19942.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_real_unnormalized/events.out.tfevents.1587205117.alan-compute-01.12838.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,23 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run_simple.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2584">
-              <caret line="156" column="32" selection-start-line="156" selection-start-column="32" selection-end-line="156" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pedestrian_sim.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="366" column="76" selection-start-line="366" selection-start-column="76" selection-end-line="366" selection-end-column="76" />
+            <state relative-caret-position="119">
+              <caret line="16" column="68" lean-forward="true" selection-start-line="16" selection-start-column="68" selection-end-line="16" selection-end-column="68" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -65,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ped_neglected_sim.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1683">
@@ -78,10 +53,25 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pedestrian_sim2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2626">
+              <caret line="378" selection-start-line="378" selection-end-line="378" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run_pedestrian.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2397">
-              <caret line="145" column="69" selection-start-line="145" selection-start-column="69" selection-end-line="145" selection-end-column="69" />
+            <state relative-caret-position="-1266">
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="e#0#46#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -89,7 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
+            <state relative-caret-position="315">
+              <caret line="32" column="98" selection-start-line="32" selection-start-column="98" selection-end-line="32" selection-end-column="98" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -209,12 +200,13 @@
         <option value="$PROJECT_DIR$/unnorm_lux_training_sim.py" />
         <option value="$PROJECT_DIR$/lux_training_sim.py" />
         <option value="$PROJECT_DIR$/run_real.py" />
-        <option value="$PROJECT_DIR$/run_pedestrian.py" />
         <option value="$PROJECT_DIR$/real_testing.py" />
         <option value="$PROJECT_DIR$/lux_sim.py" />
+        <option value="$PROJECT_DIR$/ped_neglected_sim.py" />
+        <option value="$PROJECT_DIR$/run_pedestrian.py" />
+        <option value="$PROJECT_DIR$/pedestrian_sim2.py" />
         <option value="$PROJECT_DIR$/testing.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim.py" />
-        <option value="$PROJECT_DIR$/ped_neglected_sim.py" />
       </list>
     </option>
   </component>
@@ -610,7 +602,7 @@
       <workItem from="1587112363879" duration="18004000" />
       <workItem from="1587192818684" duration="24228000" />
       <workItem from="1587276877367" duration="566000" />
-      <workItem from="1587282322395" duration="5124000" />
+      <workItem from="1587282322395" duration="7532000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -840,7 +832,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="639311000" />
+    <option name="totallyTimeSpent" value="641719000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -987,7 +979,7 @@
     <SUITE FILE_PATH="coverage/PDITSCS$monaco_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1585508937916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run_buses.coverage" NAME="run_buses Coverage Results" MODIFIED="1586594921245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_buses.coverage" NAME="plot_buses Coverage Results" MODIFIED="1587198372815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587289401409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587299587967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run9.coverage" NAME="run9 Coverage Results" MODIFIED="1586268522761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run.coverage" NAME="run Coverage Results" MODIFIED="1585843810343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$hello.coverage" NAME="hello Coverage Results" MODIFIED="1583146904527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1223,9 +1215,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/run_pedestrian.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1266">
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ped_neglected_sim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="99" column="77" selection-start-line="99" selection-start-column="77" selection-end-line="99" selection-end-column="77" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2626">
+          <caret line="378" selection-start-line="378" selection-end-line="378" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
+        <state relative-caret-position="315">
+          <caret line="32" column="98" selection-start-line="32" selection-start-column="98" selection-end-line="32" selection-end-column="98" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -1234,25 +1257,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pedestrian_sim.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="366" column="76" selection-start-line="366" selection-start-column="76" selection-end-line="366" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_pedestrian.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2397">
-          <caret line="145" column="69" selection-start-line="145" selection-start-column="69" selection-end-line="145" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ped_neglected_sim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="99" column="77" selection-start-line="99" selection-start-column="77" selection-end-line="99" selection-end-column="77" />
+        <state relative-caret-position="119">
+          <caret line="16" column="68" lean-forward="true" selection-start-line="16" selection-start-column="68" selection-end-line="16" selection-end-column="68" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
