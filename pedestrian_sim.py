@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -271,10 +271,10 @@ class PedestrianSimulator:
                 rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
         for x in ped_ids:
             position = traci.person.getPosition(x)
-            if (-11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
-                    -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2):
+            if (-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2):
                 rewards.append((traci.person.getSpeed(x) - v_max_ped) / v_max_ped)
         self.reward = statistics.mean(rewards) if rewards else 0
 
@@ -294,13 +294,13 @@ class PedestrianSimulator:
         for x in ped_ids:
             position = traci.person.getPosition(x)
             if traci.person.getColor(x) == (0, 255, 0, 255) and traci.person.getSpeed(x) < 0.1:
-                if -11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2:
+                if -7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2:
                     cnt[0] += 1
-                elif 3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2:
+                elif 3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2:
                     cnt[1] += 1
-                elif 3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2:
+                elif 3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2:
                     cnt[2] += 1
-                elif -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2:
+                elif -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2:
                     cnt[3] += 1
         return cnt
 
@@ -340,10 +340,10 @@ class PedestrianSimulator:
                     cnt += 1
         for x in ped_ids:
             position = traci.person.getPosition(x)
-            if traci.person.getSpeed(x) < 0.1 and ((-11.2 < position[0] < -3.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and 3.2 < position[1] < 11.2) or (
-                    3.2 < position[0] < 11.2 and -11.2 < position[1] < -3.2) or (
-                    -11.2 < position[0] < -3.2 and -11.2 < position[1] < -3.2)):
+            if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
+                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
         self.cumWaitingTime += cnt
 
