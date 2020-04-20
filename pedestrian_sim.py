@@ -48,7 +48,7 @@ class PedestrianSimulator:
         self.pedRouteProbs = ped_route_probs
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
-        self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
+        self.laneIDs = ["in_west_1", "in_north_1", "in_east_1", "in_south_1"]
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
@@ -293,7 +293,7 @@ class PedestrianSimulator:
         cnt = [0] * 4
         for x in ped_ids:
             position = traci.person.getPosition(x)
-            if traci.person.getColor(x) == (0, 255, 0, 255) and traci.person.getSpeed(x) < 0.1:
+            if traci.person.getColor(x) == (0, 255, 0, 255) and traci.person.getSpeed(x) < 0.2:
                 if -7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2:
                     cnt[0] += 1
                 elif 3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2:

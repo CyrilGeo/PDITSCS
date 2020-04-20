@@ -48,7 +48,7 @@ class PedestrianSimulator:
         self.pedRouteProbs = ped_route_probs
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
-        self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
+        self.laneIDs = ["in_west_1", "in_north_1", "in_east_1", "in_south_1"]
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
@@ -223,7 +223,9 @@ class PedestrianSimulator:
         traci.simulationStep()
         self.currNbIterations += 1
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
+        print(veh_ids)
         ped_ids = traci.person.getIDList()
+        print(ped_ids)
         self.update_state(veh_ids)
         self.update_reward(veh_ids)
         self.increment_waiting_time(veh_ids, ped_ids)
