@@ -223,9 +223,7 @@ class PedestrianSimulator:
         traci.simulationStep()
         self.currNbIterations += 1
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
-        print(veh_ids)
         ped_ids = traci.person.getIDList()
-        print(ped_ids)
         self.update_state(veh_ids)
         self.update_reward(veh_ids)
         self.increment_waiting_time(veh_ids, ped_ids)
