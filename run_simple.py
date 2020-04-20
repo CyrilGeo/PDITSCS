@@ -93,7 +93,7 @@ if __name__ == "__main__":
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
-    alpha = 0.0000001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
+    alpha = 0.000001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_lr0000001"
+    gen_name = "model_100_high_lr000001"
     file_name = gen_name + ".pt"
     doTesting = True
 

@@ -1,4 +1,4 @@
-from unnormalized_sim import UnnormalizedSimulator
+from simulator import Simulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -23,7 +23,7 @@ def collect_transition(replay_buf, simu, act):
 
 # Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs):
-    sim = UnnormalizedSimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    sim = Simulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -34,7 +34,7 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
 def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, hourly_probs, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = UnnormalizedSimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
+    test_sim = Simulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False, hourly_probs)
     while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
@@ -106,8 +106,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000  # STAB diminuer à 1000, (augmenter à 6000)
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
-    gen_name = "model_50_low_unnormalized"
+    route_probabilities = [1. / 30] * 12
+    gen_name = "model_50_high_lr000001"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
                       route_probabilities, hour_of_the_day, h_probs)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = UnnormalizedSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
+    simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui, h_probs)
 
     # Learning phase
