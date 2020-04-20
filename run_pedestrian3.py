@@ -1,4 +1,4 @@
-from ped_neglected_sim import PedestrianSimulator
+from pedestrian_sim3 import PedestrianSimulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     # STAB changer la loss function, (normaliser nb veh)
     mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 11
+    nb_inputs = 15
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 200
     nb_episodes_test = 30
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
-    alpha = 0.000001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
+    alpha = 0.0001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -112,7 +112,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
     ped_route_probabilities = [1. / 60] * 12
-    gen_name = "model_100_low_ped_neg"
+    gen_name = "model_100_low_pedestrian3"
     file_name = gen_name + ".pt"
     doTesting = True
 
