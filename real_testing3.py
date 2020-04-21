@@ -9,7 +9,7 @@ if __name__ == "__main__":
     nb_init = 300000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 27
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 5
+    nb_episodes = 1
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
@@ -44,24 +44,24 @@ if __name__ == "__main__":
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
-    stddev_r = statistics.stdev(simulator.averageRewards)
-    stddev_w = statistics.stdev(simulator.averageWaitingTimes)
+    '''stddev_r = statistics.stdev(simulator.averageRewards)
+    stddev_w = statistics.stdev(simulator.averageWaitingTimes)'''
 
     print("Average reward:", reward)
     print("Average waiting time:", waiting_time)
-    print("Reward standard deviation:", stddev_r)
-    print("Waiting time standard deviation:", stddev_w)
+    '''print("Reward standard deviation:", stddev_r)
+    print("Waiting time standard deviation:", stddev_w)'''
 
     tb = SummaryWriter(log_dir="runs/hourly_LuST_100_unnormalized")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
-    tb.add_scalar("Reward standard deviation", stddev_r, 1)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, 1)
+    '''tb.add_scalar("Reward standard deviation", stddev_r, 1)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, 1)'''
     tb.add_scalar("Average reward", reward, nb_episodes_baseline)
     tb.add_scalar("Average waiting time", waiting_time, nb_episodes_baseline)
-    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes_baseline)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes_baseline)
+    '''tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes_baseline)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes_baseline)'''
 
     for i in range(len(hours)):
         tb.add_scalar("Average hourly reward", averageHourlyRewards[i], hours[i])
