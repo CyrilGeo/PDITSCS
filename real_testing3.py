@@ -16,6 +16,7 @@ if __name__ == "__main__":
     min_phase_duration = 5
     gui = False
     alpha = 0.0001
+    milestones = [50, 100]
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -28,8 +29,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     file_name = "model_100_real_unnormalized.pt"
 
-    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
-                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    agent = Agent(alpha, milestones, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end,
+                  decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
     nb_episodes_baseline = 300
     agent.load_net()

@@ -1,4 +1,4 @@
-import unnorm_lux_training_sim as sim
+import lux_sim as sim
 from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
@@ -16,6 +16,7 @@ if __name__ == "__main__":
     min_phase_duration = 5
     gui = False
     alpha = 0.0001
+    milestones = [50, 100]
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -28,9 +29,9 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     file_name = "model_100_real.pt"
 
-    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
-                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
-    simulator = sim.LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    agent = Agent(alpha, milestones, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end,
+                  decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
     nb_episodes_baseline = 300
     agent.load_net()
     while simulator.step(agent.select_action(simulator.get_state(), True)):
