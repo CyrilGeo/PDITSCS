@@ -115,11 +115,6 @@ class LuxSim:
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
         if traci.simulation.getMinExpectedNumber() <= 0:
             print("END OF EPISODE")
-            print(self.averageHourlyWaitingTime)
-            print(self.cumWaitingTime)
-            print(self.hourlyCumWaitingTime)
-            print(self.nbGeneratedVeh)
-            print(self.hourlyNbGeneratedVeh)
             traci.close()
             print("EPISODE", self.episodeCnt, "DONE")
             average_reward = statistics.mean(self.rewards)

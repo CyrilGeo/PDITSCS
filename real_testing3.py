@@ -9,7 +9,7 @@ if __name__ == "__main__":
     nb_init = 300000  # Number of samples in the replay buffer before learning starts
     nb_inputs = 27
     nb_actions = 2  # Either stay at current phase or switch to the next one
-    nb_episodes = 1
+    nb_episodes = 10
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
