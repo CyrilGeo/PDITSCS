@@ -47,7 +47,7 @@ class ReplayBuffer:
 # Q-Network class
 class QNetwork(nn.Module):
 
-    def __init__(self, alpha, nb_inputs, nb_actions, fc1_dims, fc2_dims):
+    def __init__(self, alpha, milestones, nb_inputs, nb_actions, fc1_dims, fc2_dims):
         super(QNetwork, self).__init__()
         self.nbInputs = nb_inputs
         self.nbActions = nb_actions
@@ -57,6 +57,7 @@ class QNetwork(nn.Module):
         self.fc2 = nn.Linear(self.fc1Dims, self.fc2Dims)
         self.fc3 = nn.Linear(self.fc2Dims, self.nbActions)
         self.optimizer = optim.Adam(self.parameters(), lr=alpha)
+        self.scheduler = optim.lr_scheduler.MultiStepLR(self.optimizer, milestones=milestones, gamma=0.1)
         self.loss = nn.MSELoss()
         self.device = T.device("cuda:0" if T.cuda.is_available() else "cpu")
         self.to(self.device)
@@ -71,8 +72,8 @@ class QNetwork(nn.Module):
 # Q-Learning agent class
 class Agent:
 
-    def __init__(self, alpha, gamma, policy, epsilon, epsilon_end, nb_decay_steps_ep, temp, temp_end, nb_decay_steps_temp,
-                 batch_size, nb_inputs, nb_actions, mem_size, file_name):
+    def __init__(self, alpha, milestones, gamma, policy, epsilon, epsilon_end, nb_decay_steps_ep, temp, temp_end,
+                 nb_decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name):
         self.alpha = alpha  # Learning rate
         self.gamma = gamma
         self.policy = policy
@@ -89,7 +90,7 @@ class Agent:
         self.memSize = mem_size
         self.fileName = file_name
         self.replayBuffer = ReplayBuffer(mem_size, nb_inputs)
-        self.qNetwork = QNetwork(alpha, nb_inputs, nb_actions, 512, 512)
+        self.qNetwork = QNetwork(alpha, milestones, nb_inputs, nb_actions, 512, 512)
         self.targetNetwork = copy.deepcopy(self.qNetwork)
 
     # Stores a transition form the simulator into the replay buffer
@@ -121,6 +122,10 @@ class Agent:
     # Updates the weights of the target net with the weights of the q-net
     def update_target_net(self):
         self.targetNetwork.load_state_dict(self.qNetwork.state_dict())
+
+    # Executes one step of scheduling for the learning rate
+    def scheduling_step(self):
+        self.qNetwork.scheduler.step()
 
     # Executes one step of learning (corresponds to one step in the simulator)
     def learning_step(self):

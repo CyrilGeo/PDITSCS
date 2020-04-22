@@ -93,7 +93,8 @@ if __name__ == "__main__":
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
-    alpha = 0.000001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
+    alpha = 0.0001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
+    milestones = [50, 100]
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -107,7 +108,7 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_lr000001"
+    gen_name = "model_100_high_scheduled"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -117,8 +118,8 @@ if __name__ == "__main__":
         writer = SummaryWriter(log_dir="runs/" + gen_name)
 
     # Initializing the simulator, agent and replay buffer
-    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
-                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    agent = Agent(alpha, milestones, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end,
+                  decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
     initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, min_phase_duration,
                       route_probabilities, hour_of_the_day, h_probs)
@@ -138,6 +139,8 @@ if __name__ == "__main__":
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
+        if simulator.get_episode_end() == 1:
+            agent.scheduling_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
     test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
