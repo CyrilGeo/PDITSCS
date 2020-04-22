@@ -1,4 +1,4 @@
-import lux_sim as sim
+import unnorm_lux_sim as sim
 from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
