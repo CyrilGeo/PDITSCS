@@ -51,11 +51,11 @@ if __name__ == "__main__":
     baseline_adapted_r_dev = 0
     baseline_adapted_w_dev = 0
 
-    figure_name = "LuST/realflow"
+    figure_name = "LuST/training"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_realflow/events.out.tfevents.1586286017.alan-compute-01.24456.0"):
+            "runs/model_100_real/events.out.tfevents.1587227899.alan-compute-08.143546.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 episodes.append(event.step)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_50_realflow/events.out.tfevents.1586287061.alan-compute-03.28743.0"):
+            "runs/model_50_real/events.out.tfevents.1587227768.alan-compute-01.21489.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards2.append(value.simple_value)
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_20_realflow/events.out.tfevents.1586287507.alan-compute-01.3235.0"):
+            "runs/model_20_real/events.out.tfevents.1587228150.alan-compute-05.3689.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards3.append(value.simple_value)
@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
     # baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/realflow_baseline/events.out.tfevents.1586016169.PC-CYRIL-LINUX.14847.0"):
+            "runs/hourly_LuST_training_baseline/events.out.tfevents.1587229379.PC-CYRIL-LINUX.21764.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_r = value.simple_value
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     plt.figure()
     plt.grid()
     plt.plot(episodes, rewards1, color="limegreen", label="100% detection rate")
-    plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, rewards2, color="steelblue", label="50% detection rate")
     plt.errorbar(episodes, rewards2, yerr=rewards2_dev, color="steelblue", elinewidth=3, alpha=0.4)
     plt.plot(episodes, rewards3, color="gold", label="20% detection rate")
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     plt.figure()
     plt.grid()
     plt.plot(episodes, waiting_times1, color="limegreen", label="100% detection rate")
-    plt.errorbar(episodes, waiting_times1, yerr=waiting_times1_dev, color="limegreen", elinewidth=3, alpha=0.4)
+    plt.errorbar(episodes, waiting_times1, yerr=waiting_times1_dev, color="limegreen", elinewidth=1.5, alpha=0.4)
     plt.plot(episodes, waiting_times2, color="steelblue", label="50% detection rate")
     plt.errorbar(episodes, waiting_times2, yerr=waiting_times2_dev, color="steelblue", elinewidth=3, alpha=0.4)
     plt.plot(episodes, waiting_times3, color="gold", label="20% detection rate")
