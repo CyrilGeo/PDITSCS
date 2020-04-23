@@ -97,7 +97,7 @@ if __name__ == "__main__":
     milestones = [50, 100]
     gamma = 0.9
     policy = "epsilon-greedy"
-    epsilon = 1
+    epsilon = 0.1
     epsilon_end = 0.05  # STAB diminuer à 0.01
     decay_steps_ep = 100000
     temp = 1
@@ -107,8 +107,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000  # STAB diminuer à 1000, (augmenter à 6000)
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 30] * 12
-    gen_name = "model_100_high_scheduled_lr001"
+    route_probabilities = [1. / 60] * 12
+    gen_name = "model_100_low_scheduled_eps01"
     file_name = gen_name + ".pt"
     doTesting = True
 
