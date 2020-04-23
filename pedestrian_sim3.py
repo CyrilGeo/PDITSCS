@@ -207,11 +207,11 @@ class PedestrianSimulator:
 
         # Action decided by the value given in argument
         if action is not None:
-            if action == 1 and self.currPhaseTime > self.minPhaseDuration:
+            if action == 1 and self.currPhaseTime >= self.minPhaseDuration:
                 self.next_phase()
 
         # Fixed phase duration
-        elif self.currPhaseTime > 10:
+        elif self.currPhaseTime >= 10:
             self.next_phase()
 
         # Adapted fixed phase duration

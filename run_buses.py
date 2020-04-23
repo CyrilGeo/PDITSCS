@@ -97,6 +97,8 @@ if __name__ == "__main__":
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
+    milestones = [50, 100]
+    lr_decay_factor = 0.1
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -125,8 +127,8 @@ if __name__ == "__main__":
         writer = SummaryWriter(log_dir="runs/" + gen_name)
 
     # Initializing the simulator, agent and replay buffer
-    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
-                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
+                  temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
     initialize_buffer(agent.replayBuffer, nb_init, nb_actions, nb_episode_steps, detection_rate, min_phase_duration,
                       route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
@@ -146,15 +148,17 @@ if __name__ == "__main__":
             test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
                        route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
                        priority_factor, hour_of_the_day, h_probs, agent)
-            if simulator.episodeCnt - 1 == nb_episodes - (
+            '''if simulator.episodeCnt - 1 == nb_episodes - (
                     nb_episodes % nb_episodes_between_tests) - nb_episodes_between_tests:
                 agent.save_net(gen_name + "_1stepback")
             if simulator.episodeCnt - 1 == nb_episodes - (
                     nb_episodes % nb_episodes_between_tests) - 2 * nb_episodes_between_tests:
-                agent.save_net(gen_name + "_2stepback")
+                agent.save_net(gen_name + "_2stepback")'''
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
+        if simulator.get_episode_end() == 1:
+            agent.scheduling_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
     test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,

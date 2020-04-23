@@ -233,11 +233,11 @@ class LuxTrainingSim:
                 self.episodeEnd = 1
 
         # Action decided by the value given in argument
-        if action is not None and action == 1 and self.currPhaseTime > self.minPhaseDuration:
+        if action is not None and action == 1 and self.currPhaseTime >= self.minPhaseDuration:
             self.next_phase()
 
         # Fixed phase duration (for optimized results, but not what expected)
-        '''elif self.currPhaseTime > 8:
+        '''elif self.currPhaseTime >= 9:
             self.next_phase()'''
 
         traci.simulationStep()

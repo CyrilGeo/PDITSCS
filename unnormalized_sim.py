@@ -32,7 +32,7 @@ def get_options():
     return options
 
 
-class UnnormalizedSimulator:
+class Simulator:
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
                  gui=False, hourly_probs=None):

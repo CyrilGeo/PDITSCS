@@ -66,6 +66,8 @@ if __name__ == "__main__":
     min_phase_duration = 5
     gui = False
     alpha = 0.0001
+    milestones = [50, 100]
+    lr_decay_factor = 0.1
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
@@ -86,8 +88,8 @@ if __name__ == "__main__":
         writer = SummaryWriter(log_dir="runs/" + gen_name)
 
     # Initializing the simulator, agent and replay buffer
-    agent = Agent(alpha, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp, temp_end, decay_steps_temp,
-                  batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
+                  temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
     initialize_buffer(agent.replayBuffer, nb_init, nb_actions, detection_rate, min_phase_duration)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
@@ -104,6 +106,8 @@ if __name__ == "__main__":
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
+        if simulator.get_episode_end() == 1:
+            agent.scheduling_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
     test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, agent)

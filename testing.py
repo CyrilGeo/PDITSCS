@@ -4,7 +4,8 @@ import statistics
 from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
-    h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
+    h_probs = None
+    '''h_probs = [[0.0003 / 3] * 3 + [0.0011 / 3] * 3 + [0.0015 / 3] * 3 + [0.0029 / 3] * 3,
                [0.0005 / 3] * 3 + [0.002 / 3] * 3 + [0.0016 / 3] * 3 + [0.002 / 3] * 3,
                [0.0005 / 3] * 3 + [0.0019 / 3] * 3 + [0.0018 / 3] * 3 + [0.0027 / 3] * 3,
                [0.0003 / 3] * 3 + [0.0024 / 3] * 3 + [0.0016 / 3] * 3 + [0.0023 / 3] * 3,
@@ -27,10 +28,22 @@ if __name__ == "__main__":
                [0.0087 / 3] * 3 + [0.0363 / 3] * 3 + [0.0328 / 3] * 3 + [0.0387 / 3] * 3,
                [0.0063 / 3] * 3 + [0.0224 / 3] * 3 + [0.0259 / 3] * 3 + [0.0271 / 3] * 3,
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
-               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]
+               [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]'''
 
-    nb_episodes = 200
-    simulator = sim.PedestrianSimulator(30, 3000, 0.5, 10, [1. / 60] * 12, [1. / 60] * 12, 8, True)
+    nb_episodes = 30
+    nb_episode_steps = 3000
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    min_phase_duration = 10
+    gui = False
+    hour_of_the_day = 8
+    # Probability for a car to be generated on a particular route at a certain step
+    route_probabilities = [1. / 60] * 12
+    ped_route_probabilities = [1. / 60] * 12
+
+    simulator = sim.PedestrianSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                        route_probabilities, ped_route_probabilities, hour_of_the_day, gui, h_probs)
+
+    nb_episodes_baseline = 200
 
     while simulator.step():
         '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
@@ -50,15 +63,15 @@ if __name__ == "__main__":
     tb.add_scalar("Average waiting time", waiting_time, 1)
     tb.add_scalar("Reward standard deviation", stddev_r, 1)
     tb.add_scalar("Waiting time standard deviation", stddev_w, 1)
-    tb.add_scalar("Average reward", reward, nb_episodes)
-    tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
-    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
+    tb.add_scalar("Average reward", reward, nb_episodes_baseline)
+    tb.add_scalar("Average waiting time", waiting_time, nb_episodes_baseline)
+    tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes_baseline)
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes_baseline)
 
     '''tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
     tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
-    tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes)
-    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)'''
+    tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes_baseline)
+    tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes_baseline)'''
 
     tb.close()
 

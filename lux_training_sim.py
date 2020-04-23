@@ -238,7 +238,7 @@ class LuxTrainingSim:
             self.next_phase()
 
         # Fixed phase duration (for optimized results, but not what expected)
-        '''elif self.currPhaseTime > 8:
+        '''elif self.currPhaseTime >= 9:
             self.next_phase()'''
 
         traci.simulationStep()
