@@ -93,8 +93,8 @@ if __name__ == "__main__":
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
-    alpha = 0.001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
-    milestones = [50, 75, 100]
+    alpha = 0.0001  # STAB diminuer learning rate à 0.00001 mais faire sur 1000 itérations
+    milestones = [50, 100]
     gamma = 0.9
     policy = "epsilon-greedy"
     epsilon = 1
