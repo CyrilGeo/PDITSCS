@@ -3,335 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DQN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/hourly_real_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/hourly_real_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/hourly_training_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/hourly_training_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/realflow_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/realflow_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/training_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/LuST/training_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_45_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_30_60_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_45_60_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_boltz_30_60_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/non_uniform/horizontal_boltz_30_60_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/boltz_high_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/boltz_high_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/boltz_low_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/boltz_low_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_1000it_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_1000it_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_1000it_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_1000it_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_100_1000it_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_100_1000it_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_100_1000it_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_100_1000it_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/high_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_100_smooth.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_20_smooth.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_buses_50_smooth.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/low_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/lowlow_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/lowlow_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/lowlow_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/lowlow_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_RMS_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_RMS_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_lr000001_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_lr000001_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/medium_zoomed_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/pedestrian_r.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/uniform/pedestrian_w.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lux_training_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/lux_training_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ped_neglected_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/ped_neglected_sim.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim2.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim4.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pedestrian_sim5.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_real.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_real.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_simple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_simple1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_simple2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over30_ver1over45_adapted/events.out.tfevents.1585919376.PC-CYRIL-LINUX.7807.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over30_ver1over45_baseline/events.out.tfevents.1585919376.PC-CYRIL-LINUX.7807.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over30_ver1over60_adapted/events.out.tfevents.1585919150.PC-CYRIL-LINUX.7616.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over30_ver1over60_baseline/events.out.tfevents.1585228860.PC-CYRIL-LINUX.25968.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over45_ver1over60_adapted/events.out.tfevents.1585918655.PC-CYRIL-LINUX.7236.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hor1over45_ver1over60_baseline/events.out.tfevents.1585228968.PC-CYRIL-LINUX.26038.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_100/events.out.tfevents.1587521636.alan-compute-02.3552.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_100_unnormalized/events.out.tfevents.1587613973.alan-compute-03.25009.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_20/events.out.tfevents.1587605546.alan-compute-07.26415.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_20_unnormalized/events.out.tfevents.1587590951.alan-compute-06.42725.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_50/events.out.tfevents.1587573478.alan-compute-03.21834.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_50_unnormalized/events.out.tfevents.1587581078.alan-compute-05.23149.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_100/events.out.tfevents.1587405184.PC-CYRIL-LINUX.9945.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_100_unnormalized/events.out.tfevents.1587448701.PC-CYRIL-LINUX.20454.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_100_unnormalized/events.out.tfevents.1587450242.PC-CYRIL-LINUX.21341.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_20/events.out.tfevents.1587447880.PC-CYRIL-LINUX.19902.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_20_unnormalized/events.out.tfevents.1587451486.PC-CYRIL-LINUX.21661.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_50/events.out.tfevents.1587420389.PC-CYRIL-LINUX.15876.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_50_unnormalized/events.out.tfevents.1587450869.PC-CYRIL-LINUX.21489.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high/events.out.tfevents.1585239120.alan-compute-09.43578.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it/events.out.tfevents.1585944765.alan-compute-03.16148.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_L1loss/events.out.tfevents.1587020688.alan-compute-05.6370.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_RMS/events.out.tfevents.1585956182.alan-compute-04.26722.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_epsilon01/events.out.tfevents.1586978723.alan-compute-09.53034.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_lr0000001/events.out.tfevents.1587194615.alan-compute-02.8890.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_lr000001/events.out.tfevents.1587118269.alan-compute-03.2383.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_lr00001/events.out.tfevents.1586978672.alan-compute-09.52675.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_smoothL1loss/events.out.tfevents.1586996705.alan-compute-02.17220.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_targup1000/events.out.tfevents.1586975868.alan-compute-09.30243.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_1000it_targup250/events.out.tfevents.1586973757.alan-compute-08.65822.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_RMS/events.out.tfevents.1586361066.alan-compute-06.27026.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_b128/events.out.tfevents.1586550063.alan-compute-09.94727.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_huberloss/events.out.tfevents.1586878087.PC-CYRIL-LINUX.32728.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_lr000001/events.out.tfevents.1587325722.alan-compute-06.97482.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_scheduled/events.out.tfevents.1587560359.alan-compute-05.22714.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_scheduled_lr001/events.out.tfevents.1587580667.alan-compute-07.77446.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_targup1000/events.out.tfevents.1586866694.PC-CYRIL-LINUX.28834.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_high_targup250/events.out.tfevents.1586927994.PC-CYRIL-LINUX.9325.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low/events.out.tfevents.1585155365.PC-CYRIL-LINUX.6284.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_RMS/events.out.tfevents.1585924400.alan-compute-02.15881.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf1/events.out.tfevents.1586596247.alan-compute-02.24671.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf10/events.out.tfevents.1586597025.alan-compute-08.94288.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf11/events.out.tfevents.1586900865.alan-compute-03.12672.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf12/events.out.tfevents.1586906719.alan-compute-03.20786.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf13/events.out.tfevents.1586970692.alan-compute-09.220752.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf14/events.out.tfevents.1586917698.alan-compute-06.223939.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf15/events.out.tfevents.1586921667.alan-compute-08.110586.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf2/events.out.tfevents.1586596580.alan-compute-02.26799.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf3/events.out.tfevents.1586803136.alan-compute-09.117543.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf4/events.out.tfevents.1586830261.alan-compute-09.52945.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf5/events.out.tfevents.1586784990.alan-compute-09.172844.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf6/events.out.tfevents.1586855393.alan-compute-06.119884.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf7/events.out.tfevents.1586970634.alan-compute-09.220476.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf8/events.out.tfevents.1586871687.alan-compute-09.43068.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf9/events.out.tfevents.1586892343.alan-compute-06.98734.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_lr000001/events.out.tfevents.1587326622.alan-compute-08.204606.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587323168.PC-CYRIL-LINUX.17020.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587323224.PC-CYRIL-LINUX.17059.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587323359.PC-CYRIL-LINUX.17165.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587323474.PC-CYRIL-LINUX.17217.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587382636.alan-compute-09.165412.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_ped_neglected/events.out.tfevents.1587383116.alan-compute-09.174234.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_pedestrian/events.out.tfevents.1587382854.alan-compute-06.183413.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_pedestrian2/events.out.tfevents.1587393383.alan-compute-06.13188.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_pedestrian3/events.out.tfevents.1587482985.alan-compute-09.181249.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_pedestrian4/events.out.tfevents.1587404150.alan-compute-02.6141.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_pedestrian5/events.out.tfevents.1587415808.alan-compute-07.159695.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_scheduled/events.out.tfevents.1587560419.alan-compute-06.194060.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_scheduled_decay10000/events.out.tfevents.1587649495.alan-compute-05.30663.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_scheduled_eps01/events.out.tfevents.1587649361.alan-compute-06.31916.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_scheduled_online/events.out.tfevents.1587651998.alan-compute-06.44876.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_unnormalized/events.out.tfevents.1587144510.alan-compute-05.1375.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_lowlow/events.out.tfevents.1586366332.alan-compute-03.9340.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_lowlow_RMS/events.out.tfevents.1586352151.alan-compute-09.105460.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_medium/events.out.tfevents.1585238111.alan-compute-08.132140.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_medium_RMS/events.out.tfevents.1586346818.alan-compute-06.22568.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_medium_lr000001/events.out.tfevents.1587326185.alan-compute-02.18104.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_real/events.out.tfevents.1587227899.alan-compute-08.143546.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_real_unnormalized/events.out.tfevents.1587227489.alan-compute-01.20436.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_realflow/events.out.tfevents.1586286017.alan-compute-01.24456.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high/events.out.tfevents.1585250391.alan-compute-05.9142.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high_1000it/events.out.tfevents.1585948675.alan-compute-02.17705.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high_1000it_RMS/events.out.tfevents.1585977443.alan-compute-03.19921.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high_RMS/events.out.tfevents.1586361831.alan-compute-03.21892.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high_b128/events.out.tfevents.1586549957.alan-compute-02.13858.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_high_lr000001/events.out.tfevents.1587326071.alan-compute-02.17633.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low/events.out.tfevents.1585168567.alan-compute-07.215803.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_RMS/events.out.tfevents.1585931457.alan-compute-01.20280.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf1/events.out.tfevents.1586596452.alan-compute-02.25995.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf10/events.out.tfevents.1586785014.alan-compute-05.19740.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf11/events.out.tfevents.1586905036.alan-compute-06.47604.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf12/events.out.tfevents.1586911370.alan-compute-06.135663.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf13/events.out.tfevents.1586915927.alan-compute-08.23668.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf14/events.out.tfevents.1586918888.alan-compute-03.6637.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf15/events.out.tfevents.1587144511.alan-compute-05.1367.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf2/events.out.tfevents.1586596740.alan-compute-03.24460.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf3/events.out.tfevents.1586821094.alan-compute-09.1452.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf4/events.out.tfevents.1586850670.alan-compute-09.164279.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf5/events.out.tfevents.1586596765.alan-compute-08.93976.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf6/events.out.tfevents.1586855406.alan-compute-06.119929.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf7/events.out.tfevents.1586869978.alan-compute-09.33161.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf8/events.out.tfevents.1586962250.alan-compute-09.169645.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_buses_pf9/events.out.tfevents.1586899210.alan-compute-08.224501.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_lr000001/events.out.tfevents.1587331833.alan-compute-04.20101.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_low_unnormalized/events.out.tfevents.1587144629.alan-compute-01.31598.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_lowlow/events.out.tfevents.1586368310.alan-compute-09.86152.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_lowlow_RMS/events.out.tfevents.1586354547.alan-compute-01.23195.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_medium/events.out.tfevents.1585238126.alan-compute-08.132377.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_medium_RMS/events.out.tfevents.1586349483.alan-compute-08.186499.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_medium_lr000001/events.out.tfevents.1587326250.alan-compute-03.23474.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_real/events.out.tfevents.1587228150.alan-compute-05.3689.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_real_unnormalized/events.out.tfevents.1587227378.alan-compute-04.3998.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_20_realflow/events.out.tfevents.1586287507.alan-compute-01.3235.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high/events.out.tfevents.1585239198.alan-compute-09.45136.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high_1000it/events.out.tfevents.1585949055.alan-compute-06.195752.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high_1000it_RMS/events.out.tfevents.1585977042.alan-compute-02.19530.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high_RMS/events.out.tfevents.1586361066.alan-compute-06.27024.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high_b128/events.out.tfevents.1586549853.alan-compute-02.13177.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_high_lr000001/events.out.tfevents.1587325737.alan-compute-08.203278.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low/events.out.tfevents.1585168598.alan-compute-08.217244.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_RMS/events.out.tfevents.1585929452.alan-compute-02.16214.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf1/events.out.tfevents.1586596401.alan-compute-02.25646.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf10/events.out.tfevents.1586967734.alan-compute-09.201459.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf11/events.out.tfevents.1586904695.alan-compute-08.80081.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf12/events.out.tfevents.1586910249.alan-compute-08.165348.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf13/events.out.tfevents.1586912880.alan-compute-03.30496.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf14/events.out.tfevents.1586918219.alan-compute-02.13190.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf15/events.out.tfevents.1586967989.alan-compute-08.26128.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf2/events.out.tfevents.1586596586.alan-compute-03.23514.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf3/events.out.tfevents.1586811798.alan-compute-09.168549.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf4/events.out.tfevents.1586962289.alan-compute-08.215769.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf5/events.out.tfevents.1586596889.alan-compute-03.25342.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf6/events.out.tfevents.1586855393.alan-compute-08.42531.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf7/events.out.tfevents.1586855937.alan-compute-08.43278.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf8/events.out.tfevents.1586878598.alan-compute-09.72519.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_buses_pf9/events.out.tfevents.1586898640.alan-compute-06.186629.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_lr000001/events.out.tfevents.1587326772.alan-compute-04.21526.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_low_unnormalized/events.out.tfevents.1587144510.alan-compute-05.1378.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_lowlow/events.out.tfevents.1586367223.alan-compute-06.28863.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_lowlow_RMS/events.out.tfevents.1586352249.alan-compute-06.24572.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_medium/events.out.tfevents.1585218254.alan-compute-09.227168.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_medium_RMS/events.out.tfevents.1586347664.alan-compute-03.10751.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_medium_lr000001/events.out.tfevents.1587326169.alan-compute-03.23029.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_real/events.out.tfevents.1587227768.alan-compute-01.21489.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_real_unnormalized/events.out.tfevents.1587227502.alan-compute-01.20507.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_50_realflow/events.out.tfevents.1586287061.alan-compute-03.28743.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_100_high/events.out.tfevents.1585459058.alan-compute-08.170648.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_100_low/events.out.tfevents.1585465667.alan-compute-02.4675.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_20_high/events.out.tfevents.1585458992.alan-compute-04.15536.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_20_low/events.out.tfevents.1585465461.alan-compute-04.16100.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_50_high/events.out.tfevents.1585254738.alan-compute-09.170864.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_50_low/events.out.tfevents.1585465710.alan-compute-02.4712.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_hor_30_60_100/events.out.tfevents.1585431026.alan-compute-04.12904.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_hor_30_60_20/events.out.tfevents.1585458910.alan-compute-02.4000.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_boltz_hor_30_60_50/events.out.tfevents.1585458896.alan-compute-02.3965.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_100/events.out.tfevents.1585228720.alan-compute-09.23649.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_100_RMS/events.out.tfevents.1586354610.alan-compute-03.13631.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_100_lr000001/events.out.tfevents.1587332133.alan-compute-03.4390.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_20/events.out.tfevents.1585228782.alan-compute-09.24828.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_20_RMS/events.out.tfevents.1586354910.alan-compute-08.210292.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_20_lr000001/events.out.tfevents.1587332471.alan-compute-06.11401.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_50/events.out.tfevents.1585228754.alan-compute-09.24274.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_50_RMS/events.out.tfevents.1586354797.alan-compute-03.14535.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_45_50_lr000001/events.out.tfevents.1587332238.alan-compute-03.4901.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_100/events.out.tfevents.1585228233.alan-compute-04.20334.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_100_RMS/events.out.tfevents.1586355047.alan-compute-04.29000.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_100_lr000001/events.out.tfevents.1587332799.alan-compute-02.31638.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_20/events.out.tfevents.1585228299.alan-compute-07.189133.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_20_RMS/events.out.tfevents.1586355651.alan-compute-06.25772.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_20_lr000001/events.out.tfevents.1587332701.alan-compute-08.213320.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_50/events.out.tfevents.1585228272.alan-compute-05.14595.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_50_RMS/events.out.tfevents.1586355360.alan-compute-03.17476.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_30_60_50_lr000001/events.out.tfevents.1587332696.alan-compute-08.213276.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_100/events.out.tfevents.1585228331.alan-compute-07.189313.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_100_RMS/events.out.tfevents.1586360106.alan-compute-09.207667.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_100_lr000001/events.out.tfevents.1587333356.alan-compute-02.920.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_20/events.out.tfevents.1585228388.alan-compute-08.44614.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_20_RMS/events.out.tfevents.1586360553.alan-compute-08.228518.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_20_lr000001/events.out.tfevents.1587338367.alan-compute-03.18071.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_50/events.out.tfevents.1585228364.alan-compute-08.44301.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_50_RMS/events.out.tfevents.1586360400.alan-compute-04.21915.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_hor_45_60_50_lr000001/events.out.tfevents.1587336991.alan-compute-04.19085.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/realflow_baseline/events.out.tfevents.1586016169.PC-CYRIL-LINUX.14847.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over30_baseline/events.out.tfevents.1585219170.PC-CYRIL-LINUX.21573.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over45_baseline/events.out.tfevents.1585219221.PC-CYRIL-LINUX.21601.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_baseline/events.out.tfevents.1585171350.PC-CYRIL-LINUX.11892.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pedestrian_baseline/events.out.tfevents.1587381972.PC-CYRIL-LINUX.9028.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf10_buses_100/events.out.tfevents.1586629243.PC-CYRIL-LINUX.17975.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf10_buses_20/events.out.tfevents.1586808764.PC-CYRIL-LINUX.16191.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf10_buses_50/events.out.tfevents.1587117511.PC-CYRIL-LINUX.4501.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf10_buses_baseline/events.out.tfevents.1586626016.PC-CYRIL-LINUX.16994.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf11_buses_100/events.out.tfevents.1586947039.PC-CYRIL-LINUX.15413.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf11_buses_20/events.out.tfevents.1586947359.PC-CYRIL-LINUX.15557.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf11_buses_50/events.out.tfevents.1586947274.PC-CYRIL-LINUX.15526.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf12_buses_100/events.out.tfevents.1586947501.PC-CYRIL-LINUX.15601.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf12_buses_20/events.out.tfevents.1586947701.PC-CYRIL-LINUX.15700.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf12_buses_50/events.out.tfevents.1586947601.PC-CYRIL-LINUX.15637.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf13_buses_100/events.out.tfevents.1587117354.PC-CYRIL-LINUX.4380.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf13_buses_20/events.out.tfevents.1586948236.PC-CYRIL-LINUX.15946.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf13_buses_50/events.out.tfevents.1586948127.PC-CYRIL-LINUX.15826.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf14_buses_100/events.out.tfevents.1586948370.PC-CYRIL-LINUX.16005.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf14_buses_20/events.out.tfevents.1586949008.PC-CYRIL-LINUX.16123.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf14_buses_50/events.out.tfevents.1586948621.PC-CYRIL-LINUX.16050.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf15_buses_100/events.out.tfevents.1586949172.PC-CYRIL-LINUX.16309.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf15_buses_20/events.out.tfevents.1587198282.PC-CYRIL-LINUX.12269.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf15_buses_50/events.out.tfevents.1587117588.PC-CYRIL-LINUX.4535.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf1_buses_100/events.out.tfevents.1586626530.PC-CYRIL-LINUX.17259.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf1_buses_20/events.out.tfevents.1586626927.PC-CYRIL-LINUX.17409.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf1_buses_50/events.out.tfevents.1586626813.PC-CYRIL-LINUX.17326.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf1_buses_baseline/events.out.tfevents.1586625892.PC-CYRIL-LINUX.16867.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf2_buses_100/events.out.tfevents.1586627055.PC-CYRIL-LINUX.17520.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf2_buses_20/events.out.tfevents.1586627222.PC-CYRIL-LINUX.17582.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf2_buses_50/events.out.tfevents.1586627143.PC-CYRIL-LINUX.17553.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf2_buses_baseline/events.out.tfevents.1586625953.PC-CYRIL-LINUX.16948.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf3_buses_100/events.out.tfevents.1586945037.PC-CYRIL-LINUX.14327.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf3_buses_20/events.out.tfevents.1586945323.PC-CYRIL-LINUX.14642.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf3_buses_50/events.out.tfevents.1586945108.PC-CYRIL-LINUX.14365.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf4_buses_100/events.out.tfevents.1586945586.PC-CYRIL-LINUX.14862.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf4_buses_20/events.out.tfevents.1586945690.PC-CYRIL-LINUX.14901.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf4_buses_50/events.out.tfevents.1587117432.PC-CYRIL-LINUX.4430.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf5_buses_100/events.out.tfevents.1586808679.PC-CYRIL-LINUX.16131.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf5_buses_20/events.out.tfevents.1586629156.PC-CYRIL-LINUX.17934.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf5_buses_50/events.out.tfevents.1586629058.PC-CYRIL-LINUX.17899.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf5_buses_baseline/events.out.tfevents.1586625983.PC-CYRIL-LINUX.16976.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf6_buses_100/events.out.tfevents.1586945767.PC-CYRIL-LINUX.14934.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf6_buses_20/events.out.tfevents.1586945951.PC-CYRIL-LINUX.14997.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf6_buses_50/events.out.tfevents.1586945867.PC-CYRIL-LINUX.14962.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf7_buses_100/events.out.tfevents.1587117248.PC-CYRIL-LINUX.4337.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf7_buses_20/events.out.tfevents.1586946231.PC-CYRIL-LINUX.15115.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf7_buses_50/events.out.tfevents.1586946138.PC-CYRIL-LINUX.15075.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf8_buses_100/events.out.tfevents.1586946319.PC-CYRIL-LINUX.15152.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf8_buses_20/events.out.tfevents.1587117660.PC-CYRIL-LINUX.4573.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf8_buses_50/events.out.tfevents.1586946408.PC-CYRIL-LINUX.15181.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf9_buses_100/events.out.tfevents.1586946656.PC-CYRIL-LINUX.15261.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf9_buses_20/events.out.tfevents.1586946885.PC-CYRIL-LINUX.15363.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over60_pf9_buses_50/events.out.tfevents.1586946728.PC-CYRIL-LINUX.15290.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/uniform_1over90_baseline/events.out.tfevents.1586458237.PC-CYRIL-LINUX.4651.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/priority_simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/priority_simulator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnorm_lux_training_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/unnorm_lux_training_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnormalized_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/unnormalized_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/validation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -355,109 +34,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pedestrian_sim5.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1037">
-              <caret line="212" column="34" selection-start-line="212" selection-start-column="34" selection-end-line="212" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/unnorm_lux_sim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2482">
-              <caret line="149" column="22" lean-forward="true" selection-start-line="149" selection-start-column="22" selection-end-line="149" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/unnormalized_sim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/monaco_sim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="879">
-              <caret line="54" column="27" selection-start-line="54" selection-start-column="27" selection-end-line="54" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DQN.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
-              <caret line="81" column="75" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run_simple.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/unnorm_lux_training_sim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3859">
-              <caret line="227" column="46" selection-start-line="227" selection-start-column="46" selection-end-line="227" selection-end-column="46" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/run_real.py">
+        <entry file="file://$PROJECT_DIR$/testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="73" column="22" lean-forward="true" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
+            <state relative-caret-position="442">
+              <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
               <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ped_neglected_sim.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="210" column="34" selection-start-line="210" selection-start-column="34" selection-end-line="210" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -466,8 +49,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3451">
-              <caret line="203" column="29" selection-start-line="203" selection-start-column="29" selection-end-line="203" selection-end-column="29" />
+            <state relative-caret-position="153">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -503,6 +86,7 @@
       <find>11</find>
       <find>agent</find>
       <find>print</find>
+      <find>n</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -524,15 +108,10 @@
         <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/sumo_sim/run_real.py" />
         <option value="$PROJECT_DIR$/run_simple_3.py" />
-        <option value="$PROJECT_DIR$/priority_simulator.py" />
-        <option value="$PROJECT_DIR$/run_buses.py" />
         <option value="$PROJECT_DIR$/plot_buses.py" />
-        <option value="$PROJECT_DIR$/testing.py" />
-        <option value="$PROJECT_DIR$/run_pedestrian.py" />
         <option value="$PROJECT_DIR$/plot_real.py" />
         <option value="$PROJECT_DIR$/plot_pedestrian.py" />
         <option value="$PROJECT_DIR$/plot.py" />
-        <option value="$PROJECT_DIR$/real_testing.py" />
         <option value="$PROJECT_DIR$/real_testing1.py" />
         <option value="$PROJECT_DIR$/real_testing2.py" />
         <option value="$PROJECT_DIR$/unnorm_lux_sim.py" />
@@ -540,20 +119,25 @@
         <option value="$PROJECT_DIR$/real_testing3.py" />
         <option value="$PROJECT_DIR$/real_testing5.py" />
         <option value="$PROJECT_DIR$/real_testing4.py" />
-        <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/lux_training_sim.py" />
         <option value="$PROJECT_DIR$/unnorm_lux_training_sim.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim2.py" />
-        <option value="$PROJECT_DIR$/pedestrian_sim.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim3.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim4.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim5.py" />
         <option value="$PROJECT_DIR$/ped_neglected_sim.py" />
-        <option value="$PROJECT_DIR$/simulator.py" />
         <option value="$PROJECT_DIR$/DQN.py" />
-        <option value="$PROJECT_DIR$/run_simple.py" />
         <option value="$PROJECT_DIR$/unnormalized_sim.py" />
+        <option value="$PROJECT_DIR$/validation.py" />
+        <option value="$PROJECT_DIR$/real_testing.py" />
+        <option value="$PROJECT_DIR$/run_simple.py" />
+        <option value="$PROJECT_DIR$/run_pedestrian.py" />
+        <option value="$PROJECT_DIR$/run_buses.py" />
         <option value="$PROJECT_DIR$/run_real.py" />
+        <option value="$PROJECT_DIR$/priority_simulator.py" />
+        <option value="$PROJECT_DIR$/pedestrian_sim.py" />
+        <option value="$PROJECT_DIR$/simulator.py" />
+        <option value="$PROJECT_DIR$/testing.py" />
       </list>
     </option>
   </component>
@@ -569,6 +153,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -580,7 +165,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -611,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.validation">
+  <component name="RunManager" selected="Python.testing">
     <configuration name="plot" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="PDITSCS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1034,7 +618,8 @@
       <workItem from="1587578723240" duration="455000" />
       <workItem from="1587587566907" duration="404000" />
       <workItem from="1587640658248" duration="8361000" />
-      <workItem from="1587661536725" duration="3053000" />
+      <workItem from="1587661536725" duration="5046000" />
+      <workItem from="1587719095235" duration="4494000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -1264,7 +849,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="708563000" />
+    <option name="totallyTimeSpent" value="715050000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1276,9 +861,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1985" y="-4" width="1615" height="1054" extended-state="6" />
+    <frame x="1984" y="-4" width="1617" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16953474" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32960325" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49713194" visible="true" weight="0.36803365" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.498618" weight="0.39957938" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32914045" />
+      <window_info anchor="bottom" id="Docker" order="7" weight="0.32960325" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49695966" weight="0.39747635" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5030404" side_tool="true" weight="0.3975535" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" weight="0.14195584" />
+      <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.26077813" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.47992352" />
+      <window_info anchor="right" x="0" y="0" width="414" height="885" id="Documentation" order="4" side_tool="true" weight="0.32946378" />
+      <window_info anchor="right" id="Database" order="5" weight="0.32950923" />
+    </layout>
+    <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28744423" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -1301,7 +910,7 @@
       <window_info anchor="right" id="SciView" order="3" weight="0.47992352" />
       <window_info anchor="right" x="0" y="0" width="414" height="885" id="Documentation" order="4" side_tool="true" weight="0.32946378" />
       <window_info anchor="right" id="Database" order="5" weight="0.32950923" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1413,7 +1022,7 @@
     <SUITE FILE_PATH="coverage/PDITSCS$monaco_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1585508937916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run_buses.coverage" NAME="run_buses Coverage Results" MODIFIED="1586594921245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_buses.coverage" NAME="plot_buses Coverage Results" MODIFIED="1587198372815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587381932965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587725543819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run9.coverage" NAME="run9 Coverage Results" MODIFIED="1586268522761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run.coverage" NAME="run Coverage Results" MODIFIED="1585843810343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_pedestrian.coverage" NAME="plot_pedestrian Coverage Results" MODIFIED="1587464414848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1469,29 +1078,12 @@
     <entry file="file://$PROJECT_DIR$/run.py" />
     <entry file="file://$PROJECT_DIR$/sumo_sim/run_real.py" />
     <entry file="file://$PROJECT_DIR$/run_simple_3.py" />
-    <entry file="file://$PROJECT_DIR$/priority_simulator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/run_buses8.py" />
     <entry file="file://$PROJECT_DIR$/run_buses9.py" />
     <entry file="file://$PROJECT_DIR$/run_buses7.py" />
     <entry file="file://$PROJECT_DIR$/run_buses6.py" />
     <entry file="file://$PROJECT_DIR$/run_buses11.py" />
     <entry file="file://$PROJECT_DIR$/run_simple1.py" />
-    <entry file="file://$PROJECT_DIR$/run_buses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1921">
-          <caret line="117" column="38" selection-start-line="117" selection-start-column="38" selection-end-line="117" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plot_buses.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
@@ -1533,13 +1125,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_pedestrian.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="114" column="41" selection-start-line="114" selection-start-column="41" selection-end-line="114" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/real_testing1.py" />
     <entry file="file://$PROJECT_DIR$/real_testing2.py" />
     <entry file="file://$PROJECT_DIR$/real_testing3.py" />
@@ -1552,93 +1137,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/real_testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="80" column="56" selection-start-line="80" selection-start-column="56" selection-end-line="80" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lux_sim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-294">
           <caret line="120" column="58" selection-start-line="120" selection-start-column="58" selection-end-line="120" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lux_training_sim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="240" column="37" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="213" column="34" selection-start-line="213" selection-start-column="34" selection-end-line="213" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="212" column="34" selection-start-line="212" selection-start-column="34" selection-end-line="212" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="209" column="52" selection-start-line="209" selection-start-column="52" selection-end-line="209" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="209" column="52" selection-start-line="209" selection-start-column="52" selection-end-line="209" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim5.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1037">
-          <caret line="212" column="34" selection-start-line="212" selection-start-column="34" selection-end-line="212" selection-end-column="34" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1665,32 +1167,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3451">
-          <caret line="203" column="29" selection-start-line="203" selection-start-column="29" selection-end-line="203" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DQN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1377">
           <caret line="81" column="75" selection-start-line="81" selection-start-column="75" selection-end-line="81" selection-end-column="75" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/unnorm_lux_training_sim.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3859">
-          <caret line="227" column="46" selection-start-line="227" selection-start-column="46" selection-end-line="227" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1705,9 +1187,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/real_testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/unnormalized_sim.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
+        <state relative-caret-position="476">
           <caret line="34" column="6" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -1715,22 +1204,143 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="74" column="65" selection-start-line="74" selection-start-column="65" selection-end-line="74" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_simple.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="89" column="25" lean-forward="true" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+        <state relative-caret-position="2346">
+          <caret line="142" column="35" selection-start-line="142" selection-start-column="35" selection-end-line="142" selection-end-column="35" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/unnorm_lux_training_sim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3791">
+          <caret line="227" column="46" selection-start-line="227" selection-start-column="46" selection-end-line="227" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lux_training_sim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4012">
+          <caret line="240" column="37" selection-start-line="240" selection-start-column="37" selection-end-line="240" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/run_real.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="73" column="22" lean-forward="true" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_pedestrian.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="117" column="20" selection-start-line="117" selection-start-column="20" selection-end-line="117" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_buses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/priority_simulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="951">
+          <caret line="317" column="34" selection-start-line="317" selection-start-column="34" selection-end-line="317" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="63" column="30" lean-forward="true" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="253" lean-forward="true" selection-start-line="253" selection-end-line="253" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="228" column="52" selection-start-line="228" selection-start-column="52" selection-end-line="228" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim4.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-697">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pedestrian_sim5.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="231" column="34" selection-start-line="231" selection-start-column="34" selection-end-line="231" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

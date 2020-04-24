@@ -71,8 +71,14 @@ class PedestrianSimulator:
         self.rewards = []
         self.averageRewards = []
         self.cumWaitingTime = 0
-        self.nbGeneratedPer = 0
+        self.cumWaitingTimeVeh = 0
+        self.cumWaitingTimePed = 0
+        self.nbGeneratedAct = 0
+        self.nbGeneratedVeh = 0
+        self.nbGeneratedPed = 0
         self.averageWaitingTimes = []
+        self.averageWaitingTimesVeh = []
+        self.averageWaitingTimesPed = []
 
         # Determines whether to use the simulator's GUI or not
         options = get_options()
@@ -137,6 +143,7 @@ class PedestrianSimulator:
 
             # Randomly choosing if a vehicle is generated for each step and each route
             if hourly_probs:
+                # /!\ No pedestrian generation!
                 nb_configurations = len(hourly_probs)
                 k = -1
                 for i in range(self.n):
@@ -144,25 +151,29 @@ class PedestrianSimulator:
                         k = (k + 1) % nb_configurations
                     for j in range(len(hourly_probs[k])):
                         if random.uniform(0, 1) < hourly_probs[k][j]:
-                            print('    <vehicle id="' + str(self.nbGeneratedPer) + '" type="car" route="route' + str(
+                            print('    <vehicle id="' + str(self.nbGeneratedAct) + '" type="car" route="route' + str(
                                 j) + '" depart="' + str(
                                 i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
-                            self.nbGeneratedPer += 1
+                            self.nbGeneratedAct += 1
+                            self.nbGeneratedVeh += 1
             else:
                 for i in range(self.n):
                     for j in range(len(self.routeProbs)):
                         if random.uniform(0, 1) < self.routeProbs[j]:
-                            print('    <vehicle id="' + str(self.nbGeneratedPer) + '" type="car" route="route' + str(
+                            print('    <vehicle id="' + str(self.nbGeneratedAct) + '" type="car" route="route' + str(
                                 j) + '" depart="' + str(
                                 i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
-                            self.nbGeneratedPer += 1
+                            self.nbGeneratedAct += 1
+                            self.nbGeneratedVeh += 1
+
                     for j in range(len(self.pedRouteProbs)):
                         if random.uniform(0, 1) < self.pedRouteProbs[j]:
-                            print("""<person id=""" + '"' + str(self.nbGeneratedPer) + '"' + """ depart=""" + '"' + str(
+                            print("""<person id=""" + '"' + str(self.nbGeneratedAct) + '"' + """ depart=""" + '"' + str(
                                 i) + '"' + """ color=""" + '"' + self.select_color() + '"' + """>
         <walk route="route""" + str(j) + """"/>
     </person>""", file=routes)
-                            self.nbGeneratedPer += 1
+                            self.nbGeneratedAct += 1
+                            self.nbGeneratedPed += 1
 
             print("</routes>", file=routes)
 
@@ -185,12 +196,20 @@ class PedestrianSimulator:
             print("Average reward:", average_reward)
             self.episodes.append(self.episodeCnt)
             self.averageRewards.append(average_reward)
-            average_waiting_time = self.cumWaitingTime / self.nbGeneratedPer if self.nbGeneratedPer != 0 else 0
+            average_waiting_time = self.cumWaitingTime / self.nbGeneratedAct if self.nbGeneratedAct != 0 else 0
+            average_waiting_time_veh = self.cumWaitingTimeVeh / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
+            average_waiting_time_ped = self.cumWaitingTimePed / self.nbGeneratedPed if self.nbGeneratedPed != 0 else 0
             print("Average waiting time:", average_waiting_time)
             self.averageWaitingTimes.append(average_waiting_time)
+            self.averageWaitingTimesVeh.append(average_waiting_time_veh)
+            self.averageWaitingTimesPed.append(average_waiting_time_ped)
             self.rewards.clear()
             self.cumWaitingTime = 0
-            self.nbGeneratedPer = 0
+            self.cumWaitingTimeVeh = 0
+            self.cumWaitingTimePed = 0
+            self.nbGeneratedAct = 0
+            self.nbGeneratedVeh = 0
+            self.nbGeneratedPed = 0
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -380,10 +399,13 @@ class PedestrianSimulator:
 
     def increment_waiting_time(self, veh_ids, ped_ids):
         cnt = 0
+        cnt_veh = 0
+        cnt_ped = 0
         for i in range(len(veh_ids)):
             for x in veh_ids[i]:
                 if traci.vehicle.getSpeed(x) < 0.1:
                     cnt += 1
+                    cnt_veh += 1
         for x in ped_ids:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
@@ -391,7 +413,10 @@ class PedestrianSimulator:
                     3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
                     -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
+                cnt_ped += 1
         self.cumWaitingTime += cnt
+        self.cumWaitingTimeVeh += cnt_veh
+        self.cumWaitingTimePed += cnt_ped
 
     # /!\ Filename without file extension
     def save_stats(self, gen_name):

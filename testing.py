@@ -1,4 +1,4 @@
-import pedestrian_sim as sim
+import simulator as sim
 import pickle
 import statistics
 from torch.utils.tensorboard import SummaryWriter
@@ -32,16 +32,18 @@ if __name__ == "__main__":
 
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = False
+    gui = True
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
+    route_probabilities = [1. / 300] * 12
     ped_route_probabilities = [1. / 60] * 12
 
-    simulator = sim.PedestrianSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
-                                        route_probabilities, ped_route_probabilities, hour_of_the_day, gui, h_probs)
+    simulator = sim.Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
+                              hour_of_the_day, gui, h_probs)
+    '''simulator = sim.PedestrianSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                        route_probabilities, ped_route_probabilities, hour_of_the_day, gui, h_probs)'''
 
     nb_episodes_baseline = 200
 
