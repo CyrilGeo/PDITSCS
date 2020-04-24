@@ -32,12 +32,12 @@ if __name__ == "__main__":
 
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = True
+    gui = False
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 300] * 12
+    route_probabilities = [1. / 15] * 3 + [1. / 30] * 3 + [1. / 15] * 3 + [1. / 30] * 3
     ped_route_probabilities = [1. / 60] * 12
 
     simulator = sim.Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
     waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)'''
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_pedestrian_baseline")
+    tb = SummaryWriter(log_dir="runs/hor1over15_ver1over30_adapted")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)

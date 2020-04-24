@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -204,12 +204,12 @@ class Simulator:
             self.next_phase()
 
         # Adapted fixed phase duration
-        '''elif (self.currPhaseTime > self.minPhaseDuration and traci.trafficlight.getPhase("center") == 0) or (
-                self.currPhaseTime > 15 and traci.trafficlight.getPhase("center") == 2):
+        '''elif (self.currPhaseTime >= 10 and traci.trafficlight.getPhase("center") == 0) or (
+                self.currPhaseTime >= 20 and traci.trafficlight.getPhase("center") == 2):
             self.next_phase()'''
 
         # Randomly choosing if the simulation switches to the next state or stays at the current state
-        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > self.minPhaseDuration:
+        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime >= self.minPhaseDuration:
             self.next_phase()'''
 
         traci.simulationStep()

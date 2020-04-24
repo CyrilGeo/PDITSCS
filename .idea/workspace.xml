@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim2.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim4.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim5.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/priority_simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/priority_simulator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
     </list>
@@ -37,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+            <state relative-caret-position="254">
+              <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -49,11 +42,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="220">
+              <caret line="203" column="39" selection-start-line="203" selection-start-column="39" selection-end-line="203" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run_simple.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-51">
+              <caret line="99" column="14" selection-start-line="99" selection-start-column="14" selection-end-line="99" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/submit.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -130,14 +144,14 @@
         <option value="$PROJECT_DIR$/unnormalized_sim.py" />
         <option value="$PROJECT_DIR$/validation.py" />
         <option value="$PROJECT_DIR$/real_testing.py" />
-        <option value="$PROJECT_DIR$/run_simple.py" />
         <option value="$PROJECT_DIR$/run_pedestrian.py" />
         <option value="$PROJECT_DIR$/run_buses.py" />
         <option value="$PROJECT_DIR$/run_real.py" />
         <option value="$PROJECT_DIR$/priority_simulator.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim.py" />
-        <option value="$PROJECT_DIR$/simulator.py" />
+        <option value="$PROJECT_DIR$/run_simple.py" />
         <option value="$PROJECT_DIR$/testing.py" />
+        <option value="$PROJECT_DIR$/simulator.py" />
       </list>
     </option>
   </component>
@@ -619,7 +633,7 @@
       <workItem from="1587587566907" duration="404000" />
       <workItem from="1587640658248" duration="8361000" />
       <workItem from="1587661536725" duration="5046000" />
-      <workItem from="1587719095235" duration="4494000" />
+      <workItem from="1587719095235" duration="11777000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -849,7 +863,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="715050000" />
+    <option name="totallyTimeSpent" value="722333000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -862,14 +876,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1984" y="-4" width="1617" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16953474" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32960325" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49713194" visible="true" weight="0.36803365" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49713194" weight="0.36803365" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.498618" weight="0.39957938" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -878,7 +891,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49695966" weight="0.39747635" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5030404" side_tool="true" weight="0.3975535" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" weight="0.14195584" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.14195584" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.26077813" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1022,7 +1035,7 @@
     <SUITE FILE_PATH="coverage/PDITSCS$monaco_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1585508937916" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run_buses.coverage" NAME="run_buses Coverage Results" MODIFIED="1586594921245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_buses.coverage" NAME="plot_buses Coverage Results" MODIFIED="1587198372815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587725543819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$testing.coverage" NAME="testing Coverage Results" MODIFIED="1587735831808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run9.coverage" NAME="run9 Coverage Results" MODIFIED="1586268522761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run.coverage" NAME="run Coverage Results" MODIFIED="1585843810343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_pedestrian.coverage" NAME="plot_pedestrian Coverage Results" MODIFIED="1587464414848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1130,13 +1143,6 @@
     <entry file="file://$PROJECT_DIR$/real_testing3.py" />
     <entry file="file://$PROJECT_DIR$/real_testing4.py" />
     <entry file="file://$PROJECT_DIR$/real_testing5.py" />
-    <entry file="file://$PROJECT_DIR$/submit.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lux_sim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-294">
@@ -1208,16 +1214,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1190">
           <caret line="74" column="65" selection-start-line="74" selection-start-column="65" selection-end-line="74" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_simple.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2346">
-          <caret line="142" column="35" selection-start-line="142" selection-start-column="35" selection-end-line="142" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1325,10 +1321,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/submit.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_simple.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="99" column="14" selection-start-line="99" selection-start-column="14" selection-end-line="99" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simulator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="220">
+          <caret line="203" column="39" selection-start-line="203" selection-start-column="39" selection-end-line="203" selection-end-column="39" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -1337,8 +1350,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+        <state relative-caret-position="254">
+          <caret line="61" column="57" selection-start-line="61" selection-start-column="57" selection-end-line="61" selection-end-column="57" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
