@@ -1,5 +1,5 @@
 import simulator as sim
-import pickle
+import random
 import statistics
 from torch.utils.tensorboard import SummaryWriter
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     gui = False
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 15] * 3 + [1. / 30] * 3 + [1. / 15] * 3 + [1. / 30] * 3
+    route_probabilities = [1. / 60] * 12
     ped_route_probabilities = [1. / 60] * 12
 
     simulator = sim.Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     nb_episodes_baseline = 200
 
-    while simulator.step():
+    while simulator.step(random.choice([0, 1])):
         '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
         print(simulator.get_state())'''
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
     waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)'''
 
-    tb = SummaryWriter(log_dir="runs/hor1over15_ver1over30_adapted")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_random")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -84,8 +84,3 @@ if __name__ == "__main__":
 
     '''print("Average waiting time for cars:", waiting_time_cars)
     print("Average waiting time for buses:", waiting_time_buses)'''
-
-    # with open("data/hor1over45_ver1over60_baseline_r.txt", "wb") as file:
-    #     pickle.dump(reward, file)
-    # with open("data/hor1over45_ver1over60_baseline_w.txt", "wb") as file:
-    #     pickle.dump(waiting_time, file)

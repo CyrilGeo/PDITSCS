@@ -54,7 +54,7 @@ if __name__ == "__main__":
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    '''tb = SummaryWriter(log_dir="runs/hourly_LuST_training_20_unnormalized")
+    tb = SummaryWriter(log_dir="runs/hourly_LuST_training_20_unnormalized")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -68,9 +68,9 @@ if __name__ == "__main__":
     for i in range(len(hours)):
         tb.add_scalar("Average hourly reward", averageHourlyRewards[i], hours[i])
         tb.add_scalar("Average hourly waiting time", averageHourlyWaitingTimes[i], hours[i])
-    tb.close()'''
+    tb.close()
 
-    plt.figure()
+    '''plt.figure()
     plt.grid()
     plt.plot(hours, averageHourlyRewards, color="r", label="fixed time")
     plt.xlabel("Hour of the day")
@@ -84,4 +84,4 @@ if __name__ == "__main__":
     plt.xlabel("Hour of the day")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
-    plt.show()
+    plt.show()'''

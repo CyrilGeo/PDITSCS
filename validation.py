@@ -1,7 +1,6 @@
 from simulator import Simulator
 from DQN import Agent
 import statistics
-import random
 from torch.utils.tensorboard import SummaryWriter
 
 if __name__ == "__main__":
@@ -59,8 +58,8 @@ if __name__ == "__main__":
     bus_stddev = 90
     priority_factor = 15
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
-    file_name = "model_100_low_scheduled.pt"
+    route_probabilities = [1. / 15] * 12
+    file_name = "model_100_veryhigh.pt"
 
     simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui)
