@@ -89,7 +89,7 @@ if __name__ == "__main__":
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     lr_decay_factor = 0.1
     gamma = 0.9
     policy = "epsilon-greedy"
-    epsilon = 0.1
+    epsilon = 1
     epsilon_end = 0.05
     decay_steps_ep = 100000
     temp = 1
@@ -107,8 +107,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
-    gen_name = "model_100_medium_eps01"
+    route_probabilities = [1. / 60] * 3 + [1. / 300] * 3 + [1. / 60] * 3 + [1. / 300] * 3
+    gen_name = "model_hor_60_300_50"
     file_name = gen_name + ".pt"
     doTesting = True
 

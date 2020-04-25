@@ -54,7 +54,7 @@ if __name__ == "__main__":
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
 
-    tb = SummaryWriter(log_dir="runs/hourly_LuST_training_20_unnormalized")
+    tb = SummaryWriter(log_dir="runs/hourly_LuST_100")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
