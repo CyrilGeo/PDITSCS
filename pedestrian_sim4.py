@@ -325,8 +325,8 @@ class PedestrianSimulator:
     def count_detected_ped(self, ped_ids):
         cnt = [0] * 4
         for x in ped_ids:
-            position = traci.person.getPosition(x)
             if traci.person.getColor(x) == (0, 255, 0, 255):
+                position = traci.person.getPosition(x)
                 if -13.2 < position[0] < -3.2 and 3.2 < position[1] < 13.2:
                     if traci.person.getSpeed(x) < 0.1:
                         if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):

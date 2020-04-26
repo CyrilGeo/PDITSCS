@@ -52,7 +52,7 @@ if __name__ == "__main__":
     plt.plot(hours, rewards1, color="limegreen", label="100% detection rate")
     '''plt.plot(hours, rewards2, color="steelblue", label="50% detection rate")
     plt.plot(hours, rewards3, color="gold", label="20% detection rate")'''
-    plt.plot(hours, rewards4, color="r", label="fixed time")
+    plt.plot(hours, rewards4, color="r", label="Fixed time")
     plt.xlabel("Hour")
     plt.ylabel("Average reward")
     plt.legend()
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     plt.plot(hours, waiting_times1, color="limegreen", label="100% detection rate")
     '''plt.plot(hours, waiting_times2, color="steelblue", label="50% detection rate")
     plt.plot(hours, waiting_times3, color="gold", label="20% detection rate")'''
-    plt.plot(hours, waiting_times4, color="r", label="fixed time")
+    plt.plot(hours, waiting_times4, color="r", label="Fixed time")
     plt.xlabel("Hour")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
