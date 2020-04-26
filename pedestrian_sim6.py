@@ -5,7 +5,6 @@ import random
 import statistics
 import pickle
 import matplotlib.pyplot as plt
-from math import sqrt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -20,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-import libsumo as traci
+# import libsumo as traci
 
 
-# import traci
+import traci
 
 
 def get_options():
@@ -53,6 +52,7 @@ class PedestrianSimulator:
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
+        self.lanePosPedDict = {}
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -61,6 +61,7 @@ class PedestrianSimulator:
         self.detectedCarCnt = None
         self.detectedPedCnt = None
         self.distanceNearestDetectedVeh = None
+        self.distanceNearestDetectedPed = None
         self.normCurrPhaseTime = None
         self.amberPhase = None
         self.currDayTime = None
@@ -210,6 +211,7 @@ class PedestrianSimulator:
             self.nbGeneratedAct = 0
             self.nbGeneratedVeh = 0
             self.nbGeneratedPed = 0
+            self.lanePosPedDict.clear()
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -250,6 +252,8 @@ class PedestrianSimulator:
         self.update_reward(veh_ids, ped_ids)
         self.increment_waiting_time(veh_ids, ped_ids)
         self.rewards.append(self.reward)
+        for x in ped_ids:
+            self.lanePosPedDict[x] = traci.person.getLanePosition(x)
         return True
 
     # Switches traffic light to the next phase
@@ -262,27 +266,15 @@ class PedestrianSimulator:
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.detectedPedCnt = self.count_detected_ped(ped_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
+        self.distanceNearestDetectedPed = [-x / y for x, y in
+                                           zip(self.get_ped_distances(ped_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
-        if current_phase == 0:
-            self.detectedCarCnt[1] = -self.detectedCarCnt[1]
-            self.detectedCarCnt[3] = -self.detectedCarCnt[3]
-            self.detectedPedCnt[0] = -self.detectedPedCnt[0]
-            self.detectedPedCnt[2] = -self.detectedPedCnt[2]
-            self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
-            self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif current_phase == 1:
+        if current_phase == 0 or current_phase == 1:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
             self.detectedCarCnt[3] = -self.detectedCarCnt[3]
             self.distanceNearestDetectedVeh[1] = -self.distanceNearestDetectedVeh[1]
             self.distanceNearestDetectedVeh[3] = -self.distanceNearestDetectedVeh[3]
-        elif current_phase == 3:
-            self.detectedCarCnt[0] = -self.detectedCarCnt[0]
-            self.detectedCarCnt[2] = -self.detectedCarCnt[2]
-            self.detectedPedCnt[1] = -self.detectedPedCnt[1]
-            self.detectedPedCnt[3] = -self.detectedPedCnt[3]
-            self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
-            self.distanceNearestDetectedVeh[2] = -self.distanceNearestDetectedVeh[2]
-        elif current_phase == 4:
+        elif current_phase == 3 or current_phase == 4:
             self.detectedCarCnt[0] = -self.detectedCarCnt[0]
             self.detectedCarCnt[2] = -self.detectedCarCnt[2]
             self.distanceNearestDetectedVeh[0] = -self.distanceNearestDetectedVeh[0]
@@ -325,33 +317,19 @@ class PedestrianSimulator:
     def count_detected_ped(self, ped_ids):
         cnt = [0] * 4
         for x in ped_ids:
-            if traci.person.getColor(x) == (0, 255, 0, 255):
+            if traci.person.getColor(x) == (0, 255, 0, 255) and (
+                    self.lanePosPedDict.get(x) is None or self.lanePosPedDict[x] < traci.person.getLanePosition(
+                    x) or traci.person.getSpeed(x) < 0.2):
                 position = traci.person.getPosition(x)
-                if -13.2 < position[0] < -3.2 and 3.2 < position[1] < 13.2:
-                    if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
-                        cnt[0] -= 1
-                    else:
-                        cnt[1] -= 1
-                elif 3.2 < position[0] < 13.2 and 3.2 < position[1] < 13.2:
-                    if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
-                        cnt[1] -= 1
-                    else:
-                        cnt[2] -= 1
-                elif 3.2 < position[0] < 13.2 and -13.2 < position[1] < -3.2:
-                    if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
-                        cnt[2] -= 1
-                    else:
-                        cnt[3] -= 1
-                elif -13.2 < position[0] < -3.2 and -13.2 < position[1] < -3.2:
-                    if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
-                        cnt[3] -= 1
-                    else:
-                        cnt[0] -= 1
+                if position[0] < 0 and position[1] > 0:
+                    cnt[0] += 1
+                elif position[0] > 0 and position[1] > 0:
+                    cnt[1] += 1
+                elif position[0] > 0 and position[1] < 0:
+                    cnt[2] += 1
+                elif position[0] < 0 and position[1] < 0:
+                    cnt[3] += 1
         return cnt
-
-    @staticmethod
-    def dist(coords1, coords2):
-        return sqrt((coords1[0] - coords2[0]) ** 2 + (coords1[1] - coords2[1]) ** 2)
 
     # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
     # car ids
@@ -364,11 +342,27 @@ class PedestrianSimulator:
                 distances[i] = distances[i] + max(detected_positions)
         return distances
 
+    def get_ped_distances(self, ped_ids):
+        distances = [-x for x in self.defaultDistances]
+        for x in ped_ids:
+            if traci.person.getColor(x) == (0, 255, 0, 255) and (
+                    self.lanePosPedDict.get(x) is None or self.lanePosPedDict[x] < traci.person.getLanePosition(
+                    x) or traci.person.getSpeed(x) < 0.2):
+                position = traci.person.getPosition(x)
+                if position[0] < 0 and position[1] > 0:
+                    distances[0] = min(distances[0], -self.defaultDistances[0] - traci.person.getLanePosition(x))
+                elif position[0] > 0 and position[1] > 0:
+                    distances[1] = min(distances[1], -self.defaultDistances[1] - traci.person.getLanePosition(x))
+                elif position[0] > 0 and position[1] < 0:
+                    distances[2] = min(distances[2], -self.defaultDistances[2] - traci.person.getLanePosition(x))
+                elif position[0] < 0 and position[1] < 0:
+                    distances[3] = min(distances[3], -self.defaultDistances[3] - traci.person.getLanePosition(x))
+        return distances
+
     # Returns the state values as a list
     def get_state(self):
-        return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime,
-                                                                                              self.amberPhase,
-                                                                                              self.currDayTime]
+        return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh+ self.distanceNearestDetectedPed + [
+            self.normCurrPhaseTime, self.amberPhase, self.currDayTime]
 
     # Returns the reward
     def get_reward(self):
@@ -394,8 +388,8 @@ class PedestrianSimulator:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
                     3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
-                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
-                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
+                                                           3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                                                           -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
                 cnt_ped += 1
         self.cumWaitingTime += cnt

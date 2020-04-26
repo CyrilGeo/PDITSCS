@@ -55,12 +55,12 @@ if __name__ == "__main__":
     baseline_adapted_r_dev = 0
     baseline_adapted_w_dev = 0
 
-    figure_location = "uniform/"
-    figure_name = "veryhigh"
+    figure_location = "non_uniform/"
+    figure_name = "veryhigh_high"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_veryhigh/events.out.tfevents.1587752514.alan-compute-08.119841.0"):
+            "runs/model_hor_15_30_100/events.out.tfevents.1587807610.alan-compute-09.192326.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 episodes.append(event.step)
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     # 70% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_veryhigh/events.out.tfevents.1587754019.alan-compute-09.91306.0"):
+            "runs/model_hor_15_30_70/events.out.tfevents.1587807710.alan-compute-09.192605.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards2.append(value.simple_value)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_50_veryhigh/events.out.tfevents.1587753838.alan-compute-05.5294.0"):
+            "runs/model_hor_15_30_50/events.out.tfevents.1587807791.alan-compute-09.192873.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards3.append(value.simple_value)
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_20_veryhigh/events.out.tfevents.1587755872.alan-compute-06.36963.0"):
+            "runs/model_hor_15_30_20/events.out.tfevents.1587807419.alan-compute-08.165328.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards4.append(value.simple_value)
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     # baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over15_baseline/events.out.tfevents.1587729529.PC-CYRIL-LINUX.11671.0"):
+            "runs/hor1over15_ver1over30_baseline/events.out.tfevents.1587733875.PC-CYRIL-LINUX.13028.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_r = value.simple_value
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
     # adapted baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_random/events.out.tfevents.1587756799.PC-CYRIL-LINUX.21359.0"):
+            "runs/hor1over15_ver1over30_adapted/events.out.tfevents.1587735909.PC-CYRIL-LINUX.13932.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_adapted_r = value.simple_value
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     plt.plot(episodes, rewards4, color="gold", label="20% detection rate")
     plt.errorbar(episodes, rewards4, yerr=rewards4_dev, color="gold", elinewidth=3, alpha=0.4)
     plt.axhline(y=baseline_r, color="r", label="Fixed time (10s)")
-    # plt.axhline(y=baseline_adapted_r, color="darkviolet", label="adapted fixed time")
+    plt.axhline(y=baseline_adapted_r, color="darkviolet", label="Adapted fixed time")
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
     plt.legend()
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     plt.plot(episodes, waiting_times4, color="gold", label="20% detection rate")
     plt.errorbar(episodes, waiting_times4, yerr=waiting_times4_dev, color="gold", elinewidth=3, alpha=0.4)
     plt.axhline(y=baseline_w, color="r", label="Fixed time (10s)")
-    # plt.axhline(y=baseline_adapted_w, color="darkviolet", label="adapted fixed time")
+    plt.axhline(y=baseline_adapted_w, color="darkviolet", label="Adapted fixed time")
     # plt.ylim(bottom=2, top=7)
     plt.xlabel("Episode")
     plt.ylabel("Average waiting time (s)")
