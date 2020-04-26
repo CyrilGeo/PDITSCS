@@ -1,4 +1,4 @@
-from unnorm_lux_training_sim import LuxTrainingSim
+from lux_training_sim import LuxTrainingSim
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     nb_episodes = 300
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
-    detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 5
     gui = False
     alpha = 0.0001
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    gen_name = "model_70_real_unnormalized"
+    gen_name = "model_20_real"
     file_name = gen_name + ".pt"
     doTesting = True
 
