@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -52,7 +52,8 @@ class PedestrianSimulator:
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
-        self.lanePosPedDict = {}
+        self.pedPosDict = {}
+        self.pedLaneLength = 96.8
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -211,7 +212,7 @@ class PedestrianSimulator:
             self.nbGeneratedAct = 0
             self.nbGeneratedVeh = 0
             self.nbGeneratedPed = 0
-            self.lanePosPedDict.clear()
+            self.pedPosDict.clear()
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -236,8 +237,8 @@ class PedestrianSimulator:
             self.next_phase()
 
         # Adapted fixed phase duration
-        '''elif (self.currPhaseTime > self.minPhaseDuration and traci.trafficlight.getPhase("center") == 0) or (
-                self.currPhaseTime > 15 and traci.trafficlight.getPhase("center") == 2):
+        '''elif (self.currPhaseTime >= 10 and traci.trafficlight.getPhase("center") == 0) or (
+                self.currPhaseTime >= 15 and traci.trafficlight.getPhase("center") == 2):
             self.next_phase()'''
 
         # Randomly choosing if the simulation switches to the next state or stays at the current state
@@ -253,7 +254,7 @@ class PedestrianSimulator:
         self.increment_waiting_time(veh_ids, ped_ids)
         self.rewards.append(self.reward)
         for x in ped_ids:
-            self.lanePosPedDict[x] = traci.person.getLanePosition(x)
+            self.pedPosDict[x] = traci.person.getPosition(x)
         return True
 
     # Switches traffic light to the next phase
@@ -266,8 +267,8 @@ class PedestrianSimulator:
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.detectedPedCnt = self.count_detected_ped(ped_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
-        self.distanceNearestDetectedPed = [-x / y for x, y in
-                                           zip(self.get_ped_distances(ped_ids), self.defaultDistances)]
+        self.distanceNearestDetectedPed = [x / y for x, y in
+                                           zip(self.get_ped_distances(ped_ids), [self.pedLaneLength] * 4)]
         current_phase = traci.trafficlight.getPhase("center")
         if current_phase == 0 or current_phase == 1:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
@@ -317,17 +318,23 @@ class PedestrianSimulator:
     def count_detected_ped(self, ped_ids):
         cnt = [0] * 4
         for x in ped_ids:
-            if traci.person.getColor(x) == (0, 255, 0, 255) and (
-                    self.lanePosPedDict.get(x) is None or self.lanePosPedDict[x] < traci.person.getLanePosition(
-                    x) or traci.person.getSpeed(x) < 0.2):
+            if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0:
+                if position[0] < 0 and position[1] > 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
+                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     cnt[0] += 1
-                elif position[0] > 0 and position[1] > 0:
+                elif position[0] > 0 and position[1] > 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
+                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     cnt[1] += 1
-                elif position[0] > 0 and position[1] < 0:
+                elif position[0] > 0 and position[1] < 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
+                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     cnt[2] += 1
-                elif position[0] < 0 and position[1] < 0:
+                elif position[0] < 0 and position[1] < 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
+                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     cnt[3] += 1
         return cnt
 
@@ -343,25 +350,43 @@ class PedestrianSimulator:
         return distances
 
     def get_ped_distances(self, ped_ids):
-        distances = [-x for x in self.defaultDistances]
+        distances = [self.pedLaneLength] * 4
         for x in ped_ids:
-            if traci.person.getColor(x) == (0, 255, 0, 255) and (
-                    self.lanePosPedDict.get(x) is None or self.lanePosPedDict[x] < traci.person.getLanePosition(
-                    x) or traci.person.getSpeed(x) < 0.2):
+            if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0:
-                    distances[0] = min(distances[0], -self.defaultDistances[0] - traci.person.getLanePosition(x))
-                elif position[0] > 0 and position[1] > 0:
-                    distances[1] = min(distances[1], -self.defaultDistances[1] - traci.person.getLanePosition(x))
-                elif position[0] > 0 and position[1] < 0:
-                    distances[2] = min(distances[2], -self.defaultDistances[2] - traci.person.getLanePosition(x))
-                elif position[0] < 0 and position[1] < 0:
-                    distances[3] = min(distances[3], -self.defaultDistances[3] - traci.person.getLanePosition(x))
+                if position[0] < 0 and position[1] > 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
+                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
+                    if -7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2:
+                        distances[0] = min(distances[0], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    else:
+                        distances[0] = min(distances[0], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
+                elif position[0] > 0 and position[1] > 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
+                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
+                    if 3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2:
+                        distances[1] = min(distances[1], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    else:
+                        distances[1] = min(distances[1], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
+                elif position[0] > 0 and position[1] < 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
+                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
+                    if 3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2:
+                        distances[2] = min(distances[2], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    else:
+                        distances[2] = min(distances[2], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
+                elif position[0] < 0 and position[1] < 0 and (
+                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
+                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
+                    if -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2:
+                        distances[3] = min(distances[3], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    else:
+                        distances[3] = min(distances[3], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
         return distances
 
     # Returns the state values as a list
     def get_state(self):
-        return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh+ self.distanceNearestDetectedPed + [
+        return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh + self.distanceNearestDetectedPed + [
             self.normCurrPhaseTime, self.amberPhase, self.currDayTime]
 
     # Returns the reward
@@ -388,8 +413,8 @@ class PedestrianSimulator:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
                     3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
-                                                           3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
-                                                           -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
+                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
                 cnt_ped += 1
         self.cumWaitingTime += cnt

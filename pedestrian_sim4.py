@@ -328,7 +328,7 @@ class PedestrianSimulator:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
                 if -13.2 < position[0] < -3.2 and 3.2 < position[1] < 13.2:
-                    if traci.person.getSpeed(x) < 0.1:
+                    if traci.person.getSpeed(x) < 0.2:
                         if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
                             cnt[0] -= 1
                         else:
@@ -337,7 +337,7 @@ class PedestrianSimulator:
                         cnt[0] -= 1 / 3
                         cnt[1] -= 1 / 3
                 elif 3.2 < position[0] < 13.2 and 3.2 < position[1] < 13.2:
-                    if traci.person.getSpeed(x) < 0.1:
+                    if traci.person.getSpeed(x) < 0.2:
                         if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
                             cnt[1] -= 1
                         else:
@@ -346,7 +346,7 @@ class PedestrianSimulator:
                         cnt[1] -= 1 / 3
                         cnt[2] -= 1 / 3
                 elif 3.2 < position[0] < 13.2 and -13.2 < position[1] < -3.2:
-                    if traci.person.getSpeed(x) < 0.1:
+                    if traci.person.getSpeed(x) < 0.2:
                         if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
                             cnt[2] -= 1
                         else:
@@ -355,7 +355,7 @@ class PedestrianSimulator:
                         cnt[2] -= 1 / 3
                         cnt[3] -= 1 / 3
                 elif -13.2 < position[0] < -3.2 and -13.2 < position[1] < -3.2:
-                    if traci.person.getSpeed(x) < 0.1:
+                    if traci.person.getSpeed(x) < 0.2:
                         if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
                             cnt[3] -= 1
                         else:

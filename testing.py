@@ -1,4 +1,4 @@
-import pedestrian_sim6 as sim
+import pedestrian_sim7 as sim
 import random
 import statistics
 from torch.utils.tensorboard import SummaryWriter
@@ -44,10 +44,12 @@ if __name__ == "__main__":
                               hour_of_the_day, gui, h_probs)'''
     simulator = sim.PedestrianSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                         route_probabilities, ped_route_probabilities, hour_of_the_day, gui, h_probs)
+    '''simulator = sim.MonacoSim(gui)
+    simulator.start_sim()'''
 
     nb_episodes_baseline = 200
 
-    while simulator.step(random.choice([0, 1])):
+    while simulator.step():
         print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
         print(simulator.get_state())
 
