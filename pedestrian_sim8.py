@@ -339,7 +339,7 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0 and (
+                if position[0] < -3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     if traci.person.getSpeed(x) < 0.2:
@@ -350,7 +350,7 @@ class PedestrianSimulator:
                     else:
                         cnt[0] -= 1 / 3
                         cnt[1] -= 1 / 3
-                elif position[0] > 0 and position[1] > 0 and (
+                elif position[0] > 3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     if traci.person.getSpeed(x) < 0.2:
@@ -361,7 +361,7 @@ class PedestrianSimulator:
                     else:
                         cnt[1] -= 1 / 3
                         cnt[2] -= 1 / 3
-                elif position[0] > 0 and position[1] < 0 and (
+                elif position[0] > 3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     if traci.person.getSpeed(x) < 0.2:
@@ -372,7 +372,7 @@ class PedestrianSimulator:
                     else:
                         cnt[2] -= 1 / 3
                         cnt[3] -= 1 / 3
-                elif position[0] < 0 and position[1] < 0 and (
+                elif position[0] < -3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     if traci.person.getSpeed(x) < 0.2:
@@ -405,28 +405,28 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0 and (
+                if position[0] < -3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
                         distances[0] = min(distances[0], self.dist(position, [-5.2, 3.2]))
                     else:
                         distances[1] = min(distances[1], self.dist(position, [-3.2, 5.2]))
-                elif position[0] > 0 and position[1] > 0 and (
+                elif position[0] > 3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
                         distances[1] = min(distances[1], self.dist(position, [3.2, 5.2]))
                     else:
                         distances[2] = min(distances[2], self.dist(position, [5.2, 3.2]))
-                elif position[0] > 0 and position[1] < 0 and (
+                elif position[0] > 3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
                         distances[2] = min(distances[2], self.dist(position, [5.2, -3.2]))
                     else:
                         distances[3] = min(distances[3], self.dist(position, [3.2, -5.2]))
-                elif position[0] < 0 and position[1] < 0 and (
+                elif position[0] < -3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):

@@ -20,10 +20,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -53,7 +53,7 @@ class PedestrianSimulator:
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
-        self.pedPosDict = {}
+        self.pedRouteDict = {}
         self.pedLaneLength = self.dist([5.2, 100], [3.2, 5.2])
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
@@ -175,6 +175,7 @@ class PedestrianSimulator:
                                 i) + '"' + """ color=""" + '"' + self.select_color() + '"' + """>
         <walk route="route""" + str(j) + """"/>
     </person>""", file=routes)
+                            self.pedRouteDict[str(self.nbGeneratedAct)] = j
                             self.nbGeneratedAct += 1
                             self.nbGeneratedPed += 1
 
@@ -213,7 +214,7 @@ class PedestrianSimulator:
             self.nbGeneratedAct = 0
             self.nbGeneratedVeh = 0
             self.nbGeneratedPed = 0
-            self.pedPosDict.clear()
+            self.pedRouteDict.clear()
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -254,8 +255,6 @@ class PedestrianSimulator:
         self.update_reward(veh_ids, ped_ids)
         self.increment_waiting_time(veh_ids, ped_ids)
         self.rewards.append(self.reward)
-        for x in ped_ids:
-            self.pedPosDict[x] = traci.person.getPosition(x)
         return True
 
     # Switches traffic light to the next phase
@@ -339,33 +338,33 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < -3.2 and position[1] > 3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
-                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
+                if position[0] < 3.2 and position[1] > -3.2:
+                    if (self.pedRouteDict[x] == 4 and position[0] < -3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 6 and position[1] > 3.2):
                         cnt[0] -= 1
-                    else:
+                    elif (self.pedRouteDict[x] == 3 and position[0] < -3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 0 and position[0] < -3.2):
                         cnt[1] -= 1
-                elif position[0] > 3.2 and position[1] > 3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
-                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
+                elif position[0] > -3.2 and position[1] > -3.2:
+                    if (self.pedRouteDict[x] == 7 and position[0] > 3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 9 and position[0] > 3.2):
                         cnt[1] -= 1
-                    else:
+                    elif (self.pedRouteDict[x] == 6 and position[0] > 3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 3 and position[1] > 3.2):
                         cnt[2] -= 1
-                elif position[0] > 3.2 and position[1] < -3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
-                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
+                elif position[0] > -3.2 and position[1] < 3.2:
+                    if (self.pedRouteDict[x] == 10 and position[0] > 3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 0 and position[1] < -3.2):
                         cnt[2] -= 1
-                    else:
+                    elif (self.pedRouteDict[x] == 9 and position[0] > 3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 6 and position[0] > 3.2):
                         cnt[3] -= 1
-                elif position[0] < -3.2 and position[1] < -3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
-                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
+                elif position[0] < 3.2 and position[1] < 3.2:
+                    if (self.pedRouteDict[x] == 1 and position[0] < -3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 3 and position[0] < -3.2):
                         cnt[3] -= 1
-                    else:
+                    elif (self.pedRouteDict[x] == 0 and position[0] < -3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 9 and position[1] < -3.2):
                         cnt[0] -= 1
         return cnt
 
@@ -389,33 +388,33 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < -3.2 and position[1] > 3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
-                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
+                if position[0] < 3.2 and position[1] > -3.2:
+                    if (self.pedRouteDict[x] == 4 and position[0] < -3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 6 and position[1] > 3.2):
                         distances[0] = min(distances[0], self.dist(position, [-5.2, 3.2]))
-                    else:
+                    elif (self.pedRouteDict[x] == 3 and position[0] < -3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 0 and position[0] < -3.2):
                         distances[1] = min(distances[1], self.dist(position, [-3.2, 5.2]))
-                elif position[0] > 3.2 and position[1] > 3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
-                        self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
+                elif position[0] > -3.2 and position[1] > -3.2:
+                    if (self.pedRouteDict[x] == 7 and position[0] > 3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 9 and position[0] > 3.2):
                         distances[1] = min(distances[1], self.dist(position, [3.2, 5.2]))
-                    else:
+                    elif (self.pedRouteDict[x] == 6 and position[0] > 3.2 and position[1] > 3.2) or (
+                            self.pedRouteDict[x] == 3 and position[1] > 3.2):
                         distances[2] = min(distances[2], self.dist(position, [5.2, 3.2]))
-                elif position[0] > 3.2 and position[1] < -3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
-                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
+                elif position[0] > -3.2 and position[1] < 3.2:
+                    if (self.pedRouteDict[x] == 10 and position[0] > 3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 0 and position[1] < -3.2):
                         distances[2] = min(distances[2], self.dist(position, [5.2, -3.2]))
-                    else:
+                    elif (self.pedRouteDict[x] == 9 and position[0] > 3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 6 and position[0] > 3.2):
                         distances[3] = min(distances[3], self.dist(position, [3.2, -5.2]))
-                elif position[0] < -3.2 and position[1] < -3.2 and (
-                        traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
-                        self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
+                elif position[0] < 3.2 and position[1] < 3.2:
+                    if (self.pedRouteDict[x] == 1 and position[0] < -3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 3 and position[0] < -3.2):
                         distances[3] = min(distances[3], self.dist(position, [-3.2, -5.2]))
-                    else:
+                    elif (self.pedRouteDict[x] == 0 and position[0] < -3.2 and position[1] < -3.2) or (
+                            self.pedRouteDict[x] == 9 and position[1] < -3.2):
                         distances[0] = min(distances[0], self.dist(position, [-5.2, -3.2]))
         return [-x for x in distances]
 
@@ -448,8 +447,8 @@ class PedestrianSimulator:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
                     3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
-                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
-                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
+                                                           3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                                                           -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
                 cnt_ped += 1
         self.cumWaitingTime += cnt

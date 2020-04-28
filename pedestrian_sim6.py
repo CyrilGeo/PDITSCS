@@ -5,6 +5,7 @@ import random
 import statistics
 import pickle
 import matplotlib.pyplot as plt
+from math import sqrt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -320,23 +321,27 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0 and (
+                if position[0] < -3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     cnt[0] += 1
-                elif position[0] > 0 and position[1] > 0 and (
+                elif position[0] > 3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
                     cnt[1] += 1
-                elif position[0] > 0 and position[1] < 0 and (
+                elif position[0] > 3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     cnt[2] += 1
-                elif position[0] < 0 and position[1] < 0 and (
+                elif position[0] < -3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
                     cnt[3] += 1
         return cnt
+
+    @staticmethod
+    def dist(coords1, coords2):
+        return sqrt((coords1[0] - coords2[0]) ** 2 + (coords1[1] - coords2[1]) ** 2)
 
     # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
     # car ids
@@ -354,34 +359,34 @@ class PedestrianSimulator:
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
                 position = traci.person.getPosition(x)
-                if position[0] < 0 and position[1] > 0 and (
+                if position[0] < -3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if -7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2:
-                        distances[0] = min(distances[0], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    if self.dist(position, [-5.2, 3.2]) < self.dist(position, [-3.2, 5.2]):
+                        distances[0] = min(distances[0], self.dist(position, [-5.2, 3.2]))
                     else:
-                        distances[0] = min(distances[0], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
-                elif position[0] > 0 and position[1] > 0 and (
+                        distances[1] = min(distances[1], self.dist(position, [-3.2, 5.2]))
+                elif position[0] > 3.2 and position[1] > 3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] < self.pedPosDict[x][1]):
-                    if 3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2:
-                        distances[1] = min(distances[1], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    if self.dist(position, [3.2, 5.2]) < self.dist(position, [5.2, 3.2]):
+                        distances[1] = min(distances[1], self.dist(position, [3.2, 5.2]))
                     else:
-                        distances[1] = min(distances[1], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
-                elif position[0] > 0 and position[1] < 0 and (
+                        distances[2] = min(distances[2], self.dist(position, [5.2, 3.2]))
+                elif position[0] > 3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] <
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if 3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2:
-                        distances[2] = min(distances[2], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    if self.dist(position, [5.2, -3.2]) < self.dist(position, [3.2, -5.2]):
+                        distances[2] = min(distances[2], self.dist(position, [5.2, -3.2]))
                     else:
-                        distances[2] = min(distances[2], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
-                elif position[0] < 0 and position[1] < 0 and (
+                        distances[3] = min(distances[3], self.dist(position, [3.2, -5.2]))
+                elif position[0] < -3.2 and position[1] < -3.2 and (
                         traci.person.getSpeed(x) < 0.2 or self.pedPosDict.get(x) is None or position[0] >
                         self.pedPosDict[x][0] or position[1] > self.pedPosDict[x][1]):
-                    if -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2:
-                        distances[3] = min(distances[3], abs(position[0]) - 3.2, abs(position[1]) - 3.2)
+                    if self.dist(position, [-3.2, -5.2]) < self.dist(position, [-5.2, -3.2]):
+                        distances[3] = min(distances[3], self.dist(position, [-3.2, -5.2]))
                     else:
-                        distances[3] = min(distances[3], max(abs(position[0]) - 3.2, abs(position[1]) - 3.2))
+                        distances[0] = min(distances[0], self.dist(position, [-5.2, -3.2]))
         return distances
 
     # Returns the state values as a list
