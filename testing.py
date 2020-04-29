@@ -1,4 +1,4 @@
-import pedestrian_sim7 as sim
+import ped_perfect_sim as sim
 import random
 import statistics
 from torch.utils.tensorboard import SummaryWriter

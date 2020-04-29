@@ -33,6 +33,8 @@ def get_options():
     return options
 
 
+# By crossing, counts people and measures min distances in each lane with negation and assuming uniform path
+# probabilities.
 class PedestrianSimulator:
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, ped_route_probs,
@@ -203,6 +205,8 @@ class PedestrianSimulator:
             average_waiting_time_veh = self.cumWaitingTimeVeh / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
             average_waiting_time_ped = self.cumWaitingTimePed / self.nbGeneratedPed if self.nbGeneratedPed != 0 else 0
             print("Average waiting time:", average_waiting_time)
+            print("Average waiting time for vehicles:", average_waiting_time_veh)
+            print("Average waiting time for pedestrians:", average_waiting_time_ped)
             self.averageWaitingTimes.append(average_waiting_time)
             self.averageWaitingTimesVeh.append(average_waiting_time_veh)
             self.averageWaitingTimesPed.append(average_waiting_time_ped)
@@ -464,8 +468,8 @@ class PedestrianSimulator:
             position = traci.person.getPosition(x)
             if traci.person.getSpeed(x) < 0.1 and ((-7.2 < position[0] < -3.2 and 3.2 < position[1] < 7.2) or (
                     3.2 < position[0] < 7.2 and 3.2 < position[1] < 7.2) or (
-                    3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
-                    -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
+                                                           3.2 < position[0] < 7.2 and -7.2 < position[1] < -3.2) or (
+                                                           -7.2 < position[0] < -3.2 and -7.2 < position[1] < -3.2)):
                 cnt += 1
                 cnt_ped += 1
         self.cumWaitingTime += cnt

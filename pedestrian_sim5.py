@@ -32,6 +32,7 @@ def get_options():
     return options
 
 
+# By zone, counts people in 10mx10m zones.
 class PedestrianSimulator:
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, ped_route_probs,
@@ -199,6 +200,8 @@ class PedestrianSimulator:
             average_waiting_time_veh = self.cumWaitingTimeVeh / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
             average_waiting_time_ped = self.cumWaitingTimePed / self.nbGeneratedPed if self.nbGeneratedPed != 0 else 0
             print("Average waiting time:", average_waiting_time)
+            print("Average waiting time for vehicles:", average_waiting_time_veh)
+            print("Average waiting time for pedestrians:", average_waiting_time_ped)
             self.averageWaitingTimes.append(average_waiting_time)
             self.averageWaitingTimesVeh.append(average_waiting_time_veh)
             self.averageWaitingTimesPed.append(average_waiting_time_ped)
