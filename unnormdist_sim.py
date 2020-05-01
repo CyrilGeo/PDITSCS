@@ -43,6 +43,7 @@ class Simulator:
         self.minPhaseDuration = min_phase_duration
         self.hourOfTheDay = hour_of_the_day
         self.currNbIterations = 0
+        self.currPhaseTime = None
         self.routeProbs = route_probs
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
@@ -57,7 +58,7 @@ class Simulator:
         # State variables
         self.detectedCarCnt = None
         self.distanceNearestDetectedVeh = None
-        self.currPhaseTime = None
+        self.normCurrPhaseTime = None
         self.amberPhase = None
         self.currDayTime = None
 
@@ -83,7 +84,7 @@ class Simulator:
         with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="simple_intersection_phase100.net.xml"/>
+        <net-file value="simple_intersection.net.xml"/>
         <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>
@@ -228,7 +229,7 @@ class Simulator:
     # Updates the state values
     def update_state(self, veh_ids):
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
-        self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
+        self.distanceNearestDetectedVeh = self.get_distances(veh_ids)
         current_phase = traci.trafficlight.getPhase("center")
         if current_phase == 0:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
@@ -243,6 +244,7 @@ class Simulator:
 
         self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
             "center") - traci.trafficlight.getNextSwitch("center"))
+        self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("center")
         self.amberPhase = 1 if current_phase == 1 or current_phase == 3 else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
@@ -279,7 +281,7 @@ class Simulator:
 
     # Returns the state values as a list
     def get_state(self):
-        return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.currPhaseTime, self.amberPhase,
+        return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime, self.amberPhase,
                                                                         self.currDayTime]
 
     # Returns the reward
