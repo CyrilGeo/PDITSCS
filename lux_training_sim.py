@@ -3,6 +3,7 @@ import sys
 import optparse
 import statistics
 import random
+from math import exp, sqrt, pi
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -32,7 +33,8 @@ def get_options():
 
 class LuxTrainingSim:
 
-    def __init__(self, nb_episodes, detection_rate, min_phase_duration, gui=False):
+    def __init__(self, nb_episodes, detection_rate, min_phase_duration, burst_frequency, burst_deviation, burst_stddev,
+                 burst=False, gui=False):
         self.N = nb_episodes
         self.episodeCnt = 1
         self.detectionRate = detection_rate
@@ -74,6 +76,33 @@ class LuxTrainingSim:
                             [0.0063] * 3 + [0.0224] * 3 + [0.0259] * 3 + [0.0271] * 3,
                             [0.0044] * 3 + [0.0183] * 3 + [0.0165] * 3 + [0.0274] * 3,
                             [0.0037] * 3 + [0.0171] * 3 + [0.0196] * 3 + [0.0256] * 3]
+
+        self.burstProbs = []
+        self.burstHours = []
+        if burst:
+            gauss_integral = 0
+            for val in range(-int(burst_frequency / 2), int(burst_frequency / 2)):
+                gauss_integral += self.gaussian_value(burst_stddev, val)
+            for hour in self.hourlyProbs:
+                hour_probs = []
+                burst_times = []
+                starting_times = [random.choice(range(burst_frequency)) for x in range(int(len(hour) / 3))]
+                for i in range(int(len(hour) / 3)):
+                    probs = []
+                    gauss_factor = hour[i * 3] * burst_frequency / gauss_integral
+                    for val in range(-int(burst_frequency / 2), int(burst_frequency / 2)):
+                        probs.append(gauss_factor * self.gaussian_value(burst_stddev, val))
+                    hour_probs.append(probs)
+                    burst_times_edge = []
+                    while starting_times[i] < 3600 + burst_frequency / 2:
+                        time = int(random.gauss(starting_times[i], burst_deviation)) - burst_frequency / 2
+                        if 0 <= time < 3600:
+                            burst_times_edge.append(time)
+                        starting_times[i] += burst_frequency
+                    burst_times.append(burst_times_edge)
+                self.burstProbs.append(hour_probs)
+                self.burstHours.append(burst_times)
+
         self.job_id = "0"
         if "SLURM_JOB_ID" in os.environ:
             self.job_id = os.environ["SLURM_JOB_ID"]
@@ -129,6 +158,10 @@ class LuxTrainingSim:
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         self.update_state(veh_ids)
 
+    @staticmethod
+    def gaussian_value(sigma, x):
+        return exp(-(x / 2) ** 2 / 2) / (sigma * sqrt(2 * pi))
+
     # Initializes a new episode
     def init_new_episode(self):
         print("LOADING NEW EPISODE")
@@ -161,18 +194,49 @@ class LuxTrainingSim:
             nb_configurations = len(self.hourlyProbs)
             k = 0
             cnt_hourly_veh = 0
-            for i in range(86400):
-                if (i + 1) % 3600 == 0:
-                    self.hourlyNbGeneratedVeh.append(cnt_hourly_veh)
-                    cnt_hourly_veh = 0
-                    k = (k + 1) % nb_configurations
-                for j in range(len(self.hourlyProbs[k])):
-                    if random.uniform(0, 1) < self.hourlyProbs[k][j]:
-                        print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
-                            j) + '" depart="' + str(i) + '" color="' + self.select_color() + '" departSpeed="max"/>',
-                              file=routes)
-                        self.nbGeneratedVeh += 1
-                        cnt_hourly_veh += 1
+            lane_bursts = [[], [], [], []]
+            burst_indices = [0] * 4
+            if self.burstProbs:
+                for i in range(86400):
+                    prob = 0
+                    for j in range(len(self.burstHours[k])):
+                        if i % 3600 == self.burstHours[k][j][burst_indices[j]]:
+                            lane_bursts[j].append(self.burstProbs[k][j].copy())
+                            if burst_indices[j] + 1 < len(self.burstHours[k][j]):
+                                burst_indices[j] += 1
+                    for j in range(len(self.hourlyProbs[k])):
+                        if j % 3 == 0:
+                            prob = sum([x.pop() for x in lane_bursts[int(j / 3)]])
+                            m = 0
+                            while m < len(lane_bursts[int(j / 3)]):
+                                if not lane_bursts[int(j / 3)][m]:
+                                    del lane_bursts[int(j / 3)][m]
+                                else:
+                                    m += 1
+                        if random.uniform(0, 1) < prob:
+                            print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
+                                j) + '" depart="' + str(
+                                i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
+                            self.nbGeneratedVeh += 1
+                            cnt_hourly_veh += 1
+                    if (i + 1) % 3600 == 0:
+                        self.hourlyNbGeneratedVeh.append(cnt_hourly_veh)
+                        cnt_hourly_veh = 0
+                        k = (k + 1) % nb_configurations
+                        burst_indices = [0] * 4
+            else:
+                for i in range(86400):
+                    for j in range(len(self.hourlyProbs[k])):
+                        if random.uniform(0, 1) < self.hourlyProbs[k][j]:
+                            print('    <vehicle id="' + str(self.nbGeneratedVeh) + '" type="car" route="route' + str(
+                                j) + '" depart="' + str(
+                                i) + '" color="' + self.select_color() + '" departSpeed="max"/>', file=routes)
+                            self.nbGeneratedVeh += 1
+                            cnt_hourly_veh += 1
+                    if (i + 1) % 3600 == 0:
+                        self.hourlyNbGeneratedVeh.append(cnt_hourly_veh)
+                        cnt_hourly_veh = 0
+                        k = (k + 1) % nb_configurations
 
             print("</routes>", file=routes)
 

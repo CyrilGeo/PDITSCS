@@ -1,4 +1,4 @@
-import lux_sim as sim
+import lux_training_sim as sim
 from DQN import Agent
 import statistics
 import matplotlib.pyplot as plt
@@ -14,6 +14,10 @@ if __name__ == "__main__":
     nb_episodes_between_tests = 10
     detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 5
+    burst_frequency = 80
+    burst_deviation = 5
+    burst_stddev = 15
+    burst = True
     gui = False
     alpha = 0.0001
     milestones = [50, 100]
@@ -32,10 +36,13 @@ if __name__ == "__main__":
 
     agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
                   temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
-    simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    simulator = sim.LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, burst_frequency, burst_deviation,
+                                   burst_stddev, burst, gui)
+    # simulator = sim.LuxSim(nb_episodes, detection_rate, min_phase_duration, gui)
     nb_episodes_baseline = 300
     agent.load_net()
-    while simulator.step(agent.select_action(simulator.get_state(), True)):
+    # agent.select_action(simulator.get_state(), True)
+    while simulator.step():
         '''print("iteration:", simulator.get_curr_nb_iterations())
         print(simulator.get_state())
         print(simulator.get_reward())'''

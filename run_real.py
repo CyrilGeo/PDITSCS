@@ -22,8 +22,8 @@ def collect_transition(replay_buf, simu, act):
 
 
 # Fills the replay buffer with nb_samples samples using random actions
-def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase):
-    sim = LuxTrainingSim(None, det_rate, min_phase, False)
+def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase, b_freq, b_dev, b_stddev, b):
+    sim = LuxTrainingSim(None, det_rate, min_phase, b_freq, b_dev, b_stddev, b, False)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
         collect_transition(rp_buf, sim, selected_action)
@@ -31,10 +31,10 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase):
     print("END OF SIMULATION")
 
 
-def test_agent(sim, tb, nb_ep_test, det_rate, min_phase, ag):
+def test_agent(sim, tb, nb_ep_test, det_rate, min_phase, b_freq, b_dev, b_stddev, b, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = LuxTrainingSim(nb_ep_test, det_rate, min_phase, False)
+    test_sim = LuxTrainingSim(nb_ep_test, det_rate, min_phase, b_freq, b_dev, b_stddev, b, False)
     while test_sim.step(ag.select_action(test_sim.get_state(), True)):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
@@ -62,8 +62,12 @@ if __name__ == "__main__":
     nb_episodes = 300
     nb_episodes_test = 10
     nb_episodes_between_tests = 10
-    detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 5
+    burst_frequency = 80
+    burst_deviation = 5
+    burst_stddev = 15
+    burst = True
     gui = False
     alpha = 0.0001
     milestones = [50, 100]
@@ -78,7 +82,7 @@ if __name__ == "__main__":
     decay_steps_temp = 100000
     batch_size = 32
     target_update_frequency = 3000
-    gen_name = "model_70_real"
+    gen_name = "model_100_real_burst"
     file_name = gen_name + ".pt"
     doTesting = True
 
@@ -91,10 +95,12 @@ if __name__ == "__main__":
     agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
                   temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     print("\nINITIALIZING REPLAY BUFFER")
-    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, detection_rate, min_phase_duration)
+    initialize_buffer(agent.replayBuffer, nb_init, nb_actions, detection_rate, min_phase_duration, burst_frequency,
+                      burst_deviation, burst_stddev, burst)
     print("REPLAY BUFFER INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, gui)
+    simulator = LuxTrainingSim(nb_episodes, detection_rate, min_phase_duration, burst_frequency, burst_deviation,
+                               burst_stddev, burst, gui)
 
     # Learning phase
     print("STARTING LEARNING")
@@ -102,7 +108,8 @@ if __name__ == "__main__":
     while continue_simulation:
         if doTesting and simulator.get_episode_end() == 1 and (
                 simulator.episodeCnt - 1) % nb_episodes_between_tests == 0:
-            test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, agent)
+            test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, burst_frequency,
+                       burst_deviation, burst_stddev, burst, agent)
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
@@ -110,7 +117,8 @@ if __name__ == "__main__":
             agent.scheduling_step()
         if simulator.currNbIterations % target_update_frequency == 0:
             agent.update_target_net()
-    test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, agent)
+    test_agent(simulator, writer, nb_episodes_test, detection_rate, min_phase_duration, burst_frequency,
+               burst_deviation, burst_stddev, burst, agent)
     print("LEARNING DONE")
 
     if doTesting:
