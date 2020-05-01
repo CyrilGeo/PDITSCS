@@ -78,7 +78,7 @@ if __name__ == "__main__":
     '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
     waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)'''
 
-    '''tb = SummaryWriter(log_dir="runs/uniform_1over60_100")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_100_phase100")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
@@ -87,14 +87,14 @@ if __name__ == "__main__":
     tb.add_scalar("Average reward", reward, nb_episodes)
     tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
     tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
-    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)'''
+    tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
 
     '''tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
     tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
     tb.add_scalar("Average waiting time cars", waiting_time_cars, nb_episodes)
     tb.add_scalar("Average waiting time buses", waiting_time_buses, nb_episodes)'''
 
-    # tb.close()
+    tb.close()
 
     print("Average reward:", reward)
     print("Average waiting time:", waiting_time)

@@ -228,7 +228,7 @@ class Simulator:
     # Updates the state values
     def update_state(self, veh_ids):
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
-        self.distanceNearestDetectedVeh = self.get_distances(veh_ids)
+        self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
         if current_phase == 0:
             self.detectedCarCnt[1] = -self.detectedCarCnt[1]
