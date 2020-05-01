@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on ven 17 avr 2020 17:15:57 CEST by Eclipse SUMO netedit Version 1.2.0
+<!-- generated on ven 01 mai 2020 16:54:27 CEST by Eclipse SUMO netedit Version 1.2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection.net.xml"/>
+        <sumo-net-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection_phase100.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection_phase50.net.xml"/>
+        <output-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection_phase100.net.xml"/>
     </output>
 
     <processing>
@@ -110,9 +110,9 @@
     </edge>
 
     <tlLogic id="center" type="static" programID="0" offset="0">
-        <phase duration="50" state="GGgrrrGGgrrr"/>
+        <phase duration="100" state="GGgrrrGGgrrr"/>
         <phase duration="3"  state="yyyrrryyyrrr"/>
-        <phase duration="50" state="rrrGGgrrrGGg"/>
+        <phase duration="100" state="rrrGGgrrrGGg"/>
         <phase duration="3"  state="rrryyyrrryyy"/>
     </tlLogic>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on jeu 27 fév 2020 15:06:19 CET by Eclipse SUMO netedit Version 1.2.0
+<!-- generated on ven 17 avr 2020 17:15:57 CEST by Eclipse SUMO netedit Version 1.2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,7 +8,7 @@
     </input>
 
     <output>
-        <output-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection.net.xml"/>
+        <output-file value="/home/cyril/TFE/PDITSCS/sumo_sim/simple_intersection_phase50.net.xml"/>
     </output>
 
     <processing>
@@ -110,9 +110,9 @@
     </edge>
 
     <tlLogic id="center" type="static" programID="0" offset="0">
-        <phase duration="100" state="GGgrrrGGgrrr"/>
+        <phase duration="50" state="GGgrrrGGgrrr"/>
         <phase duration="3"  state="yyyrrryyyrrr"/>
-        <phase duration="100" state="rrrGGgrrrGGg"/>
+        <phase duration="50" state="rrrGGgrrrGGg"/>
         <phase duration="3"  state="rrryyyrrryyy"/>
     </tlLogic>
 
