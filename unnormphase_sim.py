@@ -83,7 +83,7 @@ class Simulator:
         with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="simple_intersection_phase100.net.xml"/>
+        <net-file value="simple_intersection.net.xml"/>
         <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>

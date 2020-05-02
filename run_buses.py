@@ -43,15 +43,25 @@ def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob
         pass
     av_r = statistics.mean(test_sim.averageRewards)
     av_w = statistics.mean(test_sim.averageWaitingTimes)
+    av_w_cars = statistics.mean(test_sim.averageWaitingTimesCars)
+    av_w_buses = statistics.mean(test_sim.averageWaitingTimesBuses)
     stddev_r = statistics.stdev(test_sim.averageRewards)
     stddev_w = statistics.stdev(test_sim.averageWaitingTimes)
+    av_w_cars_dev = statistics.stdev(test_sim.averageWaitingTimesCars)
+    av_w_buses_dev = statistics.stdev(test_sim.averageWaitingTimesBuses)
     tb.add_scalar("Average reward", av_r, sim.episodeCnt)
     tb.add_scalar("Average waiting time", av_w, sim.episodeCnt)
+    tb.add_scalar("Average waiting time cars", av_w_cars, sim.episodeCnt)
+    tb.add_scalar("Average waiting time buses", av_w_buses, sim.episodeCnt)
     tb.add_scalar("Reward standard deviation", stddev_r, sim.episodeCnt)
     tb.add_scalar("Waiting time standard deviation", stddev_w, sim.episodeCnt)
+    tb.add_scalar("Waiting time standard deviation cars", av_w_cars_dev, sim.episodeCnt)
+    tb.add_scalar("Waiting time standard deviation buses", av_w_buses_dev, sim.episodeCnt)
     print("TESTING DONE")
     print("Average reward:", av_r)
     print("Average waiting time:", av_w)
+    print("Average waiting time for cars:", av_w_cars)
+    print("Average waiting time for buses:", av_w_buses)
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
     print("LEAVING TESTING PHASE\n")
@@ -93,7 +103,7 @@ if __name__ == "__main__":
     nb_episodes_test = 30
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -116,8 +126,8 @@ if __name__ == "__main__":
     bus_frequency_2 = 900
     bus_frequency_3 = 600
     bus_stddev = 90
-    priority_factor = 8
-    gen_name = "model_20_low_buses_pf8"
+    priority_factor = 1
+    gen_name = "model_100_medium_buses_pf1"
     file_name = gen_name + ".pt"
     doTesting = True
 

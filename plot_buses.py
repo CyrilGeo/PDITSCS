@@ -519,7 +519,7 @@ if __name__ == "__main__":
     plt.figure()
     plt.grid()
     plt.plot(priority_factors, waiting_times_100, color="limegreen", marker='o', label="Overall performance")
-    plt.plot(priority_factors, waiting_times_cars_100, color="steelblue", marker='o', label="Cars")
+    plt.plot(priority_factors, waiting_times_cars_100, color="steelblue", marker='o', label="Vehicles except buses")
     plt.plot(priority_factors, waiting_times_buses_100, color="gold", marker='o', label="Buses")
     plt.axhline(y=waiting_time_baseline, color="r", label="Fixed time (10s)")
     plt.xlabel("Priority factor")

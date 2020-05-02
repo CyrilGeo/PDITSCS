@@ -18,6 +18,11 @@ if __name__ == "__main__":
     reward13 = 0
     reward14 = 0
     reward15 = 0
+    reward16 = 0
+    reward17 = 0
+    reward18 = 0
+    reward19 = 0
+    reward20 = 0
     waiting_time1 = 0
     waiting_time2 = 0
     waiting_time3 = 0
@@ -33,6 +38,11 @@ if __name__ == "__main__":
     waiting_time13 = 0
     waiting_time14 = 0
     waiting_time15 = 0
+    waiting_time16 = 0
+    waiting_time17 = 0
+    waiting_time18 = 0
+    waiting_time19 = 0
+    waiting_time20 = 0
     reward1_dev = 0
     reward2_dev = 0
     reward3_dev = 0
@@ -48,6 +58,11 @@ if __name__ == "__main__":
     reward13_dev = 0
     reward14_dev = 0
     reward15_dev = 0
+    reward16_dev = 0
+    reward17_dev = 0
+    reward18_dev = 0
+    reward19_dev = 0
+    reward20_dev = 0
     waiting_time1_dev = 0
     waiting_time2_dev = 0
     waiting_time3_dev = 0
@@ -63,6 +78,11 @@ if __name__ == "__main__":
     waiting_time13_dev = 0
     waiting_time14_dev = 0
     waiting_time15_dev = 0
+    waiting_time16_dev = 0
+    waiting_time17_dev = 0
+    waiting_time18_dev = 0
+    waiting_time19_dev = 0
+    waiting_time20_dev = 0
 
     for event in tf.compat.v1.train.summary_iterator(
             "runs/uniform_1over60_100/events.out.tfevents.1588348114.PC-CYRIL-LINUX.6298.0"):
@@ -184,79 +204,139 @@ if __name__ == "__main__":
             elif value.tag == "Waiting_time_standard_deviation":
                 waiting_time10_dev = value.simple_value
 
-        for event in tf.compat.v1.train.summary_iterator(
-                "runs/uniform_1over60_100_unnormphase/events.out.tfevents.1588364299.PC-CYRIL-LINUX.12372.0"):
-            for value in event.summary.value:
-                if value.tag == "Average_reward":
-                    reward11 = value.simple_value
-                elif value.tag == "Average_waiting_time":
-                    waiting_time11 = value.simple_value
-                elif value.tag == "Reward_standard_deviation":
-                    reward11_dev = value.simple_value
-                elif value.tag == "Waiting_time_standard_deviation":
-                    waiting_time11_dev = value.simple_value
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormphase/events.out.tfevents.1588364299.PC-CYRIL-LINUX.12372.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward11 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time11 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward11_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time11_dev = value.simple_value
 
-        for event in tf.compat.v1.train.summary_iterator(
-                "runs/uniform_1over60_100_unnormphase_dist50/events.out.tfevents.1588364568.PC-CYRIL-LINUX.12463.0"):
-            for value in event.summary.value:
-                if value.tag == "Average_reward":
-                    reward12 = value.simple_value
-                elif value.tag == "Average_waiting_time":
-                    waiting_time12 = value.simple_value
-                elif value.tag == "Reward_standard_deviation":
-                    reward12_dev = value.simple_value
-                elif value.tag == "Waiting_time_standard_deviation":
-                    waiting_time12_dev = value.simple_value
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormphase_dist50/events.out.tfevents.1588364568.PC-CYRIL-LINUX.12463.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward12 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time12 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward12_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time12_dev = value.simple_value
 
-        for event in tf.compat.v1.train.summary_iterator(
-                "runs/uniform_1over60_100_unnormphase_dist200/events.out.tfevents.1588364718.PC-CYRIL-LINUX.12538.0"):
-            for value in event.summary.value:
-                if value.tag == "Average_reward":
-                    reward13 = value.simple_value
-                elif value.tag == "Average_waiting_time":
-                    waiting_time13 = value.simple_value
-                elif value.tag == "Reward_standard_deviation":
-                    reward13_dev = value.simple_value
-                elif value.tag == "Waiting_time_standard_deviation":
-                    waiting_time13_dev = value.simple_value
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormphase_dist200/events.out.tfevents.1588364718.PC-CYRIL-LINUX.12538.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward13 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time13 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward13_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time13_dev = value.simple_value
 
-        for event in tf.compat.v1.train.summary_iterator(
-                "runs/uniform_1over60_100_unnormphase_phase25/events.out.tfevents.1588365164.PC-CYRIL-LINUX.12679.0"):
-            for value in event.summary.value:
-                if value.tag == "Average_reward":
-                    reward14 = value.simple_value
-                elif value.tag == "Average_waiting_time":
-                    waiting_time14 = value.simple_value
-                elif value.tag == "Reward_standard_deviation":
-                    reward14_dev = value.simple_value
-                elif value.tag == "Waiting_time_standard_deviation":
-                    waiting_time14_dev = value.simple_value
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormphase_phase25/events.out.tfevents.1588365164.PC-CYRIL-LINUX.12679.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward14 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time14 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward14_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time14_dev = value.simple_value
 
-        for event in tf.compat.v1.train.summary_iterator(
-                "runs/uniform_1over60_100_unnormphase_phase100/events.out.tfevents.1588365564.PC-CYRIL-LINUX.12923.0"):
-            for value in event.summary.value:
-                if value.tag == "Average_reward":
-                    reward15 = value.simple_value
-                elif value.tag == "Average_waiting_time":
-                    waiting_time15 = value.simple_value
-                elif value.tag == "Reward_standard_deviation":
-                    reward15_dev = value.simple_value
-                elif value.tag == "Waiting_time_standard_deviation":
-                    waiting_time15_dev = value.simple_value
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormphase_phase100/events.out.tfevents.1588365564.PC-CYRIL-LINUX.12923.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward15 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time15 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward15_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time15_dev = value.simple_value
+
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormdist/events.out.tfevents.1588399342.PC-CYRIL-LINUX.26367.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward16 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time16 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward16_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time16_dev = value.simple_value
+
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormdist_dist50/events.out.tfevents.1588399434.PC-CYRIL-LINUX.26421.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward17 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time17 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward17_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time17_dev = value.simple_value
+
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormdist_dist200/events.out.tfevents.1588399524.PC-CYRIL-LINUX.26506.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward18 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time18 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward18_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time18_dev = value.simple_value
+
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormdist_phase25/events.out.tfevents.1588399653.PC-CYRIL-LINUX.26558.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward19 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time19 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward19_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time19_dev = value.simple_value
+
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over60_100_unnormdist_phase100/events.out.tfevents.1588399763.PC-CYRIL-LINUX.26608.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                reward20 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                waiting_time20 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                reward20_dev = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_time20_dev = value.simple_value
 
     figure_name = "figures/waiting_time/uniform/comp_norm.png"
 
     bar_width = 0.15
-    bars1 = [waiting_time1, waiting_time6, waiting_time11]
-    bars2 = [waiting_time2, waiting_time7, waiting_time12]
-    bars3 = [waiting_time3, waiting_time8, waiting_time13]
-    bars4 = [waiting_time4, waiting_time9, waiting_time14]
-    bars5 = [waiting_time5, waiting_time10, waiting_time15]
-    err1 = [waiting_time1_dev, waiting_time6_dev, waiting_time11_dev]
-    err2 = [waiting_time2_dev, waiting_time7_dev, waiting_time12_dev]
-    err3 = [waiting_time3_dev, waiting_time8_dev, waiting_time13_dev]
-    err4 = [waiting_time4_dev, waiting_time9_dev, waiting_time14_dev]
-    err5 = [waiting_time5_dev, waiting_time10_dev, waiting_time15_dev]
+    bars1 = [waiting_time1, waiting_time6, waiting_time16, waiting_time11]
+    bars2 = [waiting_time2, waiting_time7, waiting_time17, waiting_time12]
+    bars3 = [waiting_time3, waiting_time8, waiting_time18, waiting_time13]
+    bars4 = [waiting_time4, waiting_time9, waiting_time19, waiting_time14]
+    bars5 = [waiting_time5, waiting_time10, waiting_time20, waiting_time15]
+    err1 = [waiting_time1_dev, waiting_time6_dev, waiting_time16_dev, waiting_time11_dev]
+    err2 = [waiting_time2_dev, waiting_time7_dev, waiting_time17_dev, waiting_time12_dev]
+    err3 = [waiting_time3_dev, waiting_time8_dev, waiting_time18_dev, waiting_time13_dev]
+    err4 = [waiting_time4_dev, waiting_time9_dev, waiting_time19_dev, waiting_time14_dev]
+    err5 = [waiting_time5_dev, waiting_time10_dev, waiting_time20_dev, waiting_time15_dev]
     r1 = np.arange(len(bars1))
     r2 = [x + bar_width for x in r1]
     r3 = [x + bar_width for x in r2]
@@ -264,13 +344,18 @@ if __name__ == "__main__":
     r5 = [x + bar_width for x in r4]
     plt.figure()
     plt.grid(axis="y")
-    plt.bar(r1, bars1, color="r", width=bar_width, edgecolor="white", label="Original intersection", yerr=err1, capsize=5)
-    plt.bar(r2, bars2, color="gold", width=bar_width, edgecolor="white", label="50 meter lanes", yerr=err2, capsize=5)
-    plt.bar(r3, bars3, color="darkorange", width=bar_width, edgecolor="white", label="200 meter lanes", yerr=err3, capsize=5)
-    plt.bar(r4, bars4, color="steelblue", width=bar_width, edgecolor="white", label="25 second phases", yerr=err4, capsize=5)
-    plt.bar(r5, bars5, color="limegreen", width=bar_width, edgecolor="white", label="100 second phases", yerr=err5, capsize=5)
-    plt.xticks([r + 2 * bar_width for r in range(len(bars1))], ["Normalized", "Not normalized", "Normalized distances"])
-    plt.ylabel("Waiting time (s)")
+    plt.bar(r1, bars1, color="r", width=bar_width, edgecolor="white", label="Original intersection", yerr=err1,
+            capsize=3)
+    plt.bar(r2, bars2, color="gold", width=bar_width, edgecolor="white", label="50 meter lanes", yerr=err2, capsize=3)
+    plt.bar(r3, bars3, color="darkorange", width=bar_width, edgecolor="white", label="200 meter lanes", yerr=err3,
+            capsize=3)
+    plt.bar(r4, bars4, color="steelblue", width=bar_width, edgecolor="white", label="25 second phases", yerr=err4,
+            capsize=3)
+    plt.bar(r5, bars5, color="limegreen", width=bar_width, edgecolor="white", label="100 second phases", yerr=err5,
+            capsize=3)
+    plt.xticks([r + 2 * bar_width for r in range(len(bars1))],
+               ["Normalized", "Not normalized", "Norm. phases", "Norm. distances"])
+    plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig(figure_name)
     plt.show()
