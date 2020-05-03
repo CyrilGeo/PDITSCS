@@ -68,8 +68,14 @@ class Simulator:
         self.rewards = []
         self.averageRewards = []
         self.cumWaitingTime = 0
+        self.cumWaitingTimeDetected = 0
+        self.cumWaitingTimeUndetected = 0
         self.nbGeneratedVeh = 0
+        self.nbGeneratedVehDetected = 0
+        self.nbGeneratedVehUndetected = 0
         self.averageWaitingTimes = []
+        self.averageWaitingTimesDetected = []
+        self.averageWaitingTimesUndetected = []
 
         # Determines whether to use the simulator's GUI or not
         options = get_options()
@@ -175,11 +181,21 @@ class Simulator:
             self.episodes.append(self.episodeCnt)
             self.averageRewards.append(average_reward)
             average_waiting_time = self.cumWaitingTime / self.nbGeneratedVeh if self.nbGeneratedVeh != 0 else 0
+            average_waiting_time_detected = self.cumWaitingTimeDetected / self.nbGeneratedVehDetected if self.nbGeneratedVehDetected != 0 else 0
+            average_waiting_time_undetected = self.cumWaitingTimeUndetected / self.nbGeneratedVehUndetected if self.nbGeneratedVehUndetected != 0 else 0
             print("Average waiting time:", average_waiting_time)
+            print("Average waiting time for detected vehicles:", average_waiting_time_detected)
+            print("Average waiting time for undetected vehicles:", average_waiting_time_undetected)
             self.averageWaitingTimes.append(average_waiting_time)
+            self.averageWaitingTimesDetected.append(average_waiting_time_detected)
+            self.averageWaitingTimesUndetected.append(average_waiting_time_undetected)
             self.rewards.clear()
             self.cumWaitingTime = 0
+            self.cumWaitingTimeDetected = 0
+            self.cumWaitingTimeUndetected = 0
             self.nbGeneratedVeh = 0
+            self.nbGeneratedVehDetected = 0
+            self.nbGeneratedVehUndetected = 0
 
             if self.N:
                 if self.episodeCnt < self.N:
@@ -297,11 +313,19 @@ class Simulator:
 
     def increment_waiting_time(self, ids):
         cnt = 0
+        det_cnt = 0
+        undet_cnt = 0
         for i in range(len(ids)):
             for x in ids[i]:
                 if traci.vehicle.getSpeed(x) < 0.1:
                     cnt += 1
+                    if traci.vehicle.getColor(x) == (0, 255, 0, 255):
+                        det_cnt += 1
+                    else:
+                        undet_cnt += 1
         self.cumWaitingTime += cnt
+        self.cumWaitingTimeDetected += det_cnt
+        self.cumWaitingTimeUndetected += undet_cnt
 
     # /!\ Filename without file extension
     def save_stats(self, gen_name):

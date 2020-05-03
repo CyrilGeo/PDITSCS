@@ -55,12 +55,12 @@ if __name__ == "__main__":
     baseline_adapted_r_dev = 0
     baseline_adapted_w_dev = 0
 
-    figure_location = "uniform/"
-    figure_name = "learning_proof"
+    figure_location = "LuST/"
+    figure_name = "training"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium/events.out.tfevents.1587741096.alan-compute-09.48426.0"):
+            "runs/model_100_real/events.out.tfevents.1587667727.alan-compute-04.8454.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 episodes.append(event.step)
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     # 70% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium/events.out.tfevents.1587744205.alan-compute-05.4406.0"):
+            "runs/model_70_real/events.out.tfevents.1587903799.alan-compute-04.792.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards2.append(value.simple_value)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_50_medium/events.out.tfevents.1587744724.alan-compute-01.21540.0"):
+            "runs/model_50_real/events.out.tfevents.1587904108.alan-compute-02.32231.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards3.append(value.simple_value)
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_20_medium/events.out.tfevents.1587744724.alan-compute-01.21539.0"):
+            "runs/model_20_real/events.out.tfevents.1587903968.alan-compute-04.851.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards4.append(value.simple_value)
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     # baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_baseline/events.out.tfevents.1587729370.PC-CYRIL-LINUX.11624.0"):
+            "runs/hourly_LuST_training_baseline/events.out.tfevents.1587229379.PC-CYRIL-LINUX.21764.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_r = value.simple_value
@@ -125,7 +125,7 @@ if __name__ == "__main__":
                 baseline_w_dev = value.simple_value
 
     # adapted baseline
-    for event in tf.compat.v1.train.summary_iterator(
+    '''for event in tf.compat.v1.train.summary_iterator(
             "runs/uniform_1over60_random/events.out.tfevents.1587756799.PC-CYRIL-LINUX.21359.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
@@ -135,9 +135,9 @@ if __name__ == "__main__":
             elif value.tag == "Reward_standard_deviation":
                 baseline_adapted_r_dev = value.simple_value
             elif value.tag == "Waiting_time_standard_deviation":
-                baseline_adapted_w_dev = value.simple_value
+                baseline_adapted_w_dev = value.simple_value'''
 
-    '''plt.figure()
+    plt.figure()
     plt.grid()
     plt.plot(episodes, rewards1, color="limegreen", label="100% detection rate")
     plt.errorbar(episodes, rewards1, yerr=rewards1_dev, color="limegreen", elinewidth=3, alpha=0.4)
@@ -147,8 +147,8 @@ if __name__ == "__main__":
     plt.errorbar(episodes, rewards3, yerr=rewards3_dev, color="darkorange", elinewidth=3, alpha=0.4)
     plt.plot(episodes, rewards4, color="gold", label="20% detection rate")
     plt.errorbar(episodes, rewards4, yerr=rewards4_dev, color="gold", elinewidth=3, alpha=0.4)
-    plt.axhline(y=baseline_r, color="r", label="Fixed time (10s)")
-    plt.axhline(y=baseline_adapted_r, color="darkviolet", label="Adapted fixed time")
+    plt.axhline(y=baseline_r, color="r", label="Fixed time")
+    # plt.axhline(y=baseline_adapted_r, color="darkviolet", label="Adapted fixed time")
     plt.xlabel("Episode")
     plt.ylabel("Average reward")
     plt.legend()
@@ -165,16 +165,16 @@ if __name__ == "__main__":
     plt.errorbar(episodes, waiting_times3, yerr=waiting_times3_dev, color="darkorange", elinewidth=3, alpha=0.4)
     plt.plot(episodes, waiting_times4, color="gold", label="20% detection rate")
     plt.errorbar(episodes, waiting_times4, yerr=waiting_times4_dev, color="gold", elinewidth=3, alpha=0.4)
-    plt.axhline(y=baseline_w, color="r", label="Fixed time (10s)")
-    plt.axhline(y=baseline_adapted_w, color="darkviolet", label="Adapted fixed time")
+    plt.axhline(y=baseline_w, color="r", label="Fixed time")
+    # plt.axhline(y=baseline_adapted_w, color="darkviolet", label="Adapted fixed time")
     # plt.ylim(bottom=2, top=7)
     plt.xlabel("Episode")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig("figures/waiting_time/" + figure_location + figure_name + "_w.png")
-    plt.show()'''
+    plt.show()
 
-    x = ["Random", "Fixed time", "20%", "50%", "70%", "100%"]
+    '''x = ["Random", "Fixed time", "20%", "50%", "70%", "100%"]
     w_t = [baseline_adapted_w, baseline_w, waiting_times4[-1], waiting_times3[-1], waiting_times2[-1],
            waiting_times1[-1]]
     w_t_dev = [baseline_adapted_w_dev, baseline_w_dev, waiting_times4_dev[-1], waiting_times3_dev[-1],
@@ -185,7 +185,7 @@ if __name__ == "__main__":
             capsize=7)
     plt.ylabel("Average waiting time (s)")
     plt.savefig("figures/waiting_time/" + figure_location + figure_name + ".png")
-    plt.show()
+    plt.show()'''
 
     '''plt.figure()
     plt.plot(episodes, rewards1_dev, color="limegreen", label="100% detection rate")

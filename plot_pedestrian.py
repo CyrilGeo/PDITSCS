@@ -315,22 +315,22 @@ if __name__ == "__main__":
     figure_name = "figures/waiting_time/uniform/comp_pedestrian.png"
 
     bar_width = 0.25
-    bars1 = [waiting_time1, waiting_time2, waiting_time3, waiting_time4, waiting_time5, waiting_time6, waiting_time7,
-             waiting_time8, waiting_time9, waiting_time10, waiting_time11]
-    bars2 = [waiting_time1_veh, waiting_time2_veh, waiting_time3_veh, waiting_time4_veh, waiting_time5_veh,
-             waiting_time6_veh, waiting_time7_veh, waiting_time8_veh, waiting_time9_veh, waiting_time10_veh,
+    bars1 = [waiting_time1, waiting_time2, waiting_time3, waiting_time7, waiting_time8, waiting_time4, waiting_time5,
+             waiting_time6, waiting_time9, waiting_time10, waiting_time11]
+    bars2 = [waiting_time1_veh, waiting_time2_veh, waiting_time3_veh, waiting_time7_veh, waiting_time8_veh,
+             waiting_time4_veh, waiting_time5_veh, waiting_time6_veh, waiting_time9_veh, waiting_time10_veh,
              waiting_time11_veh]
-    bars3 = [waiting_time1_ped, waiting_time2_ped, waiting_time3_ped, waiting_time4_ped, waiting_time5_ped,
-             waiting_time6_ped, waiting_time7_ped, waiting_time8_ped, waiting_time9_ped, waiting_time10_ped,
+    bars3 = [waiting_time1_ped, waiting_time2_ped, waiting_time3_ped, waiting_time7_ped, waiting_time8_ped,
+             waiting_time4_ped, waiting_time5_ped, waiting_time6_ped, waiting_time9_ped, waiting_time10_ped,
              waiting_time11_ped]
-    err1 = [waiting_time1_dev, waiting_time2_dev, waiting_time3_dev, waiting_time4_dev, waiting_time5_dev,
-            waiting_time6_dev, waiting_time7_dev, waiting_time8_dev, waiting_time9_dev, waiting_time10_dev,
+    err1 = [waiting_time1_dev, waiting_time2_dev, waiting_time3_dev, waiting_time7_dev, waiting_time8_dev,
+            waiting_time4_dev, waiting_time5_dev, waiting_time6_dev, waiting_time9_dev, waiting_time10_dev,
             waiting_time11_dev]
-    err2 = [waiting_time1_veh_dev, waiting_time2_veh_dev, waiting_time3_veh_dev, waiting_time4_veh_dev,
-            waiting_time5_veh_dev, waiting_time6_veh_dev, waiting_time7_veh_dev, waiting_time8_veh_dev,
+    err2 = [waiting_time1_veh_dev, waiting_time2_veh_dev, waiting_time3_veh_dev, waiting_time7_veh_dev,
+            waiting_time8_veh_dev, waiting_time4_veh_dev, waiting_time5_veh_dev, waiting_time6_veh_dev,
             waiting_time9_veh_dev, waiting_time10_veh_dev, waiting_time11_veh_dev]
-    err3 = [waiting_time1_ped_dev, waiting_time2_ped_dev, waiting_time3_ped_dev, waiting_time4_ped_dev,
-            waiting_time5_ped_dev, waiting_time6_ped_dev, waiting_time7_ped_dev, waiting_time8_ped_dev,
+    err3 = [waiting_time1_ped_dev, waiting_time2_ped_dev, waiting_time3_ped_dev, waiting_time7_ped_dev,
+            waiting_time8_ped_dev, waiting_time4_ped_dev, waiting_time5_ped_dev, waiting_time6_ped_dev,
             waiting_time9_ped_dev, waiting_time10_ped_dev, waiting_time11_ped_dev]
     r1 = np.arange(len(bars1))
     r2 = [x + bar_width for x in r1]
@@ -345,7 +345,7 @@ if __name__ == "__main__":
     plt.bar(r3, bars3, color="gold", width=bar_width, edgecolor="white", label="Pedestrians", yerr=err3,
             capsize=2)
     plt.xticks([r + bar_width for r in range(len(bars1))],
-               ["Fixed", "Neg.", "Ped1", "Ped2", "Ped3", "Ped4", "Ped5", "Ped6", "Ped7", "Ped8", "Perfect"])
+               ["Fixed", "Neg.", "Zo1", "Zo2", "Zo3", "Cr1", "Cr2", "Cr3", "Cr4", "Cr5", "Perfect"])
     plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig(figure_name)

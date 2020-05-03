@@ -7,15 +7,28 @@ if __name__ == "__main__":
     rewards2 = []
     rewards3 = []
     rewards4 = []
+    rewards5 = []
+    rewards1_dev = []
+    rewards2_dev = []
+    rewards3_dev = []
+    rewards4_dev = []
+    rewards5_dev = []
     waiting_times1 = []
     waiting_times2 = []
     waiting_times3 = []
     waiting_times4 = []
+    waiting_times5 = []
+    waiting_times1_dev = []
+    waiting_times2_dev = []
+    waiting_times3_dev = []
+    waiting_times4_dev = []
+    waiting_times5_dev = []
 
     figure_name = "LuST/hourly_real"
 
+    # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_100/events.out.tfevents.1587429917.alan-compute-06.146939.0"):
+            "runs/hourly_LuST_100/events.out.tfevents.1587869438.alan-compute-07.192786.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 hours.append(event.step)
@@ -23,50 +36,64 @@ if __name__ == "__main__":
             elif value.tag == "Average_hourly_waiting_time":
                 waiting_times1.append(value.simple_value)
 
-    '''for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_training_50/events.out.tfevents.1587420389.PC-CYRIL-LINUX.15876.0"):
+    # 70% detection rate
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/hourly_LuST_70/events.out.tfevents.1588158558.alan-compute-07.172423.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards2.append(value.simple_value)
             elif value.tag == "Average_hourly_waiting_time":
                 waiting_times2.append(value.simple_value)
 
+    # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_training_20/events.out.tfevents.1587447880.PC-CYRIL-LINUX.19902.0"):
+            "runs/hourly_LuST_50/events.out.tfevents.1588158077.alan-compute-08.184681.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards3.append(value.simple_value)
             elif value.tag == "Average_hourly_waiting_time":
-                waiting_times3.append(value.simple_value)'''
+                waiting_times3.append(value.simple_value)
 
+    # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_baseline/events.out.tfevents.1587245670.PC-CYRIL-LINUX.24507.0"):
+            "runs/hourly_LuST_20/events.out.tfevents.1588153044.alan-compute-01.4582.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards4.append(value.simple_value)
             elif value.tag == "Average_hourly_waiting_time":
                 waiting_times4.append(value.simple_value)
 
+    # Baseline
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/hourly_LuST_baseline/events.out.tfevents.1587245670.PC-CYRIL-LINUX.24507.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_hourly_reward":
+                rewards5.append(value.simple_value)
+            elif value.tag == "Average_hourly_waiting_time":
+                waiting_times5.append(value.simple_value)
+
     plt.figure()
     plt.grid()
     plt.plot(hours, rewards1, color="limegreen", label="100% detection rate")
-    '''plt.plot(hours, rewards2, color="steelblue", label="50% detection rate")
-    plt.plot(hours, rewards3, color="gold", label="20% detection rate")'''
-    plt.plot(hours, rewards4, color="r", label="Fixed time")
+    plt.plot(hours, rewards2, color="steelblue", label="70% detection rate")
+    plt.plot(hours, rewards3, color="darkorange", label="50% detection rate")
+    plt.plot(hours, rewards4, color="gold", label="20% detection rate")
+    plt.plot(hours, rewards5, color="r", label="Fixed time")
     plt.xlabel("Hour")
     plt.ylabel("Average reward")
     plt.legend()
-    plt.savefig("figures/" + figure_name + "_r.png")
+    plt.savefig("figures/reward/" + figure_name + "_r.png")
     plt.show()
 
     plt.figure()
     plt.grid()
     plt.plot(hours, waiting_times1, color="limegreen", label="100% detection rate")
-    '''plt.plot(hours, waiting_times2, color="steelblue", label="50% detection rate")
-    plt.plot(hours, waiting_times3, color="gold", label="20% detection rate")'''
-    plt.plot(hours, waiting_times4, color="r", label="Fixed time")
+    plt.plot(hours, waiting_times2, color="steelblue", label="70% detection rate")
+    plt.plot(hours, waiting_times3, color="darkorange", label="50% detection rate")
+    plt.plot(hours, waiting_times4, color="gold", label="20% detection rate")
+    plt.plot(hours, waiting_times5, color="r", label="Fixed time")
     plt.xlabel("Hour")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
-    plt.savefig("figures/" + figure_name + "_w.png")
+    plt.savefig("figures/waiting_time/" + figure_name + "_w.png")
     plt.show()

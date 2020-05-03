@@ -65,6 +65,9 @@ if __name__ == "__main__":
 
     '''simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui)'''
+    '''simulator = sim.PrioritySimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                      route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3,
+                                      bus_stddev, priority_factor, hour_of_the_day, gui, h_probs)'''
     simulator = PedestrianSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                     route_probabilities, ped_route_probabilities, hour_of_the_day, gui, h_probs)
     agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
@@ -78,6 +81,11 @@ if __name__ == "__main__":
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
     stddev_r = statistics.stdev(simulator.averageRewards)
     stddev_w = statistics.stdev(simulator.averageWaitingTimes)
+
+    '''waiting_time_detected = statistics.mean(simulator.averageWaitingTimesDetected)
+    waiting_time_undetected = statistics.mean(simulator.averageWaitingTimesUndetected)
+    waiting_time_detected_dev = statistics.stdev(simulator.averageWaitingTimesDetected)
+    waiting_time_undetected_dev = statistics.stdev(simulator.averageWaitingTimesUndetected)'''
 
     '''waiting_time_cars = statistics.mean(simulator.averageWaitingTimesCars)
     waiting_time_buses = statistics.mean(simulator.averageWaitingTimesBuses)
@@ -99,6 +107,15 @@ if __name__ == "__main__":
     tb.add_scalar("Average waiting time", waiting_time, nb_episodes)
     tb.add_scalar("Reward standard deviation", stddev_r, nb_episodes)
     tb.add_scalar("Waiting time standard deviation", stddev_w, nb_episodes)
+
+    '''tb.add_scalar("Average waiting time detected", waiting_time_detected, 1)
+    tb.add_scalar("Average waiting time undetected", waiting_time_undetected, 1)
+    tb.add_scalar("Waiting time standard deviation detected", waiting_time_detected_dev, 1)
+    tb.add_scalar("Waiting time standard deviation undetected", waiting_time_undetected_dev, 1)
+    tb.add_scalar("Average waiting time detected", waiting_time_detected, nb_episodes)
+    tb.add_scalar("Average waiting time undetected", waiting_time_undetected, nb_episodes)
+    tb.add_scalar("Waiting time standard deviation detected", waiting_time_detected_dev, nb_episodes)
+    tb.add_scalar("Waiting time standard deviation undetected", waiting_time_undetected_dev, nb_episodes)'''
 
     '''tb.add_scalar("Average waiting time cars", waiting_time_cars, 1)
     tb.add_scalar("Average waiting time buses", waiting_time_buses, 1)
@@ -124,6 +141,9 @@ if __name__ == "__main__":
     print("Average waiting time:", waiting_time)
     print("Reward standard deviation:", stddev_r)
     print("Waiting time standard deviation:", stddev_w)
+
+    '''print("Average waiting time for detected vehicles:", waiting_time_detected)
+    print("Average waiting time for undetected vehicles:", waiting_time_undetected)'''
 
     '''print("Average waiting time for cars:", waiting_time_cars)
     print("Average waiting time for buses:", waiting_time_buses)'''
