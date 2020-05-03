@@ -47,7 +47,34 @@ class Simulator:
         self.routeProbs = route_probs
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
-        self.laneIDs = ["in_west_0", "in_north_0", "in_east_0", "in_south_0"]
+        self.intersections = [3, 6, 9, 12, 15]
+        self.laneIDs = []
+        for inter in self.intersections:
+            lane_ids = [x + str(inter) for x in [str(inter - 3), str(inter + 1), str(inter + 2), str(inter + 3)]]
+            self.laneIDs.append(lane_ids)
+        self.routes = []
+        outside_nodes = [0, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18]
+        for i in outside_nodes:
+            for j in outside_nodes:
+                if i != j:
+                    route = ""
+                    k = i
+                    if i % 3 != 0:
+                        route += str(i) + str(i - i % 3) + " "
+                        k = i - i % 3 + 3
+                    if i < j:
+                        while k + 3 <= j:
+                            route += str(k) + str(k + 3) + " "
+                            k += 3
+                        if j % 3 != 0:
+                            route += str(k - 3) + str(j)
+                    else:
+                        while k - 3 >= j:
+                            route += str(k) + str(k - 3) + " "
+                            k -= 3
+                            if j % 3 != 0:
+                                route += str(k + 3) + str(j)
+                    self.routes.append(route)
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.hourlyProbs = hourly_probs
@@ -87,11 +114,11 @@ class Simulator:
         else:
             self.sumoBinary = checkBinary("sumo")
 
-        with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
+        with open("sumo_sim/arterial_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="simple_intersection.net.xml"/>
-        <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
+        <net-file value="arterial.net.xml"/>
+        <route-files value="arterial_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>
         <begin value="0"/>
@@ -120,22 +147,12 @@ class Simulator:
     def generate_traffic(self, hourly_probs=None):
         random.seed()
 
-        with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
+        with open("sumo_sim/arterial_" + self.job_id + ".rou.xml", "w") as routes:
             print("""<routes>
-    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>""", file=routes)
 
-    <route id="route0" edges="in_west out_north"/>
-    <route id="route1" edges="in_west out_east"/>
-    <route id="route2" edges="in_west out_south"/>
-    <route id="route3" edges="in_north out_east"/>
-    <route id="route4" edges="in_north out_south"/>
-    <route id="route5" edges="in_north out_west"/>
-    <route id="route6" edges="in_east out_south"/>
-    <route id="route7" edges="in_east out_west"/>
-    <route id="route8" edges="in_east out_north"/>
-    <route id="route9" edges="in_south out_west"/>
-    <route id="route10" edges="in_south out_north"/>
-    <route id="route11" edges="in_south out_east"/>""", file=routes)
+            for i in range(len(self.routes)):
+                print('    <route id="route' + str(i) + '" edges="' + self.routes[i] + '"/>', file=routes)
 
             # Randomly choosing if a vehicle is generated for each step and each route
             if hourly_probs:
