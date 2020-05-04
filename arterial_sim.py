@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -130,6 +130,7 @@ class ArterialSimulator:
         self.defaultDistances = [[-traci.lane.getLength(x) for x in lane_ids] for lane_ids in self.laneIDs]
         veh_ids = [[traci.lane.getLastStepVehicleIDs(x) for x in lane_ids] for lane_ids in self.laneIDs]
         for i in range(len(veh_ids)):
+            self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
             self.update_state(veh_ids[i], str(self.intersections[i]), self.defaultDistances[i])
 
     # Initializes a new episode
@@ -225,8 +226,13 @@ class ArterialSimulator:
         # Fixed phase duration
         else:
             for i in range(len(self.intersections)):
-                if self.currPhaseTime[i] >= 10:
+                if (self.currPhaseTime[i] >= 10 and traci.trafficlight.getPhase(str(self.intersections[i])) == 0) or \
+                        self.currPhaseTime[i] >= 30 and traci.trafficlight.getPhase(str(self.intersections[i])) == 2:
                     self.next_phase(str(self.intersections[i]))
+        '''else:
+            for i in range(len(self.intersections)):
+                if self.currPhaseTime[i] >= 10:
+                    self.next_phase(str(self.intersections[i]))'''
 
         traci.simulationStep()
         self.currNbIterations += 1

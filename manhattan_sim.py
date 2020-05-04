@@ -19,10 +19,10 @@ else:
 from sumolib import checkBinary  # Checks for the binary in environ vars
 
 # For parallel use uncomment first line, for GUI use uncomment second line
-# import libsumo as traci
+import libsumo as traci
 
 
-import traci
+# import traci
 
 
 def get_options():
@@ -47,34 +47,31 @@ class ManhattanSimulator:
         self.routeProbs = route_probs
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
-        self.intersections = [3, 6, 9, 12, 15]
+        self.intersections = [5, 6, 7, 10, 11, 12, 15, 16, 17]
+        self.connections = [[5], [6], [7],
+                            [5], [4, 1, 6, 10], [5, 2, 7, 11], [6, 3, 8, 12], [7],
+                            [10], [9, 5, 11, 15], [10, 6, 12, 16], [11, 7, 13, 17], [12],
+                            [15], [14, 10, 16, 19], [15, 11, 17, 20], [16, 12, 18, 21], [17],
+                            [15], [16], [17]]
         self.laneIDs = []
         for inter in self.intersections:
-            lane_ids = [x + str(inter) + "_0" for x in [str(inter - 3), str(inter + 1), str(inter + 3), str(inter + 2)]]
+            lane_ids = [str(x) + str(inter) + "_0" for x in self.connections[inter - 1]]
             self.laneIDs.append(lane_ids)
         self.routes = []
-        outside_nodes = [0, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18]
+        max_dist = 6
+        outside_nodes = [1, 2, 3, 4, 8, 9, 13, 14, 18, 19, 20, 21]
         for i in outside_nodes:
             for j in outside_nodes:
                 if i != j:
-                    route = ""
-                    k = i
-                    if i % 3 != 0:
-                        route += str(i) + str(i - i % 3) + " "
-                        k = i - i % 3
-                    if i < j:
-                        while k + 3 <= j:
-                            route += str(k) + str(k + 3) + " "
-                            k += 3
-                        if j % 3 != 0:
-                            route += str(k) + str(j)
-                    else:
-                        while k - 3 >= j - 3 and k != 0:
-                            route += str(k) + str(k - 3) + " "
-                            k -= 3
-                        if j % 3 != 0:
-                            route += str(k) + str(j)
-                    self.routes.append(route)
+                    routes = self.find_routes(i, j, max_dist)
+                    min_dist = min([len(route.split(" ")) for route in routes])
+                    k = 0
+                    while k < len(routes):
+                        if len(routes[k].split(" ")) > min_dist:
+                            del routes[k]
+                        else:
+                            k += 1
+                    self.routes = self.routes + routes
         self.sumoBinary = None
         self.episodeEnd = 1  # 1 if last step of an episode, 0 otherwise
         self.job_id = "0"
@@ -130,7 +127,21 @@ class ManhattanSimulator:
         self.defaultDistances = [[-traci.lane.getLength(x) for x in lane_ids] for lane_ids in self.laneIDs]
         veh_ids = [[traci.lane.getLastStepVehicleIDs(x) for x in lane_ids] for lane_ids in self.laneIDs]
         for i in range(len(veh_ids)):
+            self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
             self.update_state(veh_ids[i], str(self.intersections[i]), self.defaultDistances[i])
+
+    def find_routes(self, a, b, dist):
+        if a == b:
+            return [""]
+        if dist == 1:
+            if b in self.connections[a - 1]:
+                return [str(a) + str(b)]
+            else:
+                return []
+        routes = []
+        for x in self.connections[a - 1]:
+            routes += [str(a) + str(x) + " " + y for y in self.find_routes(x, b, dist - 1)]
+        return routes
 
     # Initializes a new episode
     def init_new_episode(self):

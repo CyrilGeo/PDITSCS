@@ -36,10 +36,14 @@ if __name__ == "__main__":
     gui = True
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 220] * 132
+    route_probabilities_man = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [
+        1. / 500] * 75 + [1. / 420] * 21 + [1. / 500] * 25
+    route_probabilities_art = [1. / 220] * 132
 
+    '''simulator = sim.ManhattanSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                       route_probabilities_man, hour_of_the_day, gui)'''
     simulator = sim.ArterialSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
-                                      route_probabilities, hour_of_the_day, gui)
+                                      route_probabilities_art, hour_of_the_day, gui)
 
     nb_episodes_baseline = 200
 
