@@ -265,7 +265,7 @@ class PedestrianSimulator:
     # Switches traffic light to the next phase
     @staticmethod
     def next_phase():
-        traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 4)
+        traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 6)
 
     # Updates the state values
     def update_state(self, veh_ids, ped_ids):
