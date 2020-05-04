@@ -93,7 +93,7 @@ if __name__ == "__main__":
     waiting_time11_ped_dev = 0
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pedestrian_baseline/events.out.tfevents.1588416498.PC-CYRIL-LINUX.32211.0"):
+            "runs/uniform_1over60_pedestrian_baseline/events.out.tfevents.1588595500.PC-CYRIL-LINUX.13073.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward1 = value.simple_value

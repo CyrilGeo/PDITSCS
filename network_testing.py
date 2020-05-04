@@ -31,12 +31,12 @@ if __name__ == "__main__":
 
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = True
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 220] * 121
+    route_probabilities = [1. / 220] * 132
 
     simulator = sim.ArterialSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                       route_probabilities, hour_of_the_day, gui)
@@ -44,8 +44,8 @@ if __name__ == "__main__":
     nb_episodes_baseline = 200
 
     while simulator.step():
-        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
-        print(simulator.get_state())'''
+        print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
+        print(simulator.get_state())
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)

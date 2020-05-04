@@ -32,7 +32,7 @@ def get_options():
     return options
 
 
-class ArterialSimulator:
+class ManhattanSimulator:
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
                  gui=False):
@@ -113,11 +113,11 @@ class ArterialSimulator:
         else:
             self.sumoBinary = checkBinary("sumo")
 
-        with open("sumo_sim/arterial_" + self.job_id + ".sumocfg", "w") as config:
+        with open("sumo_sim/manhattan_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="arterial.net.xml"/>
-        <route-files value="arterial_""" + self.job_id + """.rou.xml"/>
+        <net-file value="manhattan.net.xml"/>
+        <route-files value="manhattan_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>
         <begin value="0"/>
@@ -138,13 +138,13 @@ class ArterialSimulator:
         self.generate_traffic()
 
         # Starting sumo as a subprocess
-        traci.start([self.sumoBinary, "-c", "sumo_sim/arterial_" + self.job_id + ".sumocfg"])
+        traci.start([self.sumoBinary, "-c", "sumo_sim/manhattan_" + self.job_id + ".sumocfg"])
 
     # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self):
         random.seed()
 
-        with open("sumo_sim/arterial_" + self.job_id + ".rou.xml", "w") as routes:
+        with open("sumo_sim/manhattan_" + self.job_id + ".rou.xml", "w") as routes:
             print("""<routes>
     <vType id="car" accel="2.6" decel="4.5" sigma="0.5" maxSpeed="55.55" length="4.5"/>""", file=routes)
 
@@ -378,5 +378,5 @@ class ArterialSimulator:
         traci.close()
 
     def delete_sim_files(self):
-        os.remove("sumo_sim/arterial_" + self.job_id + ".rou.xml")
-        os.remove("sumo_sim/arterial_" + self.job_id + ".sumocfg")
+        os.remove("sumo_sim/manhattan_" + self.job_id + ".rou.xml")
+        os.remove("sumo_sim/manhattan_" + self.job_id + ".sumocfg")

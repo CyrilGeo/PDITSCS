@@ -306,7 +306,7 @@ class PedestrianSimulator:
         self.currPhaseTime = (traci.simulation.getTime() + traci.trafficlight.getPhaseDuration(
             "center") - traci.trafficlight.getNextSwitch("center"))
         self.normCurrPhaseTime = self.currPhaseTime / traci.trafficlight.getPhaseDuration("center")
-        self.amberPhase = 1 if current_phase == 1 or current_phase == 3 else 0
+        self.amberPhase = 1 if current_phase == 2 or current_phase == 5 else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
     # Updates the reward

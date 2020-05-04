@@ -34,7 +34,7 @@ if __name__ == "__main__":
     nb_episode_steps = 3000
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = True
+    gui = False
     hour_of_the_day = 8
     bus_frequency_1 = 600
     bus_frequency_2 = 900
@@ -76,7 +76,7 @@ if __name__ == "__main__":
     waiting_time_veh_dev = statistics.stdev(simulator.averageWaitingTimesVeh)
     waiting_time_ped_dev = statistics.stdev(simulator.averageWaitingTimesPed)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf1_buses_baseline")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_pedestrian_baseline")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
