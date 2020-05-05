@@ -1,4 +1,4 @@
-from ped_neglected_sim import PedestrianSimulator
+from pedestrian_sim import PedestrianSimulator
 from DQN import Agent
 import statistics
 from torch.utils.tensorboard import SummaryWriter
@@ -32,13 +32,13 @@ if __name__ == "__main__":
 
     mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 11
+    nb_inputs = 15
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 30
     nb_episode_steps = 3000
     detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = True
+    gui = False
     alpha = 0.0001
     milestones = [50, 100]
     lr_decay_factor = 0.1
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 60] * 12
     ped_route_probabilities = [1. / 60] * 12
-    file_name = "model_100_medium_ped_neglected.pt"
+    file_name = "model_100_medium_pedestrian.pt"
 
     '''simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui)'''
@@ -74,8 +74,8 @@ if __name__ == "__main__":
                   temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     agent.load_net()
     while simulator.step(agent.select_action(simulator.get_state(), True)):
-        print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
-        print(simulator.get_state())
+        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
+        print(simulator.get_state())'''
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     waiting_time_veh_dev = statistics.stdev(simulator.averageWaitingTimesVeh)
     waiting_time_ped_dev = statistics.stdev(simulator.averageWaitingTimesPed)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_100_ped_neglected")
+    tb = SummaryWriter(log_dir="runs/uniform_1over60_100_pedestrian")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)

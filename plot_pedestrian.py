@@ -113,7 +113,7 @@ if __name__ == "__main__":
                 waiting_time1_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_ped_neglected/events.out.tfevents.1588414921.PC-CYRIL-LINUX.31245.0"):
+            "runs/uniform_1over60_100_ped_neglected/events.out.tfevents.1588680028.PC-CYRIL-LINUX.13530.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward2 = value.simple_value
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 waiting_time2_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian/events.out.tfevents.1588415266.PC-CYRIL-LINUX.31656.0"):
+            "runs/uniform_1over60_100_pedestrian/events.out.tfevents.1588680141.PC-CYRIL-LINUX.13571.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward3 = value.simple_value
@@ -153,7 +153,7 @@ if __name__ == "__main__":
                 waiting_time3_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian2/events.out.tfevents.1588415407.PC-CYRIL-LINUX.31711.0"):
+            "runs/uniform_1over60_100_pedestrian2/events.out.tfevents.1588678938.PC-CYRIL-LINUX.12989.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward4 = value.simple_value
@@ -173,7 +173,7 @@ if __name__ == "__main__":
                 waiting_time4_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian3/events.out.tfevents.1588415524.PC-CYRIL-LINUX.31774.0"):
+            "runs/uniform_1over60_100_pedestrian3/events.out.tfevents.1588679059.PC-CYRIL-LINUX.13086.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward5 = value.simple_value
@@ -193,7 +193,7 @@ if __name__ == "__main__":
                 waiting_time5_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian4/events.out.tfevents.1588415659.PC-CYRIL-LINUX.31807.0"):
+            "runs/uniform_1over60_100_pedestrian4/events.out.tfevents.1588679178.PC-CYRIL-LINUX.13139.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward6 = value.simple_value
@@ -213,7 +213,7 @@ if __name__ == "__main__":
                 waiting_time6_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian5/events.out.tfevents.1588415771.PC-CYRIL-LINUX.31866.0"):
+            "runs/uniform_1over60_100_pedestrian5/events.out.tfevents.1588679178.PC-CYRIL-LINUX.13139.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward7 = value.simple_value
@@ -233,7 +233,7 @@ if __name__ == "__main__":
                 waiting_time7_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian6/events.out.tfevents.1588415904.PC-CYRIL-LINUX.31902.0"):
+            "runs/uniform_1over60_100_pedestrian6/events.out.tfevents.1588679438.PC-CYRIL-LINUX.13248.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward8 = value.simple_value
@@ -253,7 +253,7 @@ if __name__ == "__main__":
                 waiting_time8_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian7/events.out.tfevents.1588416043.PC-CYRIL-LINUX.31994.0"):
+            "runs/uniform_1over60_100_pedestrian7/events.out.tfevents.1588679566.PC-CYRIL-LINUX.13317.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward9 = value.simple_value
@@ -273,7 +273,7 @@ if __name__ == "__main__":
                 waiting_time9_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian8/events.out.tfevents.1588416205.PC-CYRIL-LINUX.32092.0"):
+            "runs/uniform_1over60_100_pedestrian8/events.out.tfevents.1588679702.PC-CYRIL-LINUX.13364.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward10 = value.simple_value
@@ -293,7 +293,7 @@ if __name__ == "__main__":
                 waiting_time10_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_ped_perfect/events.out.tfevents.1588416364.PC-CYRIL-LINUX.32165.0"):
+            "runs/uniform_1over60_100_ped_perfect/events.out.tfevents.1588679874.PC-CYRIL-LINUX.13445.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward11 = value.simple_value
@@ -312,7 +312,7 @@ if __name__ == "__main__":
             elif value.tag == "Waiting_time_standard_deviation_pedestrians":
                 waiting_time11_ped_dev = value.simple_value
 
-    figure_name = "figures/waiting_time/uniform/comp_pedestrian.png"
+    figure_name = "figures/waiting_time/uniform/comp_pedestrian_medium.png"
 
     bar_width = 0.25
     bars1 = [waiting_time1, waiting_time2, waiting_time3, waiting_time7, waiting_time8, waiting_time4, waiting_time5,
@@ -337,16 +337,18 @@ if __name__ == "__main__":
     r3 = [x + bar_width for x in r2]
     r4 = [x + bar_width for x in r3]
     r5 = [x + bar_width for x in r4]
-    plt.figure()
+    plt.figure(figsize=[15, 4.8])
     plt.grid(axis="y")
     plt.bar(r1, bars1, color="limegreen", width=bar_width, edgecolor="white", label="Overall performance", yerr=err1,
-            capsize=2)
-    plt.bar(r2, bars2, color="steelblue", width=bar_width, edgecolor="white", label="Vehicles", yerr=err2, capsize=2)
+            capsize=3)
+    plt.bar(r2, bars2, color="steelblue", width=bar_width, edgecolor="white", label="Vehicles", yerr=err2, capsize=3)
     plt.bar(r3, bars3, color="gold", width=bar_width, edgecolor="white", label="Pedestrians", yerr=err3,
-            capsize=2)
+            capsize=3)
     plt.xticks([r + bar_width for r in range(len(bars1))],
-               ["Fixed", "Neg.", "Zo1", "Zo2", "Zo3", "Cr1", "Cr2", "Cr3", "Cr4", "Cr5", "Perfect"])
+               ["Fixed", "Ped. neglected", "Zone1", "Zone2", "Zone3", "Crossing1", "Crossing2", "Crossing3",
+                "Crossing4", "Crossing5", "Perfect"])
     plt.ylabel("Average waiting time (s)")
+    plt.xlabel("Algorithm")
     plt.legend()
     plt.savefig(figure_name)
     plt.show()

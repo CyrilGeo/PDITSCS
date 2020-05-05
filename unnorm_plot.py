@@ -342,7 +342,7 @@ if __name__ == "__main__":
     r3 = [x + bar_width for x in r2]
     r4 = [x + bar_width for x in r3]
     r5 = [x + bar_width for x in r4]
-    plt.figure()
+    plt.figure(figsize=[8, 4.8])
     plt.grid(axis="y")
     plt.bar(r1, bars1, color="r", width=bar_width, edgecolor="white", label="Original intersection", yerr=err1,
             capsize=3)
@@ -354,8 +354,9 @@ if __name__ == "__main__":
     plt.bar(r5, bars5, color="limegreen", width=bar_width, edgecolor="white", label="100 second phases", yerr=err5,
             capsize=3)
     plt.xticks([r + 2 * bar_width for r in range(len(bars1))],
-               ["Normalized", "Not normalized", "Norm. phases", "Norm. distances"])
+               ["Normalized", "Not normalized", "Normalized phases", "Normalized distances"])
     plt.ylabel("Average waiting time (s)")
+    plt.xlabel("Normalization configuration")
     plt.legend()
     plt.savefig(figure_name)
     plt.show()
