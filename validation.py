@@ -1,4 +1,4 @@
-from pedestrian_sim import PedestrianSimulator
+from ped_perfect_sim import PedestrianSimulator
 from DQN import Agent
 import statistics
 from torch.utils.tensorboard import SummaryWriter
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     mem_size = 100000
     nb_init = 10000  # Number of samples in the replay buffer before learning starts
-    nb_inputs = 15
+    nb_inputs = 19
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 30
     nb_episode_steps = 3000
@@ -59,9 +59,9 @@ if __name__ == "__main__":
     bus_stddev = 90
     priority_factor = 15
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
-    ped_route_probabilities = [1. / 60] * 12
-    file_name = "model_100_medium_pedestrian.pt"
+    route_probabilities = [1. / 300] * 12
+    ped_route_probabilities = [1. / 300] * 12
+    file_name = "model_100_low_pedestrian_perfect.pt"
 
     '''simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui)'''
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     waiting_time_veh_dev = statistics.stdev(simulator.averageWaitingTimesVeh)
     waiting_time_ped_dev = statistics.stdev(simulator.averageWaitingTimesPed)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_100_pedestrian")
+    tb = SummaryWriter(log_dir="runs/uniform_1over300_100_ped_perfect")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)

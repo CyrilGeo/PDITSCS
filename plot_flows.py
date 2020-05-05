@@ -28,6 +28,10 @@ if __name__ == "__main__":
     rewards22 = []
     rewards23 = []
     rewards24 = []
+    rewards25 = []
+    rewards26 = []
+    rewards27 = []
+    rewards28 = []
     waiting_times1 = []
     waiting_times2 = []
     waiting_times3 = []
@@ -52,6 +56,10 @@ if __name__ == "__main__":
     waiting_times22 = []
     waiting_times23 = []
     waiting_times24 = []
+    waiting_times25 = []
+    waiting_times26 = []
+    waiting_times27 = []
+    waiting_times28 = []
     rewards1_dev = []
     rewards2_dev = []
     rewards3_dev = []
@@ -76,6 +84,10 @@ if __name__ == "__main__":
     rewards22_dev = []
     rewards23_dev = []
     rewards24_dev = []
+    rewards25_dev = []
+    rewards26_dev = []
+    rewards27_dev = []
+    rewards28_dev = []
     waiting_times1_dev = []
     waiting_times2_dev = []
     waiting_times3_dev = []
@@ -100,6 +112,10 @@ if __name__ == "__main__":
     waiting_times22_dev = []
     waiting_times23_dev = []
     waiting_times24_dev = []
+    waiting_times25_dev = []
+    waiting_times26_dev = []
+    waiting_times27_dev = []
+    waiting_times28_dev = []
     baseline_r1 = 0
     baseline_w1 = 0
     baseline_r_dev1 = 0
@@ -124,6 +140,10 @@ if __name__ == "__main__":
     baseline_w6 = 0
     baseline_r_dev6 = 0
     baseline_w_dev6 = 0
+    baseline_r7 = 0
+    baseline_w7 = 0
+    baseline_r_dev7 = 0
+    baseline_w_dev7 = 0
     baseline_adapted_r1 = 0
     baseline_adapted_w1 = 0
     baseline_adapted_r_dev1 = 0
@@ -569,22 +589,88 @@ if __name__ == "__main__":
             elif value.tag == "Waiting_time_standard_deviation":
                 waiting_times24_dev.append(value.simple_value)
 
+    # Baseline
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over15_baseline/events.out.tfevents.1587729529.PC-CYRIL-LINUX.11671.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                baseline_r7 = value.simple_value
+            elif value.tag == "Average_waiting_time":
+                baseline_w7 = value.simple_value
+            elif value.tag == "Reward_standard_deviation":
+                baseline_r_dev7 = value.simple_value
+            elif value.tag == "Waiting_time_standard_deviation":
+                baseline_w_dev7 = value.simple_value
+
+    # 100% detection rate
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/model_100_veryhigh/events.out.tfevents.1587752514.alan-compute-08.119841.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                rewards25.append(value.simple_value)
+            elif value.tag == "Average_waiting_time":
+                waiting_times25.append(value.simple_value)
+            elif value.tag == "Reward_standard_deviation":
+                rewards25_dev.append(value.simple_value)
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_times25_dev.append(value.simple_value)
+
+    # 70% detection rate
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/model_70_veryhigh/events.out.tfevents.1587754019.alan-compute-09.91306.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                rewards26.append(value.simple_value)
+            elif value.tag == "Average_waiting_time":
+                waiting_times26.append(value.simple_value)
+            elif value.tag == "Reward_standard_deviation":
+                rewards26_dev.append(value.simple_value)
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_times26_dev.append(value.simple_value)
+
+    # 50% detection rate
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/model_50_veryhigh/events.out.tfevents.1587753838.alan-compute-05.5294.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                rewards27.append(value.simple_value)
+            elif value.tag == "Average_waiting_time":
+                waiting_times27.append(value.simple_value)
+            elif value.tag == "Reward_standard_deviation":
+                rewards27_dev.append(value.simple_value)
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_times27_dev.append(value.simple_value)
+
+    # 20% detection rate
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/model_20_veryhigh/events.out.tfevents.1587755872.alan-compute-06.36963.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_reward":
+                rewards28.append(value.simple_value)
+            elif value.tag == "Average_waiting_time":
+                waiting_times28.append(value.simple_value)
+            elif value.tag == "Reward_standard_deviation":
+                rewards28_dev.append(value.simple_value)
+            elif value.tag == "Waiting_time_standard_deviation":
+                waiting_times28_dev.append(value.simple_value)
+
     bar_width = 0.15
-    bars1 = [baseline_r1, baseline_r2, baseline_r3, baseline_adapted_r1, baseline_adapted_r2, baseline_adapted_r3]
-    bars2 = [rewards4[-1], rewards8[-1], rewards12[-1], rewards16[-1], rewards20[-1], rewards24[-1]]
-    bars3 = [rewards3[-1], rewards7[-1], rewards11[-1], rewards15[-1], rewards19[-1], rewards23[-1]]
-    bars4 = [rewards2[-1], rewards6[-1], rewards10[-1], rewards14[-1], rewards18[-1], rewards22[-1]]
-    bars5 = [rewards1[-1], rewards5[-1], rewards9[-1], rewards13[-1], rewards17[-1], rewards21[-1]]
-    err1 = [baseline_r_dev1, baseline_r_dev2, baseline_r_dev3, baseline_adapted_r_dev1, baseline_adapted_r_dev2,
-            baseline_adapted_r_dev3]
-    err2 = [rewards4_dev[-1], rewards8_dev[-1], rewards12_dev[-1], rewards16_dev[-1], rewards20_dev[-1],
-            rewards24_dev[-1]]
-    err3 = [rewards3_dev[-1], rewards7_dev[-1], rewards11_dev[-1], rewards15_dev[-1], rewards19_dev[-1],
-            rewards23_dev[-1]]
-    err4 = [rewards2_dev[-1], rewards6_dev[-1], rewards10_dev[-1], rewards14_dev[-1], rewards18_dev[-1],
-            rewards22_dev[-1]]
-    err5 = [rewards1_dev[-1], rewards5_dev[-1], rewards9_dev[-1], rewards13_dev[-1], rewards17_dev[-1],
-            rewards21_dev[-1]]
+    bars1 = [baseline_r1, baseline_r2, baseline_r3, baseline_r7, baseline_adapted_r1, baseline_adapted_r2,
+             baseline_adapted_r3]
+    bars2 = [rewards4[-1], rewards8[-1], rewards12[-1], rewards28[-1], rewards16[-1], rewards20[-1], rewards24[-1]]
+    bars3 = [rewards3[-1], rewards7[-1], rewards11[-1], rewards27[-1], rewards15[-1], rewards19[-1], rewards23[-1]]
+    bars4 = [rewards2[-1], rewards6[-1], rewards10[-1], rewards26[-1], rewards14[-1], rewards18[-1], rewards22[-1]]
+    bars5 = [rewards1[-1], rewards5[-1], rewards9[-1], rewards25[-1], rewards13[-1], rewards17[-1], rewards21[-1]]
+    err1 = [baseline_r_dev1, baseline_r_dev2, baseline_r_dev3, baseline_r_dev7, baseline_adapted_r_dev1,
+            baseline_adapted_r_dev2, baseline_adapted_r_dev3]
+    err2 = [rewards4_dev[-1], rewards8_dev[-1], rewards12_dev[-1], rewards28_dev[-1], rewards16_dev[-1],
+            rewards20_dev[-1], rewards24_dev[-1]]
+    err3 = [rewards3_dev[-1], rewards7_dev[-1], rewards11_dev[-1], rewards27_dev[-1], rewards15_dev[-1],
+            rewards19_dev[-1], rewards23_dev[-1]]
+    err4 = [rewards2_dev[-1], rewards6_dev[-1], rewards10_dev[-1], rewards26_dev[-1], rewards14_dev[-1],
+            rewards18_dev[-1], rewards22_dev[-1]]
+    err5 = [rewards1_dev[-1], rewards5_dev[-1], rewards9_dev[-1], rewards25_dev[-1], rewards13_dev[-1],
+            rewards17_dev[-1], rewards21_dev[-1]]
     r1 = np.arange(len(bars1))
     r2 = [x + bar_width for x in r1]
     r3 = [x + bar_width for x in r2]
@@ -603,33 +689,34 @@ if __name__ == "__main__":
     plt.bar(r5, bars5, color="limegreen", width=bar_width, edgecolor="white", label="100% detection rate", yerr=err5,
             capsize=3)
     plt.xticks([r + 2 * bar_width for r in range(len(bars1))],
-               ["Low", "Medium", "High", "Medium - Low", "High - Low", "High - Medium"])
+               ["Low", "Medium", "High", "Very high", "Medium - Low", "High - Low", "High - Medium"])
     plt.ylabel("Average reward")
     plt.xlabel("Traffic flow")
     plt.legend()
-    plt.savefig("figures/reward/flow_perf.png")
+    plt.savefig("figures/reward/flow_perf1.png")
     plt.show()
 
     bar_width = 0.15
-    bars1 = [baseline_w1, baseline_w2, baseline_w3, baseline_adapted_w1, baseline_adapted_w2, baseline_adapted_w3]
-    bars2 = [waiting_times4[-1], waiting_times8[-1], waiting_times12[-1], waiting_times16[-1], waiting_times20[-1],
-             waiting_times24[-1]]
-    bars3 = [waiting_times3[-1], waiting_times7[-1], waiting_times11[-1], waiting_times15[-1], waiting_times19[-1],
-             waiting_times23[-1]]
-    bars4 = [waiting_times2[-1], waiting_times6[-1], waiting_times10[-1], waiting_times14[-1], waiting_times18[-1],
-             waiting_times22[-1]]
-    bars5 = [waiting_times1[-1], waiting_times5[-1], waiting_times9[-1], waiting_times13[-1], waiting_times17[-1],
-             waiting_times21[-1]]
-    err1 = [baseline_w_dev1, baseline_w_dev2, baseline_w_dev3, baseline_adapted_w_dev1, baseline_adapted_w_dev2,
-            baseline_adapted_w_dev3]
-    err2 = [waiting_times4_dev[-1], waiting_times8_dev[-1], waiting_times12_dev[-1], waiting_times16_dev[-1],
-            waiting_times20_dev[-1], waiting_times24_dev[-1]]
-    err3 = [waiting_times3_dev[-1], waiting_times7_dev[-1], waiting_times11_dev[-1], waiting_times15_dev[-1],
-            waiting_times19_dev[-1], waiting_times23_dev[-1]]
-    err4 = [waiting_times2_dev[-1], waiting_times6_dev[-1], waiting_times10_dev[-1], waiting_times14_dev[-1],
-            waiting_times18_dev[-1], waiting_times22_dev[-1]]
-    err5 = [waiting_times1_dev[-1], waiting_times5_dev[-1], waiting_times9_dev[-1], waiting_times13_dev[-1],
-            waiting_times17_dev[-1], waiting_times21_dev[-1]]
+    bars1 = [baseline_w1, baseline_w2, baseline_w3, baseline_w7, baseline_adapted_w1, baseline_adapted_w2,
+             baseline_adapted_w3]
+    bars2 = [waiting_times4[-1], waiting_times8[-1], waiting_times12[-1], waiting_times28[-1], waiting_times16[-1],
+             waiting_times20[-1], waiting_times24[-1]]
+    bars3 = [waiting_times3[-1], waiting_times7[-1], waiting_times11[-1], waiting_times27[-1], waiting_times15[-1],
+             waiting_times19[-1], waiting_times23[-1]]
+    bars4 = [waiting_times2[-1], waiting_times6[-1], waiting_times10[-1], waiting_times26[-1], waiting_times14[-1],
+             waiting_times18[-1], waiting_times22[-1]]
+    bars5 = [waiting_times1[-1], waiting_times5[-1], waiting_times9[-1], waiting_times25[-1], waiting_times13[-1],
+             waiting_times17[-1], waiting_times21[-1]]
+    err1 = [baseline_w_dev1, baseline_w_dev2, baseline_w_dev3, baseline_w_dev7, baseline_adapted_w_dev1,
+            baseline_adapted_w_dev2, baseline_adapted_w_dev3]
+    err2 = [waiting_times4_dev[-1], waiting_times8_dev[-1], waiting_times12_dev[-1], waiting_times28_dev[-1],
+            waiting_times16_dev[-1], waiting_times20_dev[-1], waiting_times24_dev[-1]]
+    err3 = [waiting_times3_dev[-1], waiting_times7_dev[-1], waiting_times11_dev[-1], waiting_times27_dev[-1],
+            waiting_times15_dev[-1], waiting_times19_dev[-1], waiting_times23_dev[-1]]
+    err4 = [waiting_times2_dev[-1], waiting_times6_dev[-1], waiting_times10_dev[-1], waiting_times26_dev[-1],
+            waiting_times14_dev[-1], waiting_times18_dev[-1], waiting_times22_dev[-1]]
+    err5 = [waiting_times1_dev[-1], waiting_times5_dev[-1], waiting_times9_dev[-1], waiting_times25_dev[-1],
+            waiting_times13_dev[-1], waiting_times17_dev[-1], waiting_times21_dev[-1]]
     r1 = np.arange(len(bars1))
     r2 = [x + bar_width for x in r1]
     r3 = [x + bar_width for x in r2]
@@ -648,11 +735,11 @@ if __name__ == "__main__":
     plt.bar(r5, bars5, color="limegreen", width=bar_width, edgecolor="white", label="100% detection rate", yerr=err5,
             capsize=3)
     plt.xticks([r + 2 * bar_width for r in range(len(bars1))],
-               ["Low", "Medium", "High", "Medium - Low", "High - Low", "High - Medium"])
+               ["Low", "Medium", "High", "Very high", "Medium - Low", "High - Low", "High - Medium"])
     plt.ylabel("Average waiting time (s)")
     plt.xlabel("Traffic flow")
     plt.legend()
-    plt.savefig("figures/waiting_time/flow_perf.png")
+    plt.savefig("figures/waiting_time/flow_perf1.png")
     plt.show()
 
     '''bar_width = 0.15

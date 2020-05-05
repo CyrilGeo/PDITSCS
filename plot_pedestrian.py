@@ -93,7 +93,7 @@ if __name__ == "__main__":
     waiting_time11_ped_dev = 0
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pedestrian_baseline/events.out.tfevents.1588595500.PC-CYRIL-LINUX.13073.0"):
+            "runs/uniform_1over300_pedestrian_baseline/events.out.tfevents.1588683546.PC-CYRIL-LINUX.14951.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward1 = value.simple_value
@@ -113,7 +113,7 @@ if __name__ == "__main__":
                 waiting_time1_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_ped_neglected/events.out.tfevents.1588680028.PC-CYRIL-LINUX.13530.0"):
+            "runs/uniform_1over300_100_ped_neglected/events.out.tfevents.1588700219.PC-CYRIL-LINUX.21723.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward2 = value.simple_value
@@ -133,7 +133,7 @@ if __name__ == "__main__":
                 waiting_time2_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian/events.out.tfevents.1588680141.PC-CYRIL-LINUX.13571.0"):
+            "runs/uniform_1over300_100_pedestrian/events.out.tfevents.1588700340.PC-CYRIL-LINUX.21806.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward3 = value.simple_value
@@ -153,7 +153,7 @@ if __name__ == "__main__":
                 waiting_time3_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian2/events.out.tfevents.1588678938.PC-CYRIL-LINUX.12989.0"):
+            "runs/uniform_1over300_100_pedestrian2/events.out.tfevents.1588700420.PC-CYRIL-LINUX.21902.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward4 = value.simple_value
@@ -173,7 +173,7 @@ if __name__ == "__main__":
                 waiting_time4_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian3/events.out.tfevents.1588679059.PC-CYRIL-LINUX.13086.0"):
+            "runs/uniform_1over300_100_pedestrian3/events.out.tfevents.1588700536.PC-CYRIL-LINUX.21944.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward5 = value.simple_value
@@ -193,7 +193,7 @@ if __name__ == "__main__":
                 waiting_time5_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian4/events.out.tfevents.1588679178.PC-CYRIL-LINUX.13139.0"):
+            "runs/uniform_1over300_100_pedestrian4/events.out.tfevents.1588700619.PC-CYRIL-LINUX.21994.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward6 = value.simple_value
@@ -213,7 +213,7 @@ if __name__ == "__main__":
                 waiting_time6_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian5/events.out.tfevents.1588679178.PC-CYRIL-LINUX.13139.0"):
+            "runs/uniform_1over300_100_pedestrian5/events.out.tfevents.1588700701.PC-CYRIL-LINUX.22044.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward7 = value.simple_value
@@ -233,7 +233,7 @@ if __name__ == "__main__":
                 waiting_time7_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian6/events.out.tfevents.1588679438.PC-CYRIL-LINUX.13248.0"):
+            "runs/uniform_1over300_100_pedestrian6/events.out.tfevents.1588700795.PC-CYRIL-LINUX.22082.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward8 = value.simple_value
@@ -253,7 +253,7 @@ if __name__ == "__main__":
                 waiting_time8_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian7/events.out.tfevents.1588679566.PC-CYRIL-LINUX.13317.0"):
+            "runs/uniform_1over300_100_pedestrian7/events.out.tfevents.1588700880.PC-CYRIL-LINUX.22130.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward9 = value.simple_value
@@ -273,7 +273,7 @@ if __name__ == "__main__":
                 waiting_time9_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_pedestrian8/events.out.tfevents.1588679702.PC-CYRIL-LINUX.13364.0"):
+            "runs/uniform_1over300_100_pedestrian8/events.out.tfevents.1588700980.PC-CYRIL-LINUX.22172.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward10 = value.simple_value
@@ -293,7 +293,7 @@ if __name__ == "__main__":
                 waiting_time10_ped_dev = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_100_ped_perfect/events.out.tfevents.1588679874.PC-CYRIL-LINUX.13445.0"):
+            "runs/uniform_1over300_100_ped_perfect/events.out.tfevents.1588701057.PC-CYRIL-LINUX.22217.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 reward11 = value.simple_value
@@ -312,7 +312,7 @@ if __name__ == "__main__":
             elif value.tag == "Waiting_time_standard_deviation_pedestrians":
                 waiting_time11_ped_dev = value.simple_value
 
-    figure_name = "figures/waiting_time/uniform/comp_pedestrian_medium.png"
+    figure_name = "figures/waiting_time/uniform/comp_pedestrian_low.png"
 
     bar_width = 0.25
     bars1 = [waiting_time1, waiting_time2, waiting_time3, waiting_time7, waiting_time8, waiting_time4, waiting_time5,

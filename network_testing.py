@@ -1,4 +1,5 @@
 import arterial_sim as sim
+from DQN import Agent
 import statistics
 from torch.utils.tensorboard import SummaryWriter
 
@@ -29,27 +30,49 @@ if __name__ == "__main__":
                [0.0044 / 3] * 3 + [0.0183 / 3] * 3 + [0.0165 / 3] * 3 + [0.0274 / 3] * 3,
                [0.0037 / 3] * 3 + [0.0171 / 3] * 3 + [0.0196 / 3] * 3 + [0.0256 / 3] * 3]'''
 
+    mem_size = 100000
+    nb_init = 10000  # Number of samples in the replay buffer before learning starts
+    nb_inputs = 11
+    nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 0.5  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
-    gui = True
+    gui = False
+    alpha = 0.0001
+    milestones = [50, 100]
+    lr_decay_factor = 0.1
+    gamma = 0.9
+    policy = "epsilon-greedy"
+    epsilon = 1
+    epsilon_end = 0.05
+    decay_steps_ep = 100000
+    temp = 1
+    temp_end = 0.05
+    decay_steps_temp = 100000
+    batch_size = 32
+    target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities_man = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [
         1. / 500] * 75 + [1. / 420] * 21 + [1. / 500] * 25
     route_probabilities_art = [1. / 220] * 132
+    file_name = "model_100_medium.pt"
+
+    nb_episodes_baseline = 200
 
     '''simulator = sim.ManhattanSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                        route_probabilities_man, hour_of_the_day, gui)'''
     simulator = sim.ArterialSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
                                       route_probabilities_art, hour_of_the_day, gui)
 
-    nb_episodes_baseline = 200
-
+    agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
+                  temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
+    agent.load_net()
+    # [agent.select_action(x, True) for x in simulator.get_state()]
     while simulator.step():
-        print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
-        print(simulator.get_state())
+        '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
+        print(simulator.get_state())'''
 
     reward = statistics.mean(simulator.averageRewards)
     waiting_time = statistics.mean(simulator.averageWaitingTimes)
@@ -61,7 +84,7 @@ if __name__ == "__main__":
     waiting_time_detected_dev = statistics.stdev(simulator.averageWaitingTimesDetected)
     waiting_time_undetected_dev = statistics.stdev(simulator.averageWaitingTimesUndetected)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over60_pf1_buses_baseline")
+    tb = SummaryWriter(log_dir="runs/arterial_medium_baseline")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
