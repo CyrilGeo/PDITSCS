@@ -24,11 +24,11 @@ if __name__ == "__main__":
     waiting_times4_dev = []
     waiting_times5_dev = []
 
-    figure_name = "LuST/hourly_real"
+    figure_name = "LuST/hourly_real_burst"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_100/events.out.tfevents.1587869438.alan-compute-07.192786.0"):
+            "runs/hourly_LuST_100_burst/events.out.tfevents.1588520998.alan-compute-01.30095.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 hours.append(event.step)
@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # 70% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_70/events.out.tfevents.1588158558.alan-compute-07.172423.0"):
+            "runs/hourly_LuST_70_burst/events.out.tfevents.1588733492.alan-compute-02.23330.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards2.append(value.simple_value)
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_50/events.out.tfevents.1588158077.alan-compute-08.184681.0"):
+            "runs/hourly_LuST_50_burst/events.out.tfevents.1588733479.alan-compute-02.23802.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards3.append(value.simple_value)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_20/events.out.tfevents.1588153044.alan-compute-01.4582.0"):
+            "runs/hourly_LuST_20_burst/events.out.tfevents.1588750573.alan-compute-03.14020.0"):
         for value in event.summary.value:
             if value.tag == "Average_hourly_reward":
                 rewards4.append(value.simple_value)

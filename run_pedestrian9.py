@@ -113,7 +113,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 300] * 12
     ped_route_probabilities = [1. / 300] * 12
-    gen_name = "model_100_low_pedestrian_perfect"
+    gen_name = "model_100_low_pedestrian_perfect_dist300"
     file_name = gen_name + ".pt"
     doTesting = True
 

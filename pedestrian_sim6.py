@@ -97,7 +97,7 @@ class PedestrianSimulator:
         with open("sumo_sim/pedestrian_intersection_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="pedestrian_intersection.net.xml"/>
+        <net-file value="pedestrian_intersection_300.net.xml"/>
         <route-files value="pedestrian_intersection_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>

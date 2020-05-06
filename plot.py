@@ -56,11 +56,11 @@ if __name__ == "__main__":
     baseline_adapted_w_dev = 0
 
     figure_location = "LuST/"
-    figure_name = "training"
+    figure_name = "training_burst"
 
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_real/events.out.tfevents.1587667727.alan-compute-04.8454.0"):
+            "runs/model_100_real_burst/events.out.tfevents.1588331882.alan-compute-01.25946.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 episodes.append(event.step)
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     # 70% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_real/events.out.tfevents.1587903799.alan-compute-04.792.0"):
+            "runs/model_70_real_burst/events.out.tfevents.1588542157.alan-compute-07.128000.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards2.append(value.simple_value)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     # 50% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_50_real/events.out.tfevents.1587904108.alan-compute-02.32231.0"):
+            "runs/model_50_real_burst/events.out.tfevents.1588542169.alan-compute-07.128028.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards3.append(value.simple_value)
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # 20% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_20_real/events.out.tfevents.1587903968.alan-compute-04.851.0"):
+            "runs/model_20_real_burst/events.out.tfevents.1588542177.alan-compute-07.128054.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 rewards4.append(value.simple_value)
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     # baseline
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/hourly_LuST_training_baseline/events.out.tfevents.1587229379.PC-CYRIL-LINUX.21764.0"):
+            "runs/hourly_LuST_training_burst_baseline/events.out.tfevents.1588433849.PC-CYRIL-LINUX.5922.0"):
         for value in event.summary.value:
             if value.tag == "Average_reward":
                 baseline_r = value.simple_value
