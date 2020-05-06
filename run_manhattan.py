@@ -72,7 +72,7 @@ if __name__ == "__main__":
     nb_episodes_test = 10
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [1. / 500] * 75 + [
         1. / 420] * 21 + [1. / 500] * 25
-    gen_name = "model_manhattan_100_medium"
+    gen_name = "model_manhattan_70_medium"
     file_names = [gen_name + "_" + str(x) + ".pt" for x in range(9)]
     doTesting = True
 

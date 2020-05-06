@@ -72,7 +72,7 @@ if __name__ == "__main__":
     nb_episodes_test = 10
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 220] * 132
-    gen_name = "model_arterial_70_medium"
+    gen_name = "model_arterial_20_medium"
     file_names = [gen_name + "_" + str(x) + ".pt" for x in range(5)]
     doTesting = True
 

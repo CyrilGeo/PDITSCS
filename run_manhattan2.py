@@ -1,4 +1,4 @@
-from arterial_sim import ArterialSimulator
+from manhattan_sim import ManhattanSimulator
 from DQN import Agent
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -17,16 +17,16 @@ def collect_transition(replay_buf, simu, act):
     rewards = simu.get_reward()
     new_states = simu.get_state()
     done = simu.get_episode_end()
-    for i in range(5):
+    for i in range(9):
         replay_buf[i].store(np.array(states[i]), act[i], rewards[i], np.array(new_states[i]), done)
     return continue_sim
 
 
 # Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day):
-    sim = ArterialSimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
+    sim = ManhattanSimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
     for i in range(nb_samples):
-        selected_actions = [select_random_action(nb_act) for x in range(5)]
+        selected_actions = [select_random_action(nb_act) for x in range(9)]
         collect_transition(rp_buf, sim, selected_actions)
     sim.close_simulation()
     print("END OF SIMULATION")
@@ -35,8 +35,8 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
 def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, ag):
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
-    test_sim = ArterialSimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
-    while test_sim.step([ag[x].select_action(test_sim.get_state()[x], True) for x in range(5)]):
+    test_sim = ManhattanSimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
+    while test_sim.step([ag[x].select_action(test_sim.get_state()[x], True) for x in range(9)]):
         pass
     av_r = statistics.mean(test_sim.averageRewards)
     av_w = statistics.mean(test_sim.averageWaitingTimes)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     nb_episodes_test = 10
     nb_episodes_between_tests = 5
     nb_episode_steps = 3000
-    detection_rate = 0.7  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -90,9 +90,10 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 220] * 132
-    gen_name = "model_arterial_70_medium"
-    file_names = [gen_name + "_" + str(x) + ".pt" for x in range(5)]
+    route_probabilities = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [1. / 500] * 75 + [
+        1. / 420] * 21 + [1. / 500] * 25
+    gen_name = "model_manhattan_20_medium"
+    file_names = [gen_name + "_" + str(x) + ".pt" for x in range(9)]
     doTesting = True
 
     print("LEARNING " + gen_name)
@@ -102,17 +103,17 @@ if __name__ == "__main__":
 
     # Initializing the simulator, agents and replay buffer
     agents = []
-    for x in range(5):
+    for x in range(9):
         agents.append(
             Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
                   temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_names[x]))
     print("\nINITIALIZING REPLAY BUFFERS")
-    initialize_buffer([agents[x].replayBuffer for x in range(5)], nb_init, nb_actions, nb_episode_steps, detection_rate,
+    initialize_buffer([agents[x].replayBuffer for x in range(9)], nb_init, nb_actions, nb_episode_steps, detection_rate,
                       min_phase_duration, route_probabilities, hour_of_the_day)
     print("REPLAY BUFFERS INITIALIZATION DONE\n")
     # /!\ Has to be initialized AFTER buffer initialization! initialize_buffer() uses its own simulator
-    simulator = ArterialSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
-                                  route_probabilities, hour_of_the_day, gui)
+    simulator = ManhattanSimulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration,
+                                   route_probabilities, hour_of_the_day, gui)
 
     # Learning phase
     print("STARTING LEARNING")
@@ -122,9 +123,9 @@ if __name__ == "__main__":
                 simulator.episodeCnt - 1) % nb_episodes_between_tests == 0:
             test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
                        route_probabilities, hour_of_the_day, agents)
-        actions = [agents[x].select_action(simulator.get_state()[x]) for x in range(5)]
-        continue_simulation = collect_transition([agents[x].replayBuffer for x in range(5)], simulator, actions)
-        for x in range(5):
+        actions = [agents[x].select_action(simulator.get_state()[x]) for x in range(9)]
+        continue_simulation = collect_transition([agents[x].replayBuffer for x in range(9)], simulator, actions)
+        for x in range(9):
             agents[x].learning_step()
             if simulator.get_episode_end() == 1:
                 agents[x].scheduling_step()
@@ -138,7 +139,7 @@ if __name__ == "__main__":
         writer.close()
 
     print("SAVING Q-NET")
-    for x in range(5):
+    for x in range(9):
         agents[x].save_net()
     print("DONE")
     '''print("SAVING STATS")
