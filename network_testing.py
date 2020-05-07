@@ -36,7 +36,7 @@ if __name__ == "__main__":
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 30
     nb_episode_steps = 3000
-    detection_rate = 1.0  # Percentage of vehicles that can be detected by the algorithm
+    detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 10
     gui = False
     alpha = 0.0001
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     route_probabilities_man = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [
         1. / 500] * 75 + [1. / 420] * 21 + [1. / 500] * 25
     route_probabilities_art = [1. / 220] * 132
-    file_name = "model_100_medium.pt"
+    file_name = "model_hor_15_60_20.pt"
 
     nb_episodes_baseline = 200
 
@@ -69,8 +69,7 @@ if __name__ == "__main__":
     agent = Agent(alpha, milestones, lr_decay_factor, gamma, policy, epsilon, epsilon_end, decay_steps_ep, temp,
                   temp_end, decay_steps_temp, batch_size, nb_inputs, nb_actions, mem_size, file_name)
     agent.load_net()
-    # [agent.select_action(x, True) for x in simulator.get_state()]
-    while simulator.step():
+    while simulator.step([agent.select_action(x, True) for x in simulator.get_state()]):
         '''print("Reward for step", str(simulator.get_curr_nb_iterations()) + ":", str(simulator.get_reward()))
         print(simulator.get_state())'''
 
@@ -84,7 +83,7 @@ if __name__ == "__main__":
     waiting_time_detected_dev = statistics.stdev(simulator.averageWaitingTimesDetected)
     waiting_time_undetected_dev = statistics.stdev(simulator.averageWaitingTimesUndetected)
 
-    tb = SummaryWriter(log_dir="runs/arterial_medium_baseline")
+    tb = SummaryWriter(log_dir="runs/arterial_medium_20")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)

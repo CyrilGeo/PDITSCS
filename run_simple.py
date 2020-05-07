@@ -41,10 +41,18 @@ def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob
     av_w = statistics.mean(test_sim.averageWaitingTimes)
     stddev_r = statistics.stdev(test_sim.averageRewards)
     stddev_w = statistics.stdev(test_sim.averageWaitingTimes)
+    av_w_det = statistics.mean(test_sim.averageWaitingTimesDetected)
+    av_w_undet = statistics.mean(test_sim.averageWaitingTimesUndetected)
+    av_w_det_dev = statistics.stdev(test_sim.averageWaitingTimesDetected)
+    av_w_undet_dev = statistics.stdev(test_sim.averageWaitingTimesUndetected)
     tb.add_scalar("Average reward", av_r, sim.episodeCnt)
     tb.add_scalar("Average waiting time", av_w, sim.episodeCnt)
     tb.add_scalar("Reward standard deviation", stddev_r, sim.episodeCnt)
     tb.add_scalar("Waiting time standard deviation", stddev_w, sim.episodeCnt)
+    tb.add_scalar("Average waiting time detected", av_w_det, sim.episodeCnt)
+    tb.add_scalar("Average waiting time undetected", av_w_undet, sim.episodeCnt)
+    tb.add_scalar("Waiting time standard deviation detected", av_w_det_dev, sim.episodeCnt)
+    tb.add_scalar("Waiting time standard deviation undetected", av_w_undet_dev, sim.episodeCnt)
     print("TESTING DONE")
     print("Average reward:", av_r)
     print("Average waiting time:", av_w)
@@ -107,8 +115,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 300] * 12
-    gen_name = "model_100_low"
+    route_probabilities = [1. / 60] * 12
+    gen_name = "model_100_medium_dist50"
     file_name = gen_name + ".pt"
     doTesting = True
 

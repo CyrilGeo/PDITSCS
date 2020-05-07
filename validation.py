@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # Probability for a car to be generated on a particular route at a certain step
     route_probabilities = [1. / 300] * 12
     ped_route_probabilities = [1. / 300] * 12
-    file_name = "model_100_low_pedestrian_perfect.pt"
+    file_name = "model_100_low_pedestrian_perfect_dist300.pt"
 
     '''simulator = Simulator(nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probabilities,
                           hour_of_the_day, gui)'''
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     waiting_time_veh_dev = statistics.stdev(simulator.averageWaitingTimesVeh)
     waiting_time_ped_dev = statistics.stdev(simulator.averageWaitingTimesPed)
 
-    tb = SummaryWriter(log_dir="runs/uniform_1over300_100_ped_perfect")
+    tb = SummaryWriter(log_dir="runs/uniform_1over300_100_ped_perfect_dist300")
 
     tb.add_scalar("Average reward", reward, 1)
     tb.add_scalar("Average waiting time", waiting_time, 1)
