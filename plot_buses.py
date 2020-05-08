@@ -49,6 +49,7 @@ if __name__ == "__main__":
     waiting_times_cars_20_dev = []
     waiting_times_buses_20_dev = []
     waiting_time_baseline = 0
+    waiting_time_baseline1 = 0
 
     tmp1 = []
     tmp2 = []
@@ -57,16 +58,22 @@ if __name__ == "__main__":
     tmp5 = []
     tmp6 = []
 
-    # Baseline
+    # Baselines
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/uniform_1over60_pf1_buses_baseline/events.out.tfevents.1588429667.PC-CYRIL-LINUX.4480.0"):
+            "runs/uniform_1over300_pf1_buses_baseline/events.out.tfevents.1588950019.PC-CYRIL-LINUX.14086.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 waiting_time_baseline = value.simple_value
 
+    for event in tf.compat.v1.train.summary_iterator(
+            "runs/uniform_1over30_pf1_buses_baseline/events.out.tfevents.1588950066.PC-CYRIL-LINUX.14132.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_waiting_time":
+                waiting_time_baseline1 = value.simple_value
+
     # 100% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf1/events.out.tfevents.1588427018.alan-compute-09.181894.0"):
+            "runs/model_100_low_buses_pf1/events.out.tfevents.1588889123.alan-compute-06.184459.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -88,7 +95,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf2/events.out.tfevents.1588427096.alan-compute-09.182068.0"):
+            "runs/model_100_low_buses_pf2/events.out.tfevents.1588892149.alan-compute-06.15207.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -110,7 +117,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf3/events.out.tfevents.1588427096.alan-compute-09.182181.0"):
+            "runs/model_100_low_buses_pf3/events.out.tfevents.1588892400.alan-compute-06.20547.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -132,7 +139,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf4/events.out.tfevents.1588427189.alan-compute-09.182302.0"):
+            "runs/model_100_low_buses_pf4/events.out.tfevents.1588892926.alan-compute-06.31571.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -154,7 +161,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf5/events.out.tfevents.1588427194.alan-compute-09.182422.0"):
+            "runs/model_100_low_buses_pf5/events.out.tfevents.1588893431.alan-compute-04.23113.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -176,7 +183,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf6/events.out.tfevents.1588427290.alan-compute-09.182577.0"):
+            "runs/model_100_low_buses_pf6/events.out.tfevents.1588894881.alan-compute-06.69778.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -198,7 +205,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf7/events.out.tfevents.1588427301.alan-compute-09.182667.0"):
+            "runs/model_100_low_buses_pf7/events.out.tfevents.1588897439.alan-compute-06.121184.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -220,7 +227,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf8/events.out.tfevents.1588426885.alan-compute-07.102411.0"):
+            "runs/model_100_low_buses_pf8/events.out.tfevents.1588897698.alan-compute-06.126297.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -242,7 +249,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf9/events.out.tfevents.1588426921.alan-compute-07.102440.0"):
+            "runs/model_100_low_buses_pf9/events.out.tfevents.1588897792.alan-compute-06.127975.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -264,7 +271,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf10/events.out.tfevents.1588426965.alan-compute-07.102468.0"):
+            "runs/model_100_low_buses_pf10/events.out.tfevents.1588897889.alan-compute-04.23660.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -286,7 +293,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf11/events.out.tfevents.1588427011.alan-compute-07.102497.0"):
+            "runs/model_100_low_buses_pf11/events.out.tfevents.1588900088.alan-compute-06.174587.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -308,7 +315,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf12/events.out.tfevents.1588427042.alan-compute-07.102527.0"):
+            "runs/model_100_low_buses_pf12/events.out.tfevents.1588902345.alan-compute-04.24126.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -330,7 +337,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf13/events.out.tfevents.1588427082.alan-compute-07.102555.0"):
+            "runs/model_100_low_buses_pf13/events.out.tfevents.1588902679.alan-compute-06.226361.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -352,7 +359,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf14/events.out.tfevents.1588427356.alan-compute-02.12460.0"):
+            "runs/model_100_low_buses_pf14/events.out.tfevents.1588902679.alan-compute-06.226361.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -374,7 +381,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_100_medium_buses_pf15/events.out.tfevents.1588427286.alan-compute-03.561.0"):
+            "runs/model_100_low_buses_pf15/events.out.tfevents.1588903033.alan-compute-06.4456.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -397,7 +404,7 @@ if __name__ == "__main__":
 
     # 70% detection rate
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf1/events.out.tfevents.1588436207.alan-compute-09.203204.0"):
+            "runs/model_100_high_buses_pf1/events.out.tfevents.1588918201.alan-compute-08.39549.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -419,7 +426,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf2/events.out.tfevents.1588436229.alan-compute-09.203252.0"):
+            "runs/model_100_high_buses_pf2/events.out.tfevents.1588918246.alan-compute-08.40422.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -441,7 +448,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf3/events.out.tfevents.1588436229.alan-compute-09.203284.0"):
+            "runs/model_100_high_buses_pf3/events.out.tfevents.1588918292.alan-compute-03.24654.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -463,7 +470,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf4/events.out.tfevents.1588436229.alan-compute-09.203317.0"):
+            "runs/model_100_high_buses_pf4/events.out.tfevents.1588918495.alan-compute-02.26895.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -485,7 +492,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf5/events.out.tfevents.1588436229.alan-compute-09.203347.0"):
+            "runs/model_100_high_buses_pf5/events.out.tfevents.1588918619.alan-compute-03.24764.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -507,7 +514,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf6/events.out.tfevents.1588436229.alan-compute-09.203384.0"):
+            "runs/model_100_high_buses_pf6/events.out.tfevents.1588918619.alan-compute-03.24762.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -529,7 +536,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf7/events.out.tfevents.1588435814.alan-compute-06.97224.0"):
+            "runs/model_100_high_buses_pf7/events.out.tfevents.1588918704.alan-compute-08.49567.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -551,7 +558,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf8/events.out.tfevents.1588435814.alan-compute-06.97272.0"):
+            "runs/model_100_high_buses_pf8/events.out.tfevents.1588918762.alan-compute-06.91403.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -573,7 +580,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf9/events.out.tfevents.1588435814.alan-compute-06.97315.0"):
+            "runs/model_100_high_buses_pf9/events.out.tfevents.1588918815.alan-compute-06.92471.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -595,7 +602,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf10/events.out.tfevents.1588435827.alan-compute-07.103308.0"):
+            "runs/model_100_high_buses_pf10/events.out.tfevents.1588918815.alan-compute-06.92508.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -617,7 +624,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf11/events.out.tfevents.1588435827.alan-compute-07.103327.0"):
+            "runs/model_100_high_buses_pf11/events.out.tfevents.1588918856.alan-compute-03.24821.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -639,7 +646,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf12/events.out.tfevents.1588435837.alan-compute-07.103362.0"):
+            "runs/model_100_high_buses_pf12/events.out.tfevents.1588918915.alan-compute-06.94832.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -661,7 +668,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf13/events.out.tfevents.1588435845.alan-compute-07.103387.0"):
+            "runs/model_100_high_buses_pf13/events.out.tfevents.1588919132.alan-compute-06.98655.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -683,7 +690,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf14/events.out.tfevents.1588435852.alan-compute-07.103412.0"):
+            "runs/model_100_high_buses_pf14/events.out.tfevents.1588919614.alan-compute-08.67783.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -705,7 +712,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     for event in tf.compat.v1.train.summary_iterator(
-            "runs/model_70_medium_buses_pf15/events.out.tfevents.1588435863.alan-compute-07.103438.0"):
+            "runs/model_100_high_buses_pf15/events.out.tfevents.1588920151.alan-compute-08.78382.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
                 tmp1.append(value.simple_value)
@@ -727,7 +734,7 @@ if __name__ == "__main__":
     waiting_times_buses_70_dev.append(tmp6[-1])
 
     # 50% detection rate
-    for event in tf.compat.v1.train.summary_iterator(
+    '''for event in tf.compat.v1.train.summary_iterator(
             "runs/model_50_medium_buses_pf1/events.out.tfevents.1588436795.alan-compute-02.22475.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
@@ -1386,11 +1393,11 @@ if __name__ == "__main__":
     waiting_times_buses_20.append(tmp3[-1])
     waiting_times_20_dev.append(tmp4[-1])
     waiting_times_cars_20_dev.append(tmp5[-1])
-    waiting_times_buses_20_dev.append(tmp6[-1])
+    waiting_times_buses_20_dev.append(tmp6[-1])'''
 
     priority_factors = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-    figure_name100 = "medium_buses_100"
-    figure_name70 = "medium_buses_70"
+    figure_name100 = "low_buses_100"
+    figure_name70 = "high_buses_100"
     figure_name50 = "medium_buses_50"
     figure_name20 = "medium_buses_20"
 
@@ -1407,7 +1414,7 @@ if __name__ == "__main__":
     waiting_times_buses_50 = filter_list(waiting_times_buses_50)
     waiting_times_buses_20 = filter_list(waiting_times_buses_20)'''
 
-    waiting_times_100_smooth = exponential_moving_average(waiting_times_100, 2)
+    '''waiting_times_100_smooth = exponential_moving_average(waiting_times_100, 2)
     waiting_times_70_smooth = exponential_moving_average(waiting_times_70, 2)
     waiting_times_50_smooth = exponential_moving_average(waiting_times_50, 2)
     waiting_times_20_smooth = exponential_moving_average(waiting_times_20, 2)
@@ -1418,7 +1425,7 @@ if __name__ == "__main__":
     waiting_times_buses_100_smooth = exponential_moving_average(waiting_times_buses_100, 2)
     waiting_times_buses_70_smooth = exponential_moving_average(waiting_times_buses_70, 2)
     waiting_times_buses_50_smooth = exponential_moving_average(waiting_times_buses_50, 2)
-    waiting_times_buses_20_smooth = exponential_moving_average(waiting_times_buses_20, 2)
+    waiting_times_buses_20_smooth = exponential_moving_average(waiting_times_buses_20, 2)'''
 
     plt.figure()
     plt.grid()
@@ -1444,14 +1451,14 @@ if __name__ == "__main__":
     plt.errorbar(priority_factors, waiting_times_cars_70, yerr=waiting_times_cars_70_dev, color="steelblue", capsize=4)
     plt.plot(priority_factors, waiting_times_buses_70, color="gold", marker='o', label="Buses")
     plt.errorbar(priority_factors, waiting_times_buses_70, yerr=waiting_times_buses_70_dev, color="gold", capsize=4)
-    plt.axhline(y=waiting_time_baseline, color="r", label="Fixed time (10s)")
+    plt.axhline(y=waiting_time_baseline1, color="r", label="Fixed time (10s)")
     plt.xlabel("Priority factor")
     plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig("figures/waiting_time/uniform/" + figure_name70 + ".png")
     plt.show()
 
-    plt.figure()
+    '''plt.figure()
     plt.grid()
     plt.plot(priority_factors, waiting_times_50, color="limegreen", marker='o', label="Overall performance")
     plt.errorbar(priority_factors, waiting_times_50, yerr=waiting_times_50_dev, color="limegreen", capsize=4)
@@ -1551,4 +1558,4 @@ if __name__ == "__main__":
     plt.ylabel("Average waiting time (s)")
     plt.legend()
     plt.savefig("figures/waiting_time/uniform/" + figure_name20 + "_smooth.png")
-    plt.show()
+    plt.show()'''
