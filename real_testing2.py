@@ -10,7 +10,7 @@ if __name__ == "__main__":
     nb_inputs = 27
     nb_actions = 2  # Either stay at current phase or switch to the next one
     nb_episodes = 5
-    nb_episodes_test = 10
+    nb_episodes_test = 500
     nb_episodes_between_tests = 10
     detection_rate = 0.2  # Percentage of vehicles that can be detected by the algorithm
     min_phase_duration = 5
