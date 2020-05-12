@@ -9,4 +9,4 @@
 #SBATCH --gres=gpu:1
 
 export SUMO_HOME="/home/cgeortay/master_thesis/sumo/sumo"
-python3 real_testing3.py
+python3 real_testing2.py
