@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/plot_lane.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plot_buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_buses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_low_buses_pf14/events.out.tfevents.1588902956.alan-compute-06.2694.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/model_100_medium_dist150/events.out.tfevents.1588878615.alan-compute-09.12880.0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figures/waiting_time/uniform/comp_lane_length.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/waiting_time/uniform/comp_lane_length.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_lane.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_lane.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plot_real.py" beforeDir="false" afterPath="$PROJECT_DIR$/plot_real.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_20_burst/events.out.tfevents.1588985742.alan-compute-09.33231.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_50_burst/events.out.tfevents.1588988929.alan-compute-07.207996.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_100_burst/events.out.tfevents.1588715138.PC-CYRIL-LINUX.28036.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_20_burst/events.out.tfevents.1588718800.PC-CYRIL-LINUX.29759.0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/hourly_LuST_training_50_burst/events.out.tfevents.1588717821.PC-CYRIL-LINUX.29265.0" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,23 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plot_buses.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="1430" column="14" selection-start-line="1430" selection-start-column="14" selection-end-line="1430" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/plot_lane.py">
+        <entry file="file://$PROJECT_DIR$/plot_real.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="58" column="95" selection-start-line="58" selection-start-column="95" selection-end-line="58" selection-end-column="95" />
+            <state relative-caret-position="435">
+              <caret line="49" column="99" selection-start-line="49" selection-start-column="99" selection-end-line="49" selection-end-column="99" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -58,7 +49,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run_simple.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
+            <state relative-caret-position="782">
               <caret line="50" column="78" selection-start-line="50" selection-start-column="78" selection-end-line="50" selection-end-column="78" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -106,13 +97,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/unnorm_plot.py" />
         <option value="$PROJECT_DIR$/plot_flows.py" />
         <option value="$PROJECT_DIR$/plot_det_rate.py" />
         <option value="$PROJECT_DIR$/plot_lane_flow.py" />
         <option value="$PROJECT_DIR$/real_testing.py" />
         <option value="$PROJECT_DIR$/plot.py" />
-        <option value="$PROJECT_DIR$/plot_real.py" />
         <option value="$PROJECT_DIR$/ped_neglected_sim.py" />
         <option value="$PROJECT_DIR$/ped_perfect_sim.py" />
         <option value="$PROJECT_DIR$/pedestrian_sim.py" />
@@ -157,14 +146,16 @@
         <option value="$PROJECT_DIR$/testing.py" />
         <option value="$PROJECT_DIR$/plot_buses.py" />
         <option value="$PROJECT_DIR$/plot_lane.py" />
+        <option value="$PROJECT_DIR$/real_testing2.py" />
+        <option value="$PROJECT_DIR$/plot_real.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2252" />
+    <option name="x" value="1985" />
     <option name="y" value="-4" />
-    <option name="width" value="1393" />
-    <option name="height" value="820" />
+    <option name="width" value="1615" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -214,7 +205,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plot_lane">
+  <component name="RunManager" selected="Python.plot_real">
     <configuration name="network_testing" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="PDITSCS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -916,7 +907,11 @@
       <workItem from="1588754607053" duration="6648000" />
       <workItem from="1588834656327" duration="12072000" />
       <workItem from="1588917289512" duration="858000" />
-      <workItem from="1588947599131" duration="7079000" />
+      <workItem from="1588947599131" duration="8395000" />
+      <workItem from="1589029442153" duration="8000" />
+      <workItem from="1589201032806" duration="1233000" />
+      <workItem from="1589267844243" duration="456000" />
+      <workItem from="1589276309704" duration="238000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -1146,7 +1141,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="996830000" />
+    <option name="totallyTimeSpent" value="1000081000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1161,12 +1156,12 @@
     <frame x="1985" y="-4" width="1615" height="1054" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2045889" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21478648" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32960325" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49713194" visible="true" weight="0.31966352" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49713194" weight="0.31966352" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.498618" weight="0.39957938" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1175,12 +1170,12 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49695966" weight="0.39747635" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5030404" side_tool="true" weight="0.3975535" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" weight="0.14405888" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.13038906" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.25341746" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.41363925" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.41363925" />
       <window_info anchor="right" x="0" y="0" width="414" height="885" id="Documentation" order="4" side_tool="true" weight="0.32946378" />
       <window_info anchor="right" id="Database" order="5" weight="0.32950923" />
     </layout>
@@ -1285,7 +1280,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PDITSCS$run_real.coverage" NAME="run_real Coverage Results" MODIFIED="1588331175752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$plot_real.coverage" NAME="plot_real Coverage Results" MODIFIED="1588768862800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$plot_real.coverage" NAME="plot_real Coverage Results" MODIFIED="1589276619680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$real_testing1.coverage" NAME="real_testing1 Coverage Results" MODIFIED="1587563330215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_detected.coverage" NAME="plot_detected Coverage Results" MODIFIED="1588541074866" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$real_testing.coverage" NAME="real_testing Coverage Results" MODIFIED="1588717832420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1293,7 +1288,7 @@
     <SUITE FILE_PATH="coverage/PDITSCS$run_buses.coverage" NAME="run_buses Coverage Results" MODIFIED="1588503374788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run9.coverage" NAME="run9 Coverage Results" MODIFIED="1586268522761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$run.coverage" NAME="run Coverage Results" MODIFIED="1585843810343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/PDITSCS$plot_lane.coverage" NAME="plot_lane Coverage Results" MODIFIED="1588958337890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PDITSCS$plot_lane.coverage" NAME="plot_lane Coverage Results" MODIFIED="1589201152288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$hello.coverage" NAME="hello Coverage Results" MODIFIED="1583146904527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_det_rate.coverage" NAME="plot_det_rate Coverage Results" MODIFIED="1588691277716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PDITSCS$plot_lane_flow.coverage" NAME="plot_lane_flow Coverage Results" MODIFIED="1588698318166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -1331,63 +1326,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/plot_real.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="91" selection-start-line="58" selection-start-column="91" selection-end-line="58" selection-end-column="91" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run_manhattan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="115" column="104" selection-start-line="115" selection-start-column="104" selection-end-line="115" selection-end-column="104" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="96" column="52" selection-start-line="96" selection-start-column="52" selection-end-line="96" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="96" column="52" selection-start-line="96" selection-start-column="52" selection-end-line="96" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pedestrian_sim7.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="99" column="52" selection-start-line="99" selection-start-column="52" selection-end-line="99" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pedestrian_sim8.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="433">
@@ -1558,16 +1496,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_pedestrian.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="295" column="110" selection-start-line="295" selection-start-column="110" selection-end-line="295" selection-end-column="110" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/validation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1609,16 +1537,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="484">
           <caret line="736" column="40" selection-start-line="736" selection-start-column="40" selection-end-line="736" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot_network.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="139" column="95" selection-start-line="139" selection-start-column="95" selection-end-line="139" selection-end-column="95" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -1796,10 +1714,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run_simple.py">
+    <entry file="file://$PROJECT_DIR$/plot_lane.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="50" column="78" selection-start-line="50" selection-start-column="78" selection-end-line="50" selection-end-column="78" />
+        <state relative-caret-position="289">
+          <caret line="18" column="94" selection-start-line="18" selection-start-column="94" selection-end-line="18" selection-end-column="94" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -1808,7 +1726,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/plot_buses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
+        <state relative-caret-position="24293">
           <caret line="1430" column="14" selection-start-line="1430" selection-start-column="14" selection-end-line="1430" selection-end-column="14" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
@@ -1816,10 +1734,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_lane.py">
+    <entry file="file://$PROJECT_DIR$/plot_detected.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="58" column="95" selection-start-line="58" selection-start-column="95" selection-end-line="58" selection-end-column="95" />
+        <state>
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_pedestrian.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4981">
+          <caret line="295" column="110" selection-start-line="295" selection-start-column="110" selection-end-line="295" selection-end-column="110" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_testing1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_testing2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="38" column="65" selection-start-line="38" selection-start-column="65" selection-end-line="38" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/real_testing3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run_simple.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="50" column="78" selection-start-line="50" selection-start-column="78" selection-end-line="50" selection-end-column="78" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_network.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="139" column="95" selection-start-line="139" selection-start-column="95" selection-end-line="139" selection-end-column="95" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_real.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="40" column="100" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="100" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

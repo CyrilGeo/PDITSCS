@@ -115,8 +115,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    route_probabilities = [1. / 60] * 12
-    gen_name = "model_100_medium_dist25"
+    route_probabilities = [1. / 30] * 12
+    gen_name = "model_100_high_dist25"
     file_name = gen_name + ".pt"
     doTesting = True
 

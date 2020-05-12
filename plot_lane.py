@@ -16,6 +16,16 @@ if __name__ == "__main__":
                 waiting_time_baseline = value.simple_value
 
     for event in tf.compat.v1.train.summary_iterator(
+            "runs/model_100_medium_dist25/events.out.tfevents.1588959212.alan-compute-02.32669.0"):
+        for value in event.summary.value:
+            if value.tag == "Average_waiting_time":
+                tmp1.append(value.simple_value)
+            elif value.tag == "Waiting_time_standard_deviation":
+                tmp2.append(value.simple_value)
+    waiting_times.append(tmp1[-1])
+    waiting_times_dev.append(tmp2[-1])
+
+    for event in tf.compat.v1.train.summary_iterator(
             "runs/model_100_medium_dist50/events.out.tfevents.1588863125.alan-compute-04.12453.0"):
         for value in event.summary.value:
             if value.tag == "Average_waiting_time":
@@ -65,7 +75,7 @@ if __name__ == "__main__":
     waiting_times.append(tmp1[-1])
     waiting_times_dev.append(tmp2[-1])
 
-    length = [50, 75, 100, 125, 150]
+    length = [25, 50, 75, 100, 125, 150]
     plt.figure()
     plt.grid()
     plt.plot(length, waiting_times, color="limegreen", marker='o', label="100% detection rate")
