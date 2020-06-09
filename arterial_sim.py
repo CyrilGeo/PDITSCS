@@ -1,10 +1,12 @@
+"""
+Simulator of the 5x1 arterial road.
+"""
+
 import os
 import sys
 import optparse
 import random
 import statistics
-import pickle
-import matplotlib.pyplot as plt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -33,6 +35,9 @@ def get_options():
 
 
 class ArterialSimulator:
+    """
+    The simulator.
+    """
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
                  gui=False):
@@ -48,10 +53,12 @@ class ArterialSimulator:
         self.detectedColor = "0, 255, 0"
         self.undetectedColor = "255, 0, 0"
         self.intersections = [3, 6, 9, 12, 15]
+        # Computes the lane IDs
         self.laneIDs = []
         for inter in self.intersections:
             lane_ids = [x + str(inter) + "_0" for x in [str(inter - 3), str(inter + 1), str(inter + 3), str(inter + 2)]]
             self.laneIDs.append(lane_ids)
+        # Computes the possible routes in the road network
         self.routes = []
         outside_nodes = [0, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18]
         for i in outside_nodes:
@@ -133,16 +140,22 @@ class ArterialSimulator:
             self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
             self.update_state(veh_ids[i], str(self.intersections[i]), self.defaultDistances[i])
 
-    # Initializes a new episode
     def init_new_episode(self):
+        """
+        Initializes a new episode.
+        :return: None
+        """
         print("LOADING NEW EPISODE")
         self.generate_traffic()
 
         # Starting sumo as a subprocess
         traci.start([self.sumoBinary, "-c", "sumo_sim/arterial_" + self.job_id + ".sumocfg"])
 
-    # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self):
+        """
+        Randomly generates the route file that determines the traffic in the simulation.
+        :return: None
+        """
         random.seed()
 
         with open("sumo_sim/arterial_" + self.job_id + ".rou.xml", "w") as routes:
@@ -168,15 +181,21 @@ class ArterialSimulator:
 
             print("</routes>", file=routes)
 
-    # Randomly chooses if a generated vehicle is detected or not by selecting its color accordingly
     def select_color(self):
+        """
+        Randomly chooses if a generated vehicle is detected or not.
+        :return: None
+        """
         if random.uniform(0, 1) < self.detectionRate:
             return self.detectedColor
         return self.undetectedColor
 
-    # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
-    # use step(self) for use in testing.py
     def step(self, actions=None):
+        """
+        Performs one iteration/step in the simulator (environment).
+        :param actions: the actions to perform on all the intersections
+        :return: True if simulation is to be continued, False otherwise
+        """
         self.episodeEnd = 0
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
@@ -247,21 +266,34 @@ class ArterialSimulator:
         self.rewards.append(self.reward.copy())
         return True
 
-    # Switches traffic light to the next phase
     @staticmethod
     def next_phase(intersection):
+        """
+        Switches the traffic lights of a given intersection to the next phase.
+        :param intersection: the given intersection
+        :return: None
+        """
         traci.trafficlight.setPhase(intersection, (traci.trafficlight.getPhase(intersection) + 1) % 4)
 
-    # Erases the state values of the previous state
     def clear_state(self):
+        """
+        Erases the state values of the previous state
+        :return: None
+        """
         self.detectedCarCnt.clear()
         self.distanceNearestDetectedVeh.clear()
         self.currPhaseTime.clear()
         self.normCurrPhaseTime.clear()
         self.amberPhase.clear()
 
-    # Updates the state values
     def update_state(self, veh_ids, intersection, default_distances):
+        """
+        Updates the state representation of a given intersection.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :param intersection: the given intersection
+        :param default_distances: the distances of the lanes in the intersection
+        :return: None
+        """
         self.detectedCarCnt.append(self.count_detected_veh(veh_ids))
         self.distanceNearestDetectedVeh.append(
             [-x / y for x, y in zip(self.get_distances(veh_ids, default_distances), default_distances)])
@@ -285,8 +317,13 @@ class ArterialSimulator:
         else:
             self.amberPhase.append(0)
 
-    # Updates the reward
     def update_reward(self, veh_ids, lane_ids):
+        """
+        Updates the reward for given lanes corresponding to an intersection.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :param lane_ids: the given lanes
+        :return: None
+        """
         rewards = []
         for i in range(len(lane_ids)):
             v_max_lane = traci.lane.getMaxSpeed(lane_ids[i])
@@ -298,9 +335,13 @@ class ArterialSimulator:
         else:
             self.reward.append(0)
 
-    # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
     @staticmethod
     def count_detected_veh(ids):
+        """
+        Counts the number of detected cars in each lane of an intersection.
+        :param ids: the IDs of the vehicles currently simulated in the intersection
+        :return: the number of detected cars in each lane of the intersection
+        """
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
@@ -308,10 +349,14 @@ class ArterialSimulator:
                     cnt[i] -= 1
         return cnt
 
-    # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
-    # car ids
     @staticmethod
     def get_distances(veh_ids, default_distances):
+        """
+        Computes the distance to the nearest detected vehicle in each lane of an intersection.
+        :param veh_ids: the IDs of the vehicles currently simulated in the intersection
+        :param default_distances: the distances of the lanes in the intersection
+        :return: the distance to the nearest detected vehicle in each lane of the intersection
+        """
         distances = default_distances.copy()
         for i in range(len(veh_ids)):
             detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
@@ -320,8 +365,11 @@ class ArterialSimulator:
                 distances[i] = distances[i] + max(detected_positions)
         return distances
 
-    # Returns the state values as a list
     def get_state(self):
+        """
+        Gets the current state representation at each intersection.
+        :return: the current state representations
+        """
         states = []
         for i in range(len(self.detectedCarCnt)):
             states.append(self.detectedCarCnt[i] + self.distanceNearestDetectedVeh[i] + [self.normCurrPhaseTime[i],
@@ -329,18 +377,33 @@ class ArterialSimulator:
                                                                                          self.currDayTime])
         return states
 
-    # Returns the reward
     def get_reward(self):
+        """
+        Gets the current reward for each intersection.
+        :return: the current reward for each intersection
+        """
         return self.reward
 
-    # Returns 1 if end of episode, 0 otherwise
     def get_episode_end(self):
+        """
+        Informs if we are at the end of an episode or not.
+        :return: 1 if end of episode, 0 otherwise
+        """
         return self.episodeEnd
 
     def get_curr_nb_iterations(self):
+        """
+        Gets the number of iterations/steps since the beginning of the simulation.
+        :return: the current number of iterations
+        """
         return self.currNbIterations
 
     def increment_waiting_time(self, ids):
+        """
+        Updates the total cumulative waiting time since the beginning of the current episode.
+        :param ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         cnt = 0
         det_cnt = 0
         undet_cnt = 0
@@ -357,32 +420,18 @@ class ArterialSimulator:
         self.cumWaitingTimeDetected += det_cnt
         self.cumWaitingTimeUndetected += undet_cnt
 
-    # /!\ Filename without file extension
-    def save_stats(self, gen_name):
-        # For loading, use "rb" and pickle.load(file)
-        with open(os.path.join("data", gen_name + "_episodes.txt"), "wb") as file:
-            pickle.dump(self.episodes, file)
-        with open(os.path.join("data", gen_name + "_rewards.txt"), "wb") as file:
-            pickle.dump(self.averageRewards, file)
-        with open(os.path.join("data", gen_name + "_waiting_times.txt"), "wb") as file:
-            pickle.dump(self.averageWaitingTimes, file)
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageRewards, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average reward")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_r.png"))
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageWaitingTimes, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average waiting time (s)")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_w.png"))
-
     @staticmethod
     def close_simulation():
+        """
+        Closes the SUMO simulation.
+        :return: None
+        """
         traci.close()
 
     def delete_sim_files(self):
+        """
+        Deletes the SUMO simulation files.
+        :return: None
+        """
         os.remove("sumo_sim/arterial_" + self.job_id + ".rou.xml")
         os.remove("sumo_sim/arterial_" + self.job_id + ".sumocfg")

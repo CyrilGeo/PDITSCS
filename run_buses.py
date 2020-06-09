@@ -1,3 +1,7 @@
+"""
+Training script of the agent for the simple intersection featuring a priority system for buses.
+"""
+
 from priority_simulator import PrioritySimulator
 from DQN import Agent
 import numpy as np
@@ -5,13 +9,23 @@ from torch.utils.tensorboard import SummaryWriter
 import statistics
 
 
-# Randomly selects an action in the action space
 def select_random_action(nb_act):
+    """
+    Randomly selects an action in the action space.
+    :param nb_act: the number of actions in the action space
+    :return: the selected action
+    """
     return np.random.choice([x for x in range(nb_act)])
 
 
-# Collects one transition from the simulator and stores it into the replay buffer
 def collect_transition(replay_buf, simu, act):
+    """
+    Collects one transition from the simulator and stores it into the replay buffer.
+    :param replay_buf: the replay buffer
+    :param simu: the simulator
+    :param act: the action to perform to make the transition
+    :return: boolean determining whether the simulation is to be continued or not
+    """
     state = simu.get_state()
     continue_sim = simu.step(act)
     reward = simu.get_reward()
@@ -24,6 +38,24 @@ def collect_transition(replay_buf, simu, act):
 # Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2,
                       bus_freq_3, bus_dev, pr_factor, hour_day, hourly_probs):
+    """
+    Fills the replay buffer with nb_samples transitions using random actions.
+    :param rp_buf: the replay buffer
+    :param nb_samples: the number of transitions to collect
+    :param nb_act: the number of actions in the action space
+    :param nb_ep_steps: the number of time steps in an episode
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param route_prob: the route generation probabilities in the intersection
+    :param bus_freq_1: passage frequency of the first busline
+    :param bus_freq_2: passage frequency of the second busline
+    :param bus_freq_3: passage frequency of the third busline
+    :param bus_dev: standard deviation of the planned passage time
+    :param pr_factor: priority factor
+    :param hour_day: the hour of the day
+    :param hourly_probs: possible determined hourly route generation probabilities
+    :return: None
+    """
     sim = PrioritySimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2, bus_freq_3,
                             bus_dev, pr_factor, hour_day, False, hourly_probs)
     for i in range(nb_samples):
@@ -35,6 +67,25 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
 
 def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2, bus_freq_3,
                bus_dev, pr_factor, hour_day, hourly_probs, ag):
+    """
+    Tests the performances of the agent on a determined number of episodes.
+    :param sim: the simulator
+    :param tb: the summary writer for tensorboard
+    :param nb_ep_test: the number of test episodes
+    :param nb_ep_steps: the number of time steps in an episode
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param route_prob: the route generation probabilities in the intersection
+    :param bus_freq_1: passage frequency of the first busline
+    :param bus_freq_2: passage frequency of the second busline
+    :param bus_freq_3: passage frequency of the third busline
+    :param bus_dev: standard deviation of the planned passage time
+    :param pr_factor: priority factor
+    :param hour_day: the hour of the day
+    :param hourly_probs: possible determined hourly route generation probabilities
+    :param ag: the agent
+    :return: None
+    """
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
     test_sim = PrioritySimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, bus_freq_1, bus_freq_2,
@@ -158,12 +209,6 @@ if __name__ == "__main__":
             test_agent(simulator, writer, nb_episodes_test, nb_episode_steps, detection_rate, min_phase_duration,
                        route_probabilities, bus_frequency_1, bus_frequency_2, bus_frequency_3, bus_stddev,
                        priority_factor, hour_of_the_day, h_probs, agent)
-            '''if simulator.episodeCnt - 1 == nb_episodes - (
-                    nb_episodes % nb_episodes_between_tests) - nb_episodes_between_tests:
-                agent.save_net(gen_name + "_1stepback")
-            if simulator.episodeCnt - 1 == nb_episodes - (
-                    nb_episodes % nb_episodes_between_tests) - 2 * nb_episodes_between_tests:
-                agent.save_net(gen_name + "_2stepback")'''
         action = agent.select_action(simulator.get_state())
         continue_simulation = collect_transition(agent.replayBuffer, simulator, action)
         agent.learning_step()
@@ -182,9 +227,6 @@ if __name__ == "__main__":
     print("SAVING Q-NET")
     agent.save_net()
     print("DONE")
-    '''print("SAVING STATS")
-    simulator.save_stats(gen_name)
-    print("DONE")'''
 
     simulator.delete_sim_files()
 

@@ -1,3 +1,7 @@
+"""
+Training script of the agents for the 3x3 Manhattan grid.
+"""
+
 from manhattan_sim import ManhattanSimulator
 from DQN import Agent
 import numpy as np
@@ -5,13 +9,23 @@ from torch.utils.tensorboard import SummaryWriter
 import statistics
 
 
-# Randomly selects an action in the action space
 def select_random_action(nb_act):
+    """
+    Randomly selects an action in the action space.
+    :param nb_act: the number of actions in the action space
+    :return: the selected action
+    """
     return np.random.choice([x for x in range(nb_act)])
 
 
-# Collects one transition from the simulator and stores it into the replay buffer
 def collect_transition(replay_buf, simu, act):
+    """
+    Collects one transition for each agent from the simulator and stores it into their replay buffers.
+    :param replay_buf: the replay buffer
+    :param simu: the simulator
+    :param act: the action to perform to make the transition
+    :return: boolean determining whether the simulation is to be continued or not
+    """
     states = simu.get_state()
     continue_sim = simu.step(act)
     rewards = simu.get_reward()
@@ -22,8 +36,19 @@ def collect_transition(replay_buf, simu, act):
     return continue_sim
 
 
-# Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_phase, route_prob, hour_day):
+    """
+    Fills the replay buffer of each agent with nb_samples transitions using random actions.
+    :param rp_buf: the replay buffer
+    :param nb_samples: the number of transitions to collect
+    :param nb_act: the number of actions in the action space
+    :param nb_ep_steps: the number of time steps in an episode
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param route_prob: the route generation probabilities in the intersection
+    :param hour_day: the hour of the day
+    :return: None
+    """
     sim = ManhattanSimulator(None, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
     for i in range(nb_samples):
         selected_actions = [select_random_action(nb_act) for x in range(9)]
@@ -33,6 +58,19 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, nb_ep_steps, det_rate, min_pha
 
 
 def test_agent(sim, tb, nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, ag):
+    """
+    Tests the performances of the agents on a determined number of episodes.
+    :param sim: the simulator
+    :param tb: the summary writer for tensorboard
+    :param nb_ep_test: the number of test episodes
+    :param nb_ep_steps: the number of time steps in an episode
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param route_prob: the route generation probabilities in the intersection
+    :param hour_day: the hour of the day
+    :param ag: the agent
+    :return: None
+    """
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
     test_sim = ManhattanSimulator(nb_ep_test, nb_ep_steps, det_rate, min_phase, route_prob, hour_day, False)
@@ -90,9 +128,8 @@ if __name__ == "__main__":
     target_update_frequency = 3000
     hour_of_the_day = 8
     # Probability for a car to be generated on a particular route at a certain step
-    '''route_probabilities = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [1. / 500] * 75 + [
-        1. / 420] * 21 + [1. / 500] * 25'''
-    route_probabilities = [1. / 250] * 25 + [1. / 210] * 21 + [1. / 250] * 75 + [1. / 210] * 42 + [1. / 250] * 75 + [1. / 210] * 21 + [1. / 250] * 25
+    route_probabilities = [1. / 500] * 25 + [1. / 420] * 21 + [1. / 500] * 75 + [1. / 420] * 42 + [1. / 500] * 75 + [
+        1. / 420] * 21 + [1. / 500] * 25
     gen_name = "model_manhattan_100_high"
     file_names = [gen_name + "_" + str(x) + ".pt" for x in range(9)]
     doTesting = True
@@ -102,7 +139,7 @@ if __name__ == "__main__":
     if doTesting:
         writer = SummaryWriter(log_dir="runs/" + gen_name)
 
-    # Initializing the simulator, agents and replay buffer
+    # Initializing the simulator, agents and replay buffers
     agents = []
     for x in range(9):
         agents.append(
@@ -139,13 +176,10 @@ if __name__ == "__main__":
     if doTesting:
         writer.close()
 
-    print("SAVING Q-NET")
+    print("SAVING Q-NETS")
     for x in range(9):
         agents[x].save_net()
     print("DONE")
-    '''print("SAVING STATS")
-    simulator.save_stats(gen_name)
-    print("DONE")'''
 
     simulator.delete_sim_files()
 

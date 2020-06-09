@@ -1,3 +1,7 @@
+"""
+Simulator of the deployment intersection for the LuST deployment case.
+"""
+
 import os
 import sys
 import optparse
@@ -31,6 +35,9 @@ def get_options():
 
 
 class LuxSim:
+    """
+    The simulator.
+    """
 
     def __init__(self, nb_episodes, detection_rate, min_phase_duration, gui=False):
         self.N = nb_episodes
@@ -90,13 +97,21 @@ class LuxSim:
         self.add_veh_to_detection_dict(veh_ids)
         self.update_state(veh_ids)
 
-    # Initializes a new episode
     def init_new_episode(self):
+        """
+        Initializes a new episode.
+        :return: None
+        """
         print("LOADING NEW EPISODE")
         # Starting sumo as a subprocess
         traci.start([self.sumoBinary, "-c", "../LuSTScenario/scenario/dua.static.sumocfg"])
 
     def add_veh_to_detection_dict(self, veh_ids):
+        """
+        Updates a vehicle dictionary with the vehicles currently simulated.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         for i in range(len(self.laneIDs)):
             for x in veh_ids[i]:
                 if traci.lane.getLength(self.laneIDs[i]) - traci.vehicle.getLanePosition(
@@ -108,9 +123,12 @@ class LuxSim:
                     else:
                         self.detectionDict[x] = False
 
-    # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
-    # use step(self) for use in testing.py
     def step(self, action=None):
+        """
+        Performs one iteration/step in the simulator (environment).
+        :param action: the action to perform
+        :return: True if simulation is to be continued, False otherwise
+        """
         self.episodeEnd = 0
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
@@ -184,13 +202,20 @@ class LuxSim:
             self.hourlyNbGeneratedVeh = 0
         return True
 
-    # Switches traffic light to the next phase
     @staticmethod
     def next_phase():
+        """
+        Switches traffic lights to the next phase.
+        :return: None
+        """
         traci.trafficlight.setPhase("-12408", (traci.trafficlight.getPhase("-12408") + 1) % 8)
 
-    # Updates the state values
     def update_state(self, veh_ids):
+        """
+        Updates the state representation.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("-12408")
@@ -241,8 +266,12 @@ class LuxSim:
             else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
-    # Updates the reward
     def update_reward(self, veh_ids):
+        """
+        Updates the reward.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         rewards = []
         for i in range(len(self.laneIDs)):
             v_max_lane = traci.lane.getMaxSpeed(self.laneIDs[i])
@@ -252,8 +281,12 @@ class LuxSim:
                     rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
         self.reward = statistics.mean(rewards) if rewards else 0
 
-    # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
     def count_detected_veh(self, ids):
+        """
+        Counts the number of detected cars in each lane.
+        :param ids: the IDs of the vehicles currently simulated
+        :return: the number of detected cars in each lane
+        """
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
@@ -262,9 +295,12 @@ class LuxSim:
                     cnt[i] -= 1
         return cnt
 
-    # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
-    # car ids
     def get_distances(self, veh_ids):
+        """
+        Computes the distance to the nearest detected vehicle in each lane.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: the distance to the nearest detected vehicle in each lane
+        """
         distances = self.defaultDistances.copy()
         for i in range(len(veh_ids)):
             detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
@@ -274,23 +310,41 @@ class LuxSim:
                 distances[i] = max(detected_positions) - traci.lane.getLength(self.laneIDs[i])
         return distances
 
-    # Returns the state values as a list
     def get_state(self):
+        """
+        Gets the current state representation.
+        :return: the current state representation
+        """
         return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime, self.amberPhase,
                                                                         self.currDayTime]
 
-    # Returns the reward
     def get_reward(self):
+        """
+        Gets the current reward.
+        :return: the current reward
+        """
         return self.reward
 
-    # Returns 1 if end of episode, 0 otherwise
     def get_episode_end(self):
+        """
+        Informs if we are at the end of an episode or not.
+        :return: 1 if end of episode, 0 otherwise
+        """
         return self.episodeEnd
 
     def get_curr_nb_iterations(self):
+        """
+        Gets the number of iterations/steps since the beginning of the simulation.
+        :return: the current number of iterations
+        """
         return self.currNbIterations
 
     def increment_waiting_time(self, veh_ids):
+        """
+        Updates the total cumulative waiting time since the beginning of the current episode.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         cnt = 0
         for i in range(len(veh_ids)):
             for x in veh_ids[i]:
@@ -302,4 +356,8 @@ class LuxSim:
 
     @staticmethod
     def close_simulation():
+        """
+        Closes the SUMO simulation.
+        :return: None
+        """
         traci.close()

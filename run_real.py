@@ -1,3 +1,7 @@
+"""
+Training script of the agent for the training intersection used for the LuST deployment case.
+"""
+
 from lux_training_sim import LuxTrainingSim
 from DQN import Agent
 import numpy as np
@@ -5,13 +9,23 @@ from torch.utils.tensorboard import SummaryWriter
 import statistics
 
 
-# Randomly selects an action in the action space
 def select_random_action(nb_act):
+    """
+    Randomly selects an action in the action space.
+    :param nb_act: the number of actions in the action space
+    :return: the selected action
+    """
     return np.random.choice([x for x in range(nb_act)])
 
 
-# Collects one transition from the simulator and stores it into the replay buffer
 def collect_transition(replay_buf, simu, act):
+    """
+    Collects one transition from the simulator and stores it into the replay buffer.
+    :param replay_buf: the replay buffer
+    :param simu: the simulator
+    :param act: the action to perform to make the transition
+    :return: boolean determining whether the simulation is to be continued or not
+    """
     state = simu.get_state()
     continue_sim = simu.step(act)
     reward = simu.get_reward()
@@ -21,8 +35,20 @@ def collect_transition(replay_buf, simu, act):
     return continue_sim
 
 
-# Fills the replay buffer with nb_samples samples using random actions
 def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase, b_freq, b_dev, b_stddev, b):
+    """
+    Fills the replay buffer with nb_samples transitions using random actions.
+    :param rp_buf: the replay buffer
+    :param nb_samples: the number of transitions to collect
+    :param nb_act: the number of actions in the action space
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param b_freq: the frequency of bursts (vehicle waves)
+    :param b_dev: the standard deviation of the generation time of a burst
+    :param b_stddev: the standard deviation of the gaussian distribution of the car generation probability in a burst
+    :param b: boolean determining if the traffic flow is coming by waves or not
+    :return: None
+    """
     sim = LuxTrainingSim(None, det_rate, min_phase, b_freq, b_dev, b_stddev, b, False)
     for i in range(nb_samples):
         selected_action = select_random_action(nb_act)
@@ -32,6 +58,20 @@ def initialize_buffer(rp_buf, nb_samples, nb_act, det_rate, min_phase, b_freq, b
 
 
 def test_agent(sim, tb, nb_ep_test, det_rate, min_phase, b_freq, b_dev, b_stddev, b, ag):
+    """
+    Tests the performances of the agent on a determined number of episodes.
+    :param sim: the simulator
+    :param tb: the summary writer for tensorboard
+    :param nb_ep_test: the number of test episodes
+    :param det_rate: the detection rate
+    :param min_phase: the minimum time of a traffic light phase
+    :param b_freq: the frequency of bursts (vehicle waves)
+    :param b_dev: the standard deviation of the generation time of a burst
+    :param b_stddev: the standard deviation of the gaussian distribution of the car generation probability in a burst
+    :param b: boolean determining if the traffic flow is coming by waves or not
+    :param ag: the agent
+    :return: None
+    """
     sim.close_simulation()
     print("\nENTERING TESTING PHASE")
     test_sim = LuxTrainingSim(nb_ep_test, det_rate, min_phase, b_freq, b_dev, b_stddev, b, False)
@@ -127,9 +167,6 @@ if __name__ == "__main__":
     print("SAVING Q-NET")
     agent.save_net()
     print("DONE")
-    '''print("SAVING STATS")
-    simulator.save_stats(gen_name)
-    print("DONE")'''
 
     simulator.delete_sim_files()
 

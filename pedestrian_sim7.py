@@ -1,10 +1,13 @@
+"""
+Simulator of the intersection featuring pedestrians with Crossing3 algorithm.
+Counts people and measures minimum distances in each sidewalk (with sign changes) by crossing.
+"""
+
 import os
 import sys
 import optparse
 import random
 import statistics
-import pickle
-import matplotlib.pyplot as plt
 from math import sqrt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
@@ -33,8 +36,10 @@ def get_options():
     return options
 
 
-# By crossing, counts people and measures min distances in each lane with negation.
 class PedestrianSimulator:
+    """
+    The simulator.
+    """
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, ped_route_probs,
                  hour_of_the_day, gui=False, hourly_probs=None):
@@ -113,8 +118,11 @@ class PedestrianSimulator:
         ped_ids = traci.person.getIDList()
         self.update_state(veh_ids, ped_ids)
 
-    # Initializes a new episode
     def init_new_episode(self):
+        """
+        Initializes a new episode.
+        :return: None
+        """
         print("LOADING NEW EPISODE")
         self.generate_traffic(self.hourlyProbs)
 
@@ -124,8 +132,12 @@ class PedestrianSimulator:
             [self.sumoBinary, "-c", "sumo_sim/pedestrian_intersection_" + self.job_id + ".sumocfg", "--tripinfo-output",
              "tripinfo_" + self.job_id + ".xml"])'''
 
-    # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self, hourly_probs=None):
+        """
+        Randomly generates the route file that determines the traffic in the simulation.
+        :param hourly_probs: possible predetermined hourly car generation probabilities for each incoming road
+        :return: None
+        """
         random.seed()
 
         with open("sumo_sim/pedestrian_intersection_" + self.job_id + ".rou.xml", "w") as routes:
@@ -145,7 +157,7 @@ class PedestrianSimulator:
     <route id="route10" edges="in_south out_north"/>
     <route id="route11" edges="in_south out_east"/>""", file=routes)
 
-            # Randomly choosing if a vehicle is generated for each step and each route
+            # Randomly choosing if a vehicle or pedestrian is generated for each step and each route
             if hourly_probs:
                 # /!\ No pedestrian generation!
                 nb_configurations = len(hourly_probs)
@@ -162,6 +174,7 @@ class PedestrianSimulator:
                             self.nbGeneratedVeh += 1
             else:
                 for i in range(self.n):
+                    # Vehicle generation
                     for j in range(len(self.routeProbs)):
                         if random.uniform(0, 1) < self.routeProbs[j]:
                             print('    <vehicle id="' + str(self.nbGeneratedAct) + '" type="car" route="route' + str(
@@ -170,6 +183,7 @@ class PedestrianSimulator:
                             self.nbGeneratedAct += 1
                             self.nbGeneratedVeh += 1
 
+                    # Pedestrian generation
                     for j in range(len(self.pedRouteProbs)):
                         if random.uniform(0, 1) < self.pedRouteProbs[j]:
                             print("""<person id=""" + '"' + str(self.nbGeneratedAct) + '"' + """ depart=""" + '"' + str(
@@ -181,18 +195,24 @@ class PedestrianSimulator:
 
             print("</routes>", file=routes)
 
-    # Randomly chooses if a generated vehicle is detected or not by selecting its color accordingly
     def select_color(self):
+        """
+        Randomly chooses if a generated vehicle or pedestrian is detected or not.
+        :return: None
+        """
         if random.uniform(0, 1) < self.detectionRate:
             return self.detectedColor
         return self.undetectedColor
 
-    # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
-    # use step(self) for use in testing.py
     def step(self, action=None):
+        """
+        Performs one iteration/step in the simulator (environment).
+        :param action: the action to perform
+        :return: True if simulation is to be continued, False otherwise
+        """
         self.episodeEnd = 0
 
-        # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
+        # Episode stops when all raw files have been exhausted (no vehicles or pedestrians left in the simulation)
         if traci.simulation.getMinExpectedNumber() <= 0:
             traci.close()
             print("EPISODE", self.episodeCnt, "DONE")
@@ -245,10 +265,6 @@ class PedestrianSimulator:
                 self.currPhaseTime >= 15 and traci.trafficlight.getPhase("center") == 2):
             self.next_phase()'''
 
-        # Randomly choosing if the simulation switches to the next state or stays at the current state
-        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime > self.minPhaseDuration:
-            self.next_phase()'''
-
         traci.simulationStep()
         self.currNbIterations += 1
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
@@ -261,13 +277,21 @@ class PedestrianSimulator:
             self.pedPosDict[x] = traci.person.getPosition(x)
         return True
 
-    # Switches traffic light to the next phase
     @staticmethod
     def next_phase():
+        """
+        Switches traffic lights to the next phase.
+        :return: None
+        """
         traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 6)
 
-    # Updates the state values
     def update_state(self, veh_ids, ped_ids):
+        """
+        Updates the state representation.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :param ped_ids: the IDs of the pedestrians currently simulated
+        :return: None
+        """
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.detectedPedCnt = self.count_detected_ped(ped_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
@@ -309,8 +333,13 @@ class PedestrianSimulator:
         self.amberPhase = 1 if current_phase == 2 or current_phase == 5 else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
-    # Updates the reward
     def update_reward(self, veh_ids, ped_ids):
+        """
+        Updates the reward.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :param ped_ids: the IDs of the pedestrians currently simulated
+        :return: None
+        """
         rewards = []
         v_max_ped = 1.39
         for i in range(len(self.laneIDs)):
@@ -327,9 +356,13 @@ class PedestrianSimulator:
                 rewards.append((traci.person.getSpeed(x) - v_max_ped) / v_max_ped)
         self.reward = statistics.mean(rewards) if rewards else 0
 
-    # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
     @staticmethod
     def count_detected_veh(ids):
+        """
+        Counts the number of detected cars in each lane.
+        :param ids: the IDs of the vehicles currently simulated
+        :return: the number of detected cars in each lane
+        """
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
@@ -338,6 +371,11 @@ class PedestrianSimulator:
         return cnt
 
     def count_detected_ped(self, ped_ids):
+        """
+        Counts the number of detected pedestrians in each sidewalk.
+        :param ped_ids: the IDs of the pedestrians currently simulated
+        :return: the number of detected pedestrians in each sidewalk
+        """
         cnt = [0] * 4
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
@@ -374,11 +412,20 @@ class PedestrianSimulator:
 
     @staticmethod
     def dist(coords1, coords2):
+        """
+        Computes the distance between two points.
+        :param coords1: first point
+        :param coords2: second point
+        :return: distance
+        """
         return sqrt((coords1[0] - coords2[0]) ** 2 + (coords1[1] - coords2[1]) ** 2)
 
-    # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
-    # car ids
     def get_distances(self, veh_ids):
+        """
+        Computes the distance to the nearest detected vehicle in each lane.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: the distance to the nearest detected vehicle in each lane
+        """
         distances = self.defaultDistances.copy()
         for i in range(len(veh_ids)):
             detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
@@ -388,6 +435,11 @@ class PedestrianSimulator:
         return distances
 
     def get_ped_distances(self, ped_ids):
+        """
+        Computes the distance to the nearest detected pedestrian in each sidewalk.
+        :param ped_ids: the IDs of the pedestrians currently simulated
+        :return: the distance to the nearest detected pedestrian in each sidewalk
+        """
         distances = [self.pedLaneLength] * 4
         for x in ped_ids:
             if traci.person.getColor(x) == (0, 255, 0, 255):
@@ -422,23 +474,42 @@ class PedestrianSimulator:
                         distances[0] = min(distances[0], self.dist(position, [-5.2, -3.2]))
         return [-x for x in distances]
 
-    # Returns the state values as a list
     def get_state(self):
+        """
+        Gets the current state representation.
+        :return: the current state representation
+        """
         return self.detectedCarCnt + self.detectedPedCnt + self.distanceNearestDetectedVeh + self.distanceNearestDetectedPed + [
             self.normCurrPhaseTime, self.amberPhase, self.currDayTime]
 
-    # Returns the reward
     def get_reward(self):
+        """
+        Gets the current reward.
+        :return: the current reward
+        """
         return self.reward
 
-    # Returns 1 if end of episode, 0 otherwise
     def get_episode_end(self):
+        """
+        Informs if we are at the end of an episode or not.
+        :return: 1 if end of episode, 0 otherwise
+        """
         return self.episodeEnd
 
     def get_curr_nb_iterations(self):
+        """
+        Gets the number of iterations/steps since the beginning of the simulation.
+        :return: the current number of iterations
+        """
         return self.currNbIterations
 
     def increment_waiting_time(self, veh_ids, ped_ids):
+        """
+        Updates the total cumulative waiting time since the beginning of the current episode.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :param ped_ids: the IDs of the pedestrians currently simulated
+        :return: None
+        """
         cnt = 0
         cnt_veh = 0
         cnt_ped = 0
@@ -459,32 +530,18 @@ class PedestrianSimulator:
         self.cumWaitingTimeVeh += cnt_veh
         self.cumWaitingTimePed += cnt_ped
 
-    # /!\ Filename without file extension
-    def save_stats(self, gen_name):
-        # For loading, use "rb" and pickle.load(file)
-        with open(os.path.join("data", gen_name + "_episodes.txt"), "wb") as file:
-            pickle.dump(self.episodes, file)
-        with open(os.path.join("data", gen_name + "_rewards.txt"), "wb") as file:
-            pickle.dump(self.averageRewards, file)
-        with open(os.path.join("data", gen_name + "_waiting_times.txt"), "wb") as file:
-            pickle.dump(self.averageWaitingTimes, file)
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageRewards, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average reward")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_r.png"))
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageWaitingTimes, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average waiting time (s)")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_w.png"))
-
     @staticmethod
     def close_simulation():
+        """
+        Closes the SUMO simulation.
+        :return: None
+        """
         traci.close()
 
     def delete_sim_files(self):
+        """
+        Deletes the SUMO simulation files.
+        :return: None
+        """
         os.remove("sumo_sim/pedestrian_intersection_" + self.job_id + ".rou.xml")
         os.remove("sumo_sim/pedestrian_intersection_" + self.job_id + ".sumocfg")

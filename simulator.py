@@ -1,10 +1,12 @@
+"""
+Simulator of the simple intersection.
+"""
+
 import os
 import sys
 import optparse
 import random
 import statistics
-import pickle
-import matplotlib.pyplot as plt
 
 # Importation of python modules from the SUMO_HOME/tools library (importations of sumolib and traci must be placed after
 # this)
@@ -33,6 +35,9 @@ def get_options():
 
 
 class Simulator:
+    """
+    The simulator.
+    """
 
     def __init__(self, nb_episodes, nb_episode_steps, detection_rate, min_phase_duration, route_probs, hour_of_the_day,
                  gui=False, hourly_probs=None):
@@ -90,7 +95,7 @@ class Simulator:
         with open("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "w") as config:
             print("""<configuration>
     <input>
-        <net-file value="simple_intersection_150.net.xml"/>
+        <net-file value="simple_intersection.net.xml"/>
         <route-files value="simple_intersection_""" + self.job_id + """.rou.xml"/>
     </input>
     <time>
@@ -105,8 +110,11 @@ class Simulator:
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
         self.update_state(veh_ids)
 
-    # Initializes a new episode
     def init_new_episode(self):
+        """
+        Initializes a new episode.
+        :return: None
+        """
         print("LOADING NEW EPISODE")
         self.generate_traffic(self.hourlyProbs)
 
@@ -116,8 +124,12 @@ class Simulator:
             [self.sumoBinary, "-c", "sumo_sim/simple_intersection_" + self.job_id + ".sumocfg", "--tripinfo-output",
              "tripinfo_" + self.job_id + ".xml"])'''
 
-    # Randomly generates the route file that determines the traffic in the simulation
     def generate_traffic(self, hourly_probs=None):
+        """
+        Randomly generates the route file that determines the traffic in the simulation.
+        :param hourly_probs: possible predetermined hourly car generation probabilities for each incoming road
+        :return: None
+        """
         random.seed()
 
         with open("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml", "w") as routes:
@@ -171,15 +183,21 @@ class Simulator:
 
             print("</routes>", file=routes)
 
-    # Randomly chooses if a generated vehicle is detected or not by selecting its color accordingly
     def select_color(self):
+        """
+        Randomly chooses if a generated vehicle is detected or not.
+        :return: None
+        """
         if random.uniform(0, 1) < self.detectionRate:
             return self.detectedColor
         return self.undetectedColor
 
-    # Performs one iteration/step in the simulator (environment) and returns the new state and the reward
-    # use step(self) for use in testing.py
     def step(self, action=None):
+        """
+        Performs one iteration/step in the simulator (environment).
+        :param action: the action to perform
+        :return: True if simulation is to be continued, False otherwise
+        """
         self.episodeEnd = 0
 
         # Episode stops when all raw files have been exhausted (no vehicles left in the simulation)
@@ -234,10 +252,6 @@ class Simulator:
                 self.currPhaseTime >= 20 and traci.trafficlight.getPhase("center") == 2):
             self.next_phase()'''
 
-        # Randomly choosing if the simulation switches to the next state or stays at the current state
-        '''if random.uniform(0, 1) < 0.02 and self.currPhaseTime >= self.minPhaseDuration:
-            self.next_phase()'''
-
         traci.simulationStep()
         self.currNbIterations += 1
         veh_ids = [traci.lane.getLastStepVehicleIDs(x) for x in self.laneIDs]
@@ -247,13 +261,20 @@ class Simulator:
         self.rewards.append(self.reward)
         return True
 
-    # Switches traffic light to the next phase
     @staticmethod
     def next_phase():
+        """
+        Switches traffic lights to the next phase.
+        :return: None
+        """
         traci.trafficlight.setPhase("center", (traci.trafficlight.getPhase("center") + 1) % 4)
 
-    # Updates the state values
     def update_state(self, veh_ids):
+        """
+        Updates the state representation.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         self.detectedCarCnt = self.count_detected_veh(veh_ids)
         self.distanceNearestDetectedVeh = [-x / y for x, y in zip(self.get_distances(veh_ids), self.defaultDistances)]
         current_phase = traci.trafficlight.getPhase("center")
@@ -274,8 +295,12 @@ class Simulator:
         self.amberPhase = 1 if current_phase == 1 or current_phase == 3 else 0
         self.currDayTime = (traci.simulation.getTime() / 3600 + self.hourOfTheDay) / 24
 
-    # Updates the reward
     def update_reward(self, veh_ids):
+        """
+        Updates the reward.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         rewards = []
         for i in range(len(self.laneIDs)):
             v_max_lane = traci.lane.getMaxSpeed(self.laneIDs[i])
@@ -284,9 +309,13 @@ class Simulator:
                 rewards.append((traci.vehicle.getSpeed(x) - v_max) / v_max)
         self.reward = statistics.mean(rewards) if rewards else 0
 
-    # Returns the number of detected cars in each lane, given a list of ids of all cars for each lane
     @staticmethod
     def count_detected_veh(ids):
+        """
+        Counts the number of detected cars in each lane.
+        :param ids: the IDs of the vehicles currently simulated
+        :return: the number of detected cars in each lane
+        """
         cnt = [0] * len(ids)
         for i in range(len(ids)):
             for x in ids[i]:
@@ -294,9 +323,12 @@ class Simulator:
                     cnt[i] -= 1
         return cnt
 
-    # Returns the distance to the nearest detected vehicle in each lane, given lane ids and their corresponding list of
-    # car ids
     def get_distances(self, veh_ids):
+        """
+        Computes the distance to the nearest detected vehicle in each lane.
+        :param veh_ids: the IDs of the vehicles currently simulated
+        :return: the distance to the nearest detected vehicle in each lane
+        """
         distances = self.defaultDistances.copy()
         for i in range(len(veh_ids)):
             detected_positions = [traci.vehicle.getLanePosition(x) for x in veh_ids[i] if
@@ -305,23 +337,41 @@ class Simulator:
                 distances[i] = distances[i] + max(detected_positions)
         return distances
 
-    # Returns the state values as a list
     def get_state(self):
+        """
+        Gets the current state representation.
+        :return: the current state representation
+        """
         return self.detectedCarCnt + self.distanceNearestDetectedVeh + [self.normCurrPhaseTime, self.amberPhase,
                                                                         self.currDayTime]
 
-    # Returns the reward
     def get_reward(self):
+        """
+        Gets the current reward.
+        :return: the current reward
+        """
         return self.reward
 
-    # Returns 1 if end of episode, 0 otherwise
     def get_episode_end(self):
+        """
+        Informs if we are at the end of an episode or not.
+        :return: 1 if end of episode, 0 otherwise
+        """
         return self.episodeEnd
 
     def get_curr_nb_iterations(self):
+        """
+        Gets the number of iterations/steps since the beginning of the simulation.
+        :return: the current number of iterations
+        """
         return self.currNbIterations
 
     def increment_waiting_time(self, ids):
+        """
+        Updates the total cumulative waiting time since the beginning of the current episode.
+        :param ids: the IDs of the vehicles currently simulated
+        :return: None
+        """
         cnt = 0
         det_cnt = 0
         undet_cnt = 0
@@ -337,32 +387,18 @@ class Simulator:
         self.cumWaitingTimeDetected += det_cnt
         self.cumWaitingTimeUndetected += undet_cnt
 
-    # /!\ Filename without file extension
-    def save_stats(self, gen_name):
-        # For loading, use "rb" and pickle.load(file)
-        with open(os.path.join("data", gen_name + "_episodes.txt"), "wb") as file:
-            pickle.dump(self.episodes, file)
-        with open(os.path.join("data", gen_name + "_rewards.txt"), "wb") as file:
-            pickle.dump(self.averageRewards, file)
-        with open(os.path.join("data", gen_name + "_waiting_times.txt"), "wb") as file:
-            pickle.dump(self.averageWaitingTimes, file)
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageRewards, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average reward")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_r.png"))
-
-        plt.figure()
-        plt.plot(self.episodes, self.averageWaitingTimes, color="steelblue")
-        plt.xlabel("Episode")
-        plt.ylabel("Average waiting time (s)")
-        plt.savefig(os.path.join("figures", "previews", "out_" + gen_name + "_w.png"))
-
     @staticmethod
     def close_simulation():
+        """
+        Closes the SUMO simulation.
+        :return: None
+        """
         traci.close()
 
     def delete_sim_files(self):
+        """
+        Deletes the SUMO simulation files.
+        :return: None
+        """
         os.remove("sumo_sim/simple_intersection_" + self.job_id + ".rou.xml")
         os.remove("sumo_sim/simple_intersection_" + self.job_id + ".sumocfg")
