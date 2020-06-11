@@ -1,66 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DQN.py" beforeDir="false" afterPath="$PROJECT_DIR$/DQN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arterial_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/arterial_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lux_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/lux_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lux_training_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/lux_training_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manhattan_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/manhattan_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ped_neglected_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/ped_neglected_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ped_perfect_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/ped_perfect_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim2.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim3.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim5.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim6.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim6.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pedestrian_sim7.py" beforeDir="false" afterPath="$PROJECT_DIR$/pedestrian_sim7.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/priority_simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/priority_simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_testing1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_testing2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/real_testing3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_arterial.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_arterial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_arterial1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_arterial2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_buses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses10.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses11.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses12.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses13.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses14.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses4.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses5.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses6.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses7.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses8.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_buses9.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_manhattan.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_manhattan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_manhattan1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_manhattan2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_manhattan3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_pedestrian.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian4.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian5.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian6.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian7.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian8.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_pedestrian9.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_real.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_real.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_real1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_real2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/run_simple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulator.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnormalized_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/unnormalized_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnormdist_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/unnormdist_sim.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unnormphase_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/unnormphase_sim.py" afterDir="false" />
-    </list>
+    <list default="true" id="a552b24f-65a0-4dcd-9702-945c8745c912" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -939,7 +880,7 @@
       <workItem from="1589276309704" duration="238000" />
       <workItem from="1591470567993" duration="1385000" />
       <workItem from="1591649574406" duration="31000" />
-      <workItem from="1591705429669" duration="20444000" />
+      <workItem from="1591705429669" duration="20481000" />
     </task>
     <task id="LOCAL-00001" summary="Adding the whole project to git">
       <created>1583507643918</created>
@@ -1169,7 +1110,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1021941000" />
+    <option name="totallyTimeSpent" value="1021978000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1183,7 +1124,7 @@
   <component name="ToolWindowManager">
     <frame x="1985" y="-4" width="1615" height="1054" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22307202" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22307202" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1197,7 +1138,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49695966" weight="0.39747635" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5030404" side_tool="true" weight="0.3975535" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.120925345" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49840662" visible="true" weight="0.120925345" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49776927" weight="0.25341746" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
